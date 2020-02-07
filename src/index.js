@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from "./components/app.jsx";
 
-const Data = {
-  numberOfOffers: 312
+export const data = {
+  numberOfOffers: 312,
+  cards: [`Beautiful &amp; luxurious apartment at great location`, `Wood and stone place`, `Canal View Prinsengracht`, `Nice, cozy, warm big bed apartment`, `Wood and stone place`]
 };
 
-ReactDOM.render(<App {...Data}/>, document.querySelector(`#root`));
+ReactDOM.render(<App {...data}/>, document.querySelector(`#root`));
