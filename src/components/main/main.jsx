@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 const Main = (props) => {
-  const {numberOfOffers, cards} = props;
+  const {numberOfOffers, cards, onHeaderClick} = props;
 
   const renderCards = () => cards.map((card, index) => (
     <article className="cities__place-card place-card" key={index}>
@@ -48,7 +48,7 @@ const Main = (props) => {
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2 className="place-card__name">
+        <h2 className="place-card__name" onClick={onHeaderClick} data-test='test-header'>
           <a href="#">
             {card}
           </a>
@@ -177,7 +177,8 @@ const Main = (props) => {
 
 Main.propTypes = {
   numberOfOffers: PropTypes.number,
-  cards: PropTypes.array
+  cards: PropTypes.array,
+  onHeaderClick: PropTypes.func
 };
 
 export default Main;
