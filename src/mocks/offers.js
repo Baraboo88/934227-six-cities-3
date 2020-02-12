@@ -1,29 +1,20 @@
-export const mockTestData = {
-  numberOfOffers: 32,
-  cards: [
-    `Canal View Prinsengracht`,
-    `Nice, cozy, warm big bed apartment`,
-    `Wood and stone place`
-  ]
-};
-
-export const mockCards = [
+export default [
+  {
+    name: `Beautiful & luxurious apartment at great location`,
+    type: `Apartment`,
+    img: `img/apartment-01.jpg`,
+    price: 120,
+    isInBookmark: false,
+    mark: 4,
+    isPremium: true
+  },
   {
     name: `Wood and stone place`,
     type: `Private room`,
-    img: `img/apartment-01.jpg`,
-    price: 35,
-    isInBookmark: false,
-    mark: 2,
-    isPremium: false
-  },
-  {
-    name: `Beautiful & luxurious apartment at great location `,
-    type: `Private room`,
     img: `img/room.jpg`,
-    price: 555,
+    price: 80,
     isInBookmark: true,
-    mark: 3,
+    mark: 0,
     isPremium: false
   },
   {
@@ -45,8 +36,3 @@ export const mockCards = [
     isPremium: false
   }
 ];
-
-
-export const findByTestAtr = (component, attr) => {
-  return component.find(`[data-test='${attr}']`);
-};
