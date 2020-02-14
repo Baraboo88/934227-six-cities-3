@@ -4,7 +4,7 @@ exports[`OffersList successfully rendered 1`] = `
 Array [
   <article
     className="cities__place-card place-card"
-    data-test="test-card"
+    data-test="test-card-hover"
     onMouseOver={[Function]}
   >
     <div
@@ -59,7 +59,8 @@ Array [
           <span
             className="visually-hidden"
           >
-            To bookmarks
+            To
+             bookmarks
           </span>
         </button>
       </div>
@@ -85,10 +86,11 @@ Array [
       </div>
       <h2
         className="place-card__name"
-        data-test="test-header"
       >
         <a
+          data-test="test-header-click"
           href="#"
+          onClick={[Function]}
         >
           Wood and stone place
         </a>
@@ -102,7 +104,7 @@ Array [
   </article>,
   <article
     className="cities__place-card place-card"
-    data-test="test-card"
+    data-test="test-card-hover"
     onMouseOver={[Function]}
   >
     <div
@@ -115,7 +117,7 @@ Array [
           alt="Place image"
           className="place-card__image"
           height="200"
-          src="img/room.jpg"
+          src="img/apartment-01.jpg"
           width="260"
         />
       </a>
@@ -157,7 +159,8 @@ Array [
           <span
             className="visually-hidden"
           >
-            To bookmarks
+            In
+             bookmarks
           </span>
         </button>
       </div>
@@ -183,10 +186,11 @@ Array [
       </div>
       <h2
         className="place-card__name"
-        data-test="test-header"
       >
         <a
+          data-test="test-header-click"
           href="#"
+          onClick={[Function]}
         >
           Beautiful & luxurious apartment at great location 
         </a>
@@ -200,7 +204,7 @@ Array [
   </article>,
   <article
     className="cities__place-card place-card"
-    data-test="test-card"
+    data-test="test-card-hover"
     onMouseOver={[Function]}
   >
     <div
@@ -213,7 +217,7 @@ Array [
           alt="Place image"
           className="place-card__image"
           height="200"
-          src="img/apartment-02.jpg"
+          src="img/apartment-01.jpg"
           width="260"
         />
       </a>
@@ -255,7 +259,8 @@ Array [
           <span
             className="visually-hidden"
           >
-            To bookmarks
+            To
+             bookmarks
           </span>
         </button>
       </div>
@@ -281,10 +286,11 @@ Array [
       </div>
       <h2
         className="place-card__name"
-        data-test="test-header"
       >
         <a
+          data-test="test-header-click"
           href="#"
+          onClick={[Function]}
         >
           Canal View Prinsengracht
         </a>
@@ -298,7 +304,7 @@ Array [
   </article>,
   <article
     className="cities__place-card place-card"
-    data-test="test-card"
+    data-test="test-card-hover"
     onMouseOver={[Function]}
   >
     <div
@@ -311,7 +317,7 @@ Array [
           alt="Place image"
           className="place-card__image"
           height="200"
-          src="img/apartment-03.jpg"
+          src="img/apartment-01.jpg"
           width="260"
         />
       </a>
@@ -353,7 +359,8 @@ Array [
           <span
             className="visually-hidden"
           >
-            To bookmarks
+            To
+             bookmarks
           </span>
         </button>
       </div>
@@ -379,10 +386,11 @@ Array [
       </div>
       <h2
         className="place-card__name"
-        data-test="test-header"
       >
         <a
+          data-test="test-header-click"
           href="#"
+          onClick={[Function]}
         >
           Nice, cozy, warm big bed apartment
         </a>
