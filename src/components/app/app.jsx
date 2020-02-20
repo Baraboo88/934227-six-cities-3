@@ -15,12 +15,16 @@ class App extends PureComponent {
     this._cardHeaderClickHandler = this._cardHeaderClickHandler.bind(this);
   }
 
+  _getNeighbors(id) {
+    const {cards} = this.props;
+    return cards[id].nearOffers.map((offerId) => cards[offerId]);
+  }
   _renderCards() {
     const {cards} = this.props;
     if (this.state.cardNumber === -1 || this.state.cardNumber > cards.length) {
       return <Main {...this.props} onHeaderClick = {this._cardHeaderClickHandler}/>;
     } else {
-      return <OfferCardDetail card={cards[this.state.cardNumber]} onHeaderClick={this._cardHeaderClickHandler}/>;
+      return <OfferCardDetail card={cards[this.state.cardNumber]} onHeaderClick={this._cardHeaderClickHandler} neighbors={this._getNeighbors(this.state.cardNumber)}/>;
     }
   }
 
@@ -37,7 +41,7 @@ class App extends PureComponent {
           <Switch>
             <Route exact path="/">{this._renderCards()}</Route>
             <Route exact path="/dev-offer-detail">
-              <OfferCardDetail card={this.props.cards[0]} onHeaderClick={this._cardHeaderClickHandler}/>
+              <OfferCardDetail card={this.props.cards[0]} onHeaderClick={this._cardHeaderClickHandler} neighbors={this._getNeighbors(0)}/>
             </Route>
           </Switch>
         </BrowserRouter>

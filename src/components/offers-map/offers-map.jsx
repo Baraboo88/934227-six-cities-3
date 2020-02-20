@@ -36,12 +36,13 @@ class OffersMap extends PureComponent {
   }
 
   render() {
-    return <section ref={this._mapDiv} className="cities__map map" />;
+    return <section ref={this._mapDiv} className={`${this.props.nearPlace ? `property__map` : `cities__map`} map`} />;
   }
 }
 
 OffersMap.propTypes = {
-  cards: PropTypes.arrayOf(cardPropTypes).isRequired
+  cards: PropTypes.arrayOf(cardPropTypes).isRequired,
+  nearPlace: PropTypes.bool
 };
 
 export default OffersMap;
