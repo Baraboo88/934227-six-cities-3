@@ -632,17 +632,7 @@ exports[`Main successfully rendered 1`] = `
         >
           <section
             className="cities__map map"
-          >
-            <div
-              id="leafletmap"
-              style={
-                Object {
-                  "height": "100%",
-                  "width": "100%",
-                }
-              }
-            />
-          </section>
+          />
         </div>
       </div>
     </div>

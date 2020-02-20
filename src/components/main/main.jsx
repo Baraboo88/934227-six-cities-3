@@ -6,10 +6,6 @@ import OffersMap from '../offers-map/offers-map';
 const Main = (props) => {
   const {numberOfOffers, cards, onCardHover, onHeaderClick} = props;
 
-  const renderCards = () => (
-    <OffersList cards={cards} onCardHover={onCardHover} onHeaderClick={onHeaderClick} />
-  );
-
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -106,12 +102,12 @@ const Main = (props) => {
                   </li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">{renderCards()}</div>
+              <div className="cities__places-list places__list tabs__content">
+                <OffersList cards={cards} onCardHover={onCardHover} onHeaderClick={onHeaderClick} />
+              </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map">
-                <OffersMap cards={cards} />
-              </section>
+              <OffersMap cards={cards} />
             </div>
           </div>
         </div>

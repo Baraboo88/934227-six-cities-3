@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {PureComponent, createRef} from 'react';
 import leaflet from 'leaflet';
 import {cardPropTypes} from '../../utils/utils';
 import PropTypes from 'prop-types';
@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 class OffersMap extends PureComponent {
   constructor(props) {
     super(props);
+
+    this._mapDiv = createRef();
   }
 
   componentDidMount() {
@@ -16,7 +18,7 @@ class OffersMap extends PureComponent {
     });
 
     const zoom = 12;
-    const map = leaflet.map(`leafletmap`, {
+    const map = leaflet.map(this._mapDiv.current, {
       center: city,
       zoom,
       zoomControl: false,
@@ -34,7 +36,7 @@ class OffersMap extends PureComponent {
   }
 
   render() {
-    return <div id="leafletmap" style={{width: `100%`, height: `100%`}}></div>;
+    return <section ref={this._mapDiv} className="cities__map map" />;
   }
 }
 
