@@ -1,11 +1,10 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
-import OffersList from "../offers-list/offers-list";
+import OffersList from '../offers-list/offers-list';
+import OffersMap from '../offers-map/offers-map';
 
 const Main = (props) => {
   const {numberOfOffers, cards, onCardHover, onHeaderClick} = props;
-
-  const renderCards = () => <OffersList cards = {cards} onCardHover = {onCardHover} onHeaderClick = {onHeaderClick}/>;
 
   return (
     <div className="page page--gray page--main">
@@ -26,14 +25,9 @@ const Main = (props) => {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a
-                    className="header__nav-link header__nav-link--profile"
-                    href="#"
-                  >
+                  <a className="header__nav-link header__nav-link--profile" href="#">
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">
-                      Oliver.conner@gmail.com
-                    </span>
+                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
                   </a>
                 </li>
               </ul>
@@ -94,10 +88,7 @@ const Main = (props) => {
                   </svg>
                 </span>
                 <ul className="places__options places__options--custom places__options--opened">
-                  <li
-                    className="places__option places__option--active"
-                    tabIndex="0"
-                  >
+                  <li className="places__option places__option--active" tabIndex="0">
                     Popular
                   </li>
                   <li className="places__option" tabIndex="0">
@@ -112,11 +103,11 @@ const Main = (props) => {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {renderCards()}
+                <OffersList cards={cards} onCardHover={onCardHover} onHeaderClick={onHeaderClick} />
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <OffersMap cards={cards} />
             </div>
           </div>
         </div>
