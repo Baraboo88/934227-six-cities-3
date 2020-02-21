@@ -10,7 +10,7 @@ const OffersList = (props) => {
       key={index}
       onCardHover={onCardHover}
       onHeaderClick={onHeaderClick}
-      nearPlace={nearPlace && nearPlace}
+      nearPlace={nearPlace}
     />
   ));
 };

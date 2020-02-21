@@ -1,11 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {cardPropTypes} from "../../utils/utils";
-import OfferReviewList from "../offer-reviews-list/offer-review-list";
-import OffersList from "../offers-list/offers-list";
-import OffersMap from "../offers-map/offers-map";
+import {cardPropTypes} from '../../utils/utils';
+import OfferReviewList from '../offer-reviews-list/offer-review-list';
+import OffersList from '../offers-list/offers-list';
+import OffersMap from '../offers-map/offers-map';
 
 const OfferCardDetail = (props) => {
+  const {cards} = props;
+  const history = props.history;
+  const id = props.match.params.id;
+
+  const card = cards[id];
+  if (!cards[id]) {
+    history.push(`/`);
+    return null;
+  }
+
   const {
     name,
     type,
@@ -21,8 +31,13 @@ const OfferCardDetail = (props) => {
     avgMark,
     hostUser,
     comments
-  } = props.card;
-  const {onHeaderClick, neighbors} = props;
+  } = card;
+  const neighbors = cards[id].nearOffers.map((offerId) => cards[offerId]);
+
+  const _cardHeaderClickHandler = (newId) => {
+    history.push(`/offer/${newId}`);
+  };
+
   const renderImgs = () =>
     imgs.map((img, index) => (
       <div className="property__image-wrapper" key={index}>
@@ -45,7 +60,7 @@ const OfferCardDetail = (props) => {
     ));
 
   const renderMarks = () =>
-    [...(new Array(5))]
+    [...new Array(5)]
       .map((_, i) => ++i)
       .reverse()
       .map((value, index) => (
@@ -76,13 +91,17 @@ const OfferCardDetail = (props) => {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="#" onClick={(evt) => {
-                evt.preventDefault();
-                onHeaderClick(-1);
-              }}>
+              <a
+                className="header__logo-link"
+                href="#"
+                onClick={(evt) => {
+                  evt.preventDefault();
+                  history.push(`/`);
+                }}
+              >
                 <img
                   className="header__logo"
-                  src="img/logo.svg"
+                  src="/img/logo.svg"
                   alt="6 cities logo"
                   width="81"
                   height="41"
@@ -177,16 +196,17 @@ const OfferCardDetail = (props) => {
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">
-                  Review{comments.length > 1 && `s`} &middot; <span className="reviews__amount">{comments.length === 0 ? `Be the first!` : comments.length }</span>
+                  Review{comments.length > 1 && `s`} &middot;{` `}
+                  <span className="reviews__amount">
+                    {comments.length === 0 ? `Be the first!` : comments.length}
+                  </span>
                 </h2>
-                <OfferReviewList comments = {comments} />
+                <OfferReviewList comments={comments} />
                 <form className="reviews__form form" action="#" method="post">
                   <label className="reviews__label form__label" htmlFor="review">
                     Your review
                   </label>
-                  <div className="reviews__rating-form form__rating">
-                    {renderMarks()}
-                  </div>
+                  <div className="reviews__rating-form form__rating">{renderMarks()}</div>
                   <textarea
                     className="reviews__textarea form__textarea"
                     id="review"
@@ -211,13 +231,18 @@ const OfferCardDetail = (props) => {
               </section>
             </div>
           </div>
-          <OffersMap cards={neighbors} nearPlace/>
+          <OffersMap cards={neighbors} nearPlace />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList cards={neighbors} nearPlace onCardHover={() => {}} onHeaderClick={onHeaderClick}/>
+              <OffersList
+                cards={neighbors}
+                nearPlace
+                onCardHover={() => {}}
+                onHeaderClick={_cardHeaderClickHandler}
+              />
             </div>
           </section>
         </div>
@@ -227,9 +252,8 @@ const OfferCardDetail = (props) => {
 };
 
 OfferCardDetail.propTypes = {
-  card: cardPropTypes,
-  onHeaderClick: PropTypes.func.isRequired,
-  neighbors: PropTypes.arrayOf(cardPropTypes).isRequired
+  cards: PropTypes.arrayOf(cardPropTypes).isRequired,
+  history: PropTypes.object,
+  match: PropTypes.object
 };
-
 export default OfferCardDetail;

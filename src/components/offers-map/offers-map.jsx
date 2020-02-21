@@ -13,7 +13,7 @@ class OffersMap extends PureComponent {
   componentDidMount() {
     const city = [52.38333, 4.9];
     const icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
+      iconUrl: `/img/pin.svg`,
       iconSize: [30, 30]
     });
 

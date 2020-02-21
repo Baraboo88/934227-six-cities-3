@@ -4,8 +4,11 @@ import OffersList from '../offers-list/offers-list';
 import OffersMap from '../offers-map/offers-map';
 
 const Main = (props) => {
-  const {numberOfOffers, cards, onCardHover, onHeaderClick} = props;
-
+  const {numberOfOffers, cards, onCardHover} = props;
+  const history = props.history;
+  const _cardHeaderClickHandler = (id) => {
+    history.push(`/offer/${id}`);
+  };
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -103,7 +106,7 @@ const Main = (props) => {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList cards={cards} onCardHover={onCardHover} onHeaderClick={onHeaderClick} />
+                <OffersList cards={cards} onCardHover={onCardHover} onHeaderClick={_cardHeaderClickHandler} />
               </div>
             </section>
             <div className="cities__right-section">
@@ -120,7 +123,7 @@ Main.propTypes = {
   numberOfOffers: PropTypes.number,
   cards: PropTypes.array.isRequired,
   onCardHover: PropTypes.func.isRequired,
-  onHeaderClick: PropTypes.func.isRequired
+  history: PropTypes.object
 };
 
 export default Main;
