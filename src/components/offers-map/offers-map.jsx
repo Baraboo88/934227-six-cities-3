@@ -13,7 +13,7 @@ class OffersMap extends PureComponent {
   componentDidMount() {
     const city = [52.38333, 4.9];
     const icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
+      iconUrl: `/img/pin.svg`,
       iconSize: [30, 30]
     });
 
@@ -36,12 +36,13 @@ class OffersMap extends PureComponent {
   }
 
   render() {
-    return <section ref={this._mapDiv} className="cities__map map" />;
+    return <section ref={this._mapDiv} className={`${this.props.nearPlace ? `property__map` : `cities__map`} map`} />;
   }
 }
 
 OffersMap.propTypes = {
-  cards: PropTypes.arrayOf(cardPropTypes).isRequired
+  cards: PropTypes.arrayOf(cardPropTypes).isRequired,
+  nearPlace: PropTypes.bool
 };
 
 export default OffersMap;
