@@ -278,6 +278,13 @@ exports[`Main successfully rendered 1`] = `
       "push": [Function],
     }
   }
+  match={
+    Object {
+      "params": Object {
+        "city": "Amsterdam",
+      },
+    }
+  }
   onHeaderClick={[Function]}
 >
   <div

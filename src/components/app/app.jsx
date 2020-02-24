@@ -7,8 +7,8 @@ const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={Main} />
         <Route exact path="/offer/:id" component={OfferCardDetail}/>
+        <Route exact path="/:city?" component={Main} />
       </Switch>
     </BrowserRouter>
   );

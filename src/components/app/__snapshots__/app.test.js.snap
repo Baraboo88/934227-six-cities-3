@@ -33,8 +33,10 @@ exports[`App successfully rendered 1`] = `
   match={
     Object {
       "isExact": true,
-      "params": Object {},
-      "path": "/",
+      "params": Object {
+        "city": undefined,
+      },
+      "path": "/:city?",
       "url": "/",
     }
   }

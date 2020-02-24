@@ -5,28 +5,15 @@ import OfferReviewList from '../offer-reviews-list/offer-review-list';
 import OffersList from '../offers-list/offers-list';
 import OffersMap from '../offers-map/offers-map';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer';
 
 class OfferCardDetail extends PureComponent {
-  componentDidMount() {
-    const id = this.props.match.params.id;
-    this.props.getCard(id);
+  constructor() {
+    super();
     this._cardHeaderClickHandler = this._cardHeaderClickHandler.bind(this);
-  }
-
-  componentDidUpdate() {
-    if (!this.props.card) {
-      this.props.history.push(`/`);
-    }
-  }
-
-  componentWillUnmount() {
-    this.props.clearCard();
   }
 
   _cardHeaderClickHandler(newId) {
     this.props.history.push(`/offer/${newId}`);
-    this.props.getCard(newId);
   }
 
   renderImgs(imgs) {
@@ -112,7 +99,7 @@ class OfferCardDetail extends PureComponent {
                     href="#"
                     onClick={(evt) => {
                       evt.preventDefault();
-                      history.push(`/`);
+                      this.props.history.push(`/`);
                     }}
                   >
                     <img
@@ -283,21 +270,30 @@ OfferCardDetail.propTypes = {
   card: cardPropTypes,
   history: PropTypes.object,
   match: PropTypes.object,
-  getCard: PropTypes.func.isRequired,
-  clearCard: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  card: state.offer,
-});
+const mapStateToProps = (state, props) => {
+  const getOfferById = (initialOffers, id) => {
+    const offer = initialOffers.find((newOffer) => newOffer.id === Number(id));
+    if (!offer) {
+      return null;
+    }
+    const newOffer = Object.assign({}, offer);
+    newOffer.nearOffers = offer.nearOffers.map((offerId) =>
+      initialOffers.find((offerItem) => offerItem.id === offerId)
+    );
+    return newOffer;
+  };
 
-const mapDispatchToProps = (dispatch) => ({
-  getCard(id) {
-    dispatch(ActionCreator.getCardDetails(id));
-  },
-  clearCard() {
-    dispatch(ActionCreator.clearOffer());
+  const id = props.match.params.id;
+  const card = getOfferById(state.offers, id);
+  if (!card) {
+    props.history.push(`/`);
   }
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(OfferCardDetail);
+  return {
+    card
+  };
+};
+
+export default connect(mapStateToProps)(OfferCardDetail);

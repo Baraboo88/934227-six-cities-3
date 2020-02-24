@@ -3,15 +3,19 @@ import PropTypes from 'prop-types';
 import OffersList from '../offers-list/offers-list';
 import OffersMap from '../offers-map/offers-map';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer';
 import OffersCities from '../offers-cities/offers-cities';
 
 const Main = (props) => {
-  const {cards, cityClickHandler, citiesNames, city} = props;
+  const {cards, citiesNames, city} = props;
   const history = props.history;
   const _cardHeaderClickHandler = (id) => {
     history.push(`/offer/${id}`);
   };
+
+  const _cityClickHandler = (newCity) => {
+    props.history.push(`/${newCity}`);
+  };
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -46,14 +50,16 @@ const Main = (props) => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <OffersCities citiesNames={citiesNames} onCityNameClick={cityClickHandler} />
+            <OffersCities citiesNames={citiesNames} onCityNameClick={_cityClickHandler} />
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{cards.length > 0 ? cards.length : 0} places to stay in {city}</b>
+              <b className="places__found">
+                {cards.length > 0 ? cards.length : 0} places to stay in {city}
+              </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -94,21 +100,22 @@ const Main = (props) => {
 Main.propTypes = {
   cards: PropTypes.array.isRequired,
   history: PropTypes.object,
-  cityClickHandler: PropTypes.func.isRequired,
   citiesNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   city: PropTypes.string
 };
 
-const mapStateToProps = (state) => ({
-  cards: state.offers,
-  city: state.city,
-  citiesNames: state.citiesNames
-});
+const mapStateToProps = (state, props) => {
+  let city = state.city;
 
-const mapDispatchToProps = (dispatch) => ({
-  cityClickHandler(city) {
-    dispatch(ActionCreator.changeCity(city));
+  if (props.match.params.city) {
+    city = props.match.params.city;
   }
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+  return {
+    cards: state.offers.filter((offer) => offer.city === city),
+    city,
+    citiesNames: state.citiesNames
+  };
+};
+
+export default connect(mapStateToProps)(Main);
