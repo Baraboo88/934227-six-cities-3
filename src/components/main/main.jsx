@@ -5,16 +5,17 @@ import OffersMap from '../offers-map/offers-map';
 import {connect} from 'react-redux';
 import OffersCities from '../offers-cities/offers-cities';
 import OffersFilter from '../offers-filter/offers-filter';
+import {ActionCreator} from '../../reducer';
 
 const Main = (props) => {
-  const {cards, citiesNames, city} = props;
+  const {cards, citiesNames, city, onCardHover, onCardUnHover, hoveredId} = props;
   const history = props.history;
   const _cardHeaderClickHandler = (id) => {
     history.push(`/offer/${id}`);
   };
 
   const _cityClickHandler = (newCity) => {
-    props.history.push(`/${newCity}`);
+    history.push(`/?city=${newCity}`);
   };
 
   return (
@@ -63,11 +64,16 @@ const Main = (props) => {
               </b>
               <OffersFilter />
               <div className="cities__places-list places__list tabs__content">
-                <OffersList cards={cards} onHeaderClick={_cardHeaderClickHandler} />
+                <OffersList
+                  cards={cards}
+                  onHeaderClick={_cardHeaderClickHandler}
+                  onCardHover={onCardHover}
+                  onCardUnHover={onCardUnHover}
+                />
               </div>
             </section>
             <div className="cities__right-section">
-              <OffersMap cards={cards} />
+              <OffersMap cards={cards} hoveredId={hoveredId} />
             </div>
           </div>
         </div>
@@ -80,7 +86,10 @@ Main.propTypes = {
   cards: PropTypes.array.isRequired,
   history: PropTypes.object,
   citiesNames: PropTypes.arrayOf(PropTypes.string).isRequired,
-  city: PropTypes.string
+  city: PropTypes.string,
+  onCardHover: PropTypes.func.isRequired,
+  onCardUnHover: PropTypes.func.isRequired,
+  hoveredId: PropTypes.number.isRequired
 };
 
 const mapStateToProps = (state, props) => {
@@ -108,8 +117,17 @@ const mapStateToProps = (state, props) => {
   return {
     cards,
     city,
-    citiesNames: state.citiesNames
+    citiesNames: state.citiesNames,
+    hoveredId: state.hoveredId
   };
 };
 
-export default connect(mapStateToProps)(Main);
+const mapDispatchToProps = (dispatch) => ({
+  onCardHover(id) {
+    dispatch(ActionCreator.setHovered(id));
+  },
+  onCardUnHover() {
+    dispatch(ActionCreator.resetHovered());
+  }
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

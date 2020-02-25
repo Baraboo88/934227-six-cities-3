@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
 import {withRouter} from 'react-router';
+import PropTypes from 'prop-types';
 
 const FILTERS = [
   {name: `popular`, value: `Popular`},
@@ -50,7 +51,7 @@ class OffersFilter extends PureComponent {
     const city = new URLSearchParams(this.props.location.search).get(`city`);
     if (city) {
       this.setState({
-        city: city
+        city
       });
     }
     this.props.history.push(`${city ? `?city=${city}&` : `?`}filter=${filter.name}`);
@@ -95,5 +96,10 @@ class OffersFilter extends PureComponent {
     );
   }
 }
+
+OffersFilter.propTypes = {
+  location: PropTypes.object,
+  history: PropTypes.object
+};
 
 export default withRouter(OffersFilter);

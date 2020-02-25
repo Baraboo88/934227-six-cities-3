@@ -7,13 +7,15 @@ import EnzymeReactAdapter from 'enzyme-adapter-react-16';
 import {getCities} from '../../reducer';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
+import {BrowserRouter} from 'react-router-dom';
 
 Enzyme.configure({adapter: new EnzymeReactAdapter()});
 
 const initialState = {
   city: getCities(mockCards)[0],
   offers: mockCards,
-  citiesNames: getCities(mockCards)
+  citiesNames: getCities(mockCards),
+  hoveredId: -1
 };
 
 const reducer = (state = initialState) => {
@@ -32,12 +34,14 @@ it(`OfferCardDetails successfully rendered`, () => {
   };
   const tree = mount(
       <Provider store={store}>
-        <OfferCardDetails
-          card={mockCards[0]}
-          onHeaderClick={() => {}}
-          history={mockHistory}
-          match={mockMatch}
-        />
+        <BrowserRouter>
+          <OfferCardDetails
+            card={mockCards[0]}
+            onHeaderClick={() => {}}
+            history={mockHistory}
+            match={mockMatch}
+          />
+        </BrowserRouter>
       </Provider>
   );
   expect(toJson(tree, {mode: `deep`})).toMatchSnapshot();

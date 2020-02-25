@@ -738,6 +738,7 @@ exports[`OfferCardDetails successfully rendered 1`] = `
               <article
                 className="near-places__card place-card"
                 data-test="test-card-hover"
+                onMouseLeave={[Function]}
                 onMouseOver={[Function]}
               >
                 <div
@@ -838,6 +839,7 @@ exports[`OfferCardDetails successfully rendered 1`] = `
               <article
                 className="near-places__card place-card"
                 data-test="test-card-hover"
+                onMouseLeave={[Function]}
                 onMouseOver={[Function]}
               >
                 <div
@@ -938,6 +940,7 @@ exports[`OfferCardDetails successfully rendered 1`] = `
               <article
                 className="near-places__card place-card"
                 data-test="test-card-hover"
+                onMouseLeave={[Function]}
                 onMouseOver={[Function]}
               >
                 <div

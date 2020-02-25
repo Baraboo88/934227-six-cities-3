@@ -7,6 +7,7 @@ import toJson from "enzyme-to-json";
 import {getCities} from "../../reducer";
 import {Provider} from 'react-redux';
 import {createStore} from "redux";
+import {BrowserRouter} from "react-router-dom";
 
 
 Enzyme.configure({adapter: new EnzymeReactAdapter()});
@@ -14,7 +15,8 @@ Enzyme.configure({adapter: new EnzymeReactAdapter()});
 const initialState = {
   city: getCities(mockCards)[0],
   offers: mockCards,
-  citiesNames: getCities(mockCards)
+  citiesNames: getCities(mockCards),
+  hoveredId: -1
 };
 
 const reducer = (state = initialState) => {
@@ -22,14 +24,14 @@ const reducer = (state = initialState) => {
 };
 const store = createStore(reducer);
 
-const mockMatch = {
-  params: {
-    city: `Amsterdam`
+const mockLocation = {
+  location: {
+    search: ``,
+    pathname: ``
   }
 };
 
 it(`Main successfully rendered`, () => {
-  const mockHistory = {push: jest.fn};
-  const tree = mount(<Provider store={store}><Main cards ={mockCards} match={mockMatch} onHeaderClick = {() => {}} history={mockHistory}/></Provider>);
+  const tree = mount(<Provider store={store}><BrowserRouter><Main cards = {mockCards} onHeaderClick = {() => {}} location = {mockLocation}/></BrowserRouter></Provider>);
   expect(toJson(tree, {mode: `deep`})).toMatchSnapshot();
 });
