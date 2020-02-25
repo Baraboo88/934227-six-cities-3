@@ -2,13 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import OffersList from '../offers-list/offers-list';
 import OffersMap from '../offers-map/offers-map';
+import {connect} from 'react-redux';
+import OffersCities from '../offers-cities/offers-cities';
 
 const Main = (props) => {
-  const {numberOfOffers, cards, onCardHover} = props;
+  const {cards, citiesNames, city} = props;
   const history = props.history;
   const _cardHeaderClickHandler = (id) => {
     history.push(`/offer/${id}`);
   };
+
+  const _cityClickHandler = (newCity) => {
+    props.history.push(`/${newCity}`);
+  };
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -43,45 +50,16 @@ const Main = (props) => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+            <OffersCities citiesNames={citiesNames} onCityNameClick={_cityClickHandler} />
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{numberOfOffers} places to stay in Amsterdam</b>
+              <b className="places__found">
+                {cards.length > 0 ? cards.length : 0} places to stay in {city}
+              </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -106,11 +84,11 @@ const Main = (props) => {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList cards={cards} onCardHover={onCardHover} onHeaderClick={_cardHeaderClickHandler} />
+                <OffersList cards={cards} onHeaderClick={_cardHeaderClickHandler} />
               </div>
             </section>
             <div className="cities__right-section">
-              <OffersMap cards={cards}/>
+              <OffersMap cards={cards} />
             </div>
           </div>
         </div>
@@ -120,10 +98,24 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  numberOfOffers: PropTypes.number,
   cards: PropTypes.array.isRequired,
-  onCardHover: PropTypes.func.isRequired,
-  history: PropTypes.object
+  history: PropTypes.object,
+  citiesNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  city: PropTypes.string
 };
 
-export default Main;
+const mapStateToProps = (state, props) => {
+  let city = state.city;
+
+  if (props.match.params.city) {
+    city = props.match.params.city;
+  }
+
+  return {
+    cards: state.offers.filter((offer) => offer.city === city),
+    city,
+    citiesNames: state.citiesNames
+  };
+};
+
+export default connect(mapStateToProps)(Main);
