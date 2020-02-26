@@ -18,7 +18,7 @@ const OffersCities = (props) => {
             }}
             data-test="test-city-click"
           >
-            <span onClick={() => onCityNameClick(cityName)}>{cityName}</span>
+            <span>{cityName}</span>
           </a>
         </li>
       ))}
