@@ -5,6 +5,7 @@ import OfferReviewList from '../offer-reviews-list/offer-review-list';
 import OffersList from '../offers-list/offers-list';
 import OffersMap from '../offers-map/offers-map';
 import {connect} from 'react-redux';
+import {ActionCreator} from '../../reducer';
 
 class OfferCardDetail extends PureComponent {
   constructor() {
@@ -88,6 +89,7 @@ class OfferCardDetail extends PureComponent {
         comments,
         nearOffers
       } = this.props.card;
+      const {onCardHover, onCardUnHover, hoveredId} = this.props;
       return (
         <div className="page">
           <header className="header">
@@ -244,7 +246,7 @@ class OfferCardDetail extends PureComponent {
                   </section>
                 </div>
               </div>
-              <OffersMap cards={nearOffers} nearPlace />
+              <OffersMap cards={nearOffers} nearPlace hoveredId={hoveredId} />
             </section>
             <div className="container">
               <section className="near-places places">
@@ -253,7 +255,8 @@ class OfferCardDetail extends PureComponent {
                   <OffersList
                     cards={nearOffers}
                     nearPlace
-                    onCardHover={() => {}}
+                    onCardHover={onCardHover}
+                    onCardUnHover={onCardUnHover}
                     onHeaderClick={this._cardHeaderClickHandler}
                   />
                 </div>
@@ -270,6 +273,9 @@ OfferCardDetail.propTypes = {
   card: cardPropTypes,
   history: PropTypes.object,
   match: PropTypes.object,
+  onCardHover: PropTypes.func.isRequired,
+  onCardUnHover: PropTypes.func.isRequired,
+  hoveredId: PropTypes.number.isRequired
 };
 
 const mapStateToProps = (state, props) => {
@@ -292,8 +298,17 @@ const mapStateToProps = (state, props) => {
   }
 
   return {
-    card
+    card,
+    hoveredId: state.hoveredId
   };
 };
+const mapDispatchToProps = (dispatch) => ({
+  onCardHover(id) {
+    dispatch(ActionCreator.setHovered(id));
+  },
+  onCardUnHover() {
+    dispatch(ActionCreator.resetHovered());
+  }
+});
 
-export default connect(mapStateToProps)(OfferCardDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(OfferCardDetail);

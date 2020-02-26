@@ -4,16 +4,14 @@ import OffersList from '../offers-list/offers-list';
 import OffersMap from '../offers-map/offers-map';
 import {connect} from 'react-redux';
 import OffersCities from '../offers-cities/offers-cities';
+import OffersFilter from '../offers-filter/offers-filter';
+import {ActionCreator} from '../../reducer';
 
 const Main = (props) => {
-  const {cards, citiesNames, city} = props;
+  const {cards, citiesNames, city, onCardHover, onCardUnHover, hoveredId, onChangeCity, filter, onChangeFilter, onFilterReset} = props;
   const history = props.history;
   const _cardHeaderClickHandler = (id) => {
     history.push(`/offer/${id}`);
-  };
-
-  const _cityClickHandler = (newCity) => {
-    props.history.push(`/${newCity}`);
   };
 
   return (
@@ -50,7 +48,7 @@ const Main = (props) => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <OffersCities citiesNames={citiesNames} onCityNameClick={_cityClickHandler} />
+            <OffersCities citiesNames={citiesNames} onCityNameClick={onChangeCity} />
           </section>
         </div>
         <div className="cities">
@@ -60,35 +58,18 @@ const Main = (props) => {
               <b className="places__found">
                 {cards.length > 0 ? cards.length : 0} places to stay in {city}
               </b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex="0">
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex="0">
-                    Popular
-                  </li>
-                  <li className="places__option" tabIndex="0">
-                    Price: low to high
-                  </li>
-                  <li className="places__option" tabIndex="0">
-                    Price: high to low
-                  </li>
-                  <li className="places__option" tabIndex="0">
-                    Top rated first
-                  </li>
-                </ul>
-              </form>
+              <OffersFilter filter = {filter} city = {city} onChangeFilter = {onChangeFilter} onFilterReset = {onFilterReset}/>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList cards={cards} onHeaderClick={_cardHeaderClickHandler} />
+                <OffersList
+                  cards={cards}
+                  onHeaderClick={_cardHeaderClickHandler}
+                  onCardHover={onCardHover}
+                  onCardUnHover={onCardUnHover}
+                />
               </div>
             </section>
             <div className="cities__right-section">
-              <OffersMap cards={cards} />
+              <OffersMap cards={cards} hoveredId={hoveredId} />
             </div>
           </div>
         </div>
@@ -101,21 +82,57 @@ Main.propTypes = {
   cards: PropTypes.array.isRequired,
   history: PropTypes.object,
   citiesNames: PropTypes.arrayOf(PropTypes.string).isRequired,
-  city: PropTypes.string
+  city: PropTypes.string,
+  onCardHover: PropTypes.func.isRequired,
+  onCardUnHover: PropTypes.func.isRequired,
+  hoveredId: PropTypes.number.isRequired,
+  onChangeCity: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired,
+  onChangeFilter: PropTypes.func.isRequired,
+  onFilterReset: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state, props) => {
-  let city = state.city;
+const mapStateToProps = (state) => {
+  const city = state.city;
+  const filter = state.filterName;
+  let cards = state.offers.filter((offer) => offer.city === city);
 
-  if (props.match.params.city) {
-    city = props.match.params.city;
+  switch (filter) {
+    case `lowToHigh`:
+      cards = cards.sort((card1, card2) => card1.price - card2.price);
+      break;
+    case `highToLow`:
+      cards = cards.sort((card1, card2) => card2.price - card1.price);
+      break;
+    case `topRated`:
+      cards = cards.sort((card1, card2) => card2.avgMark - card1.avgMark);
+      break;
   }
 
   return {
-    cards: state.offers.filter((offer) => offer.city === city),
+    cards,
     city,
-    citiesNames: state.citiesNames
+    citiesNames: state.citiesNames,
+    hoveredId: state.hoveredId,
+    filter
   };
 };
 
-export default connect(mapStateToProps)(Main);
+const mapDispatchToProps = (dispatch) => ({
+  onCardHover(id) {
+    dispatch(ActionCreator.setHovered(id));
+  },
+  onCardUnHover() {
+    dispatch(ActionCreator.resetHovered());
+  },
+  onChangeCity(cityName) {
+    dispatch(ActionCreator.setCity(cityName));
+  },
+  onChangeFilter(filterName) {
+    dispatch(ActionCreator.setFilter(filterName));
+  },
+  onFilterReset() {
+    dispatch(ActionCreator.resetFilter());
+  }
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

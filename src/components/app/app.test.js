@@ -12,7 +12,9 @@ import {Provider} from 'react-redux';
 const initialState = {
   city: getCities(mockCards)[0],
   offers: mockCards,
-  citiesNames: getCities(mockCards)
+  citiesNames: getCities(mockCards),
+  hoveredId: -1,
+  filterName: `popular`
 };
 const reducer = (state = initialState) => {
   return state;
