@@ -7,8 +7,7 @@ import toJson from 'enzyme-to-json';
 Enzyme.configure({adapter: new EnzymeReactAdapter()});
 
 it(`OffersMap successfully rendered`, () => {
-  const div = global.document.createElement(`div`);
-  global.document.body.appendChild(div);
-  const tree = mount(<OffersMap cards={mockCards} hoveredId = {-1}/>, {attachTo: div});
+
+  const tree = mount(<OffersMap cards={mockCards} hoveredId = {-1}/>);
   expect(toJson(tree, {mode: `deep`})).toMatchSnapshot();
 });

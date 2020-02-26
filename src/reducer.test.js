@@ -28,3 +28,49 @@ it(`Reducer reset hoveredId`, () => {
     hoveredId: -1
   });
 });
+
+it(`Reducer set new city`, () => {
+  expect(reducer({
+    city: getCities(mockCards)[0],
+    mockCards,
+    citiesNames: getCities(mockCards),
+    hoveredId: -1,
+  }, {type: Action.SET_CITY, payload: `Barcelona`})).toEqual({
+    city: `Barcelona`,
+    mockCards,
+    citiesNames: getCities(mockCards),
+    hoveredId: -1
+  });
+});
+
+it(`Reducer set new filter`, () => {
+  expect(reducer({
+    city: getCities(mockCards)[0],
+    mockCards,
+    citiesNames: getCities(mockCards),
+    hoveredId: -1,
+    filterName: `popular`,
+  }, {type: Action.SET_FILTER, payload: `highToLow`})).toEqual({
+    city: getCities(mockCards)[0],
+    mockCards,
+    citiesNames: getCities(mockCards),
+    hoveredId: -1,
+    filterName: `highToLow`,
+  });
+});
+
+it(`Reset filter`, () => {
+  expect(reducer({
+    city: getCities(mockCards)[0],
+    mockCards,
+    citiesNames: getCities(mockCards),
+    hoveredId: -1,
+    filterName: `highToLow`,
+  }, {type: Action.RESET_FILTER})).toEqual({
+    city: getCities(mockCards)[0],
+    mockCards,
+    citiesNames: getCities(mockCards),
+    hoveredId: -1,
+    filterName: `popular`,
+  });
+});

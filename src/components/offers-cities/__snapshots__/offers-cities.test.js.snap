@@ -13,7 +13,9 @@ exports[`OffersCities successfully rendered 1`] = `
       href="Amsterdam"
       onClick={[Function]}
     >
-      <span>
+      <span
+        onClick={[Function]}
+      >
         Amsterdam
       </span>
     </a>
@@ -27,7 +29,9 @@ exports[`OffersCities successfully rendered 1`] = `
       href="Berlin"
       onClick={[Function]}
     >
-      <span>
+      <span
+        onClick={[Function]}
+      >
         Berlin
       </span>
     </a>

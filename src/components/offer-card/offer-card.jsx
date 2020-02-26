@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {cardPropTypes} from "../../utils/utils";
 
 const OfferCard = (props) => {
-  const {name, type, imgs, price, isInBookmark, mark, isPremium, id} = props.card;
+  const {name, type, imgs, price, isInBookmark, avgMark, isPremium, id} = props.card;
   const {onHeaderClick, nearPlace, onCardHover, onCardUnHover} = props;
 
   return (
@@ -38,7 +38,7 @@ const OfferCard = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${20 * mark}%`}}></span>
+            <span style={{width: `${20 * avgMark}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

@@ -13,7 +13,8 @@ const initialState = {
   city: getCities(mockCards)[0],
   offers: mockCards,
   citiesNames: getCities(mockCards),
-  hoveredId: -1
+  hoveredId: -1,
+  filterName: `popular`
 };
 const reducer = (state = initialState) => {
   return state;

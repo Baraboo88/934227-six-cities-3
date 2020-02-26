@@ -1,5 +1,4 @@
 import React, {PureComponent} from 'react';
-import {withRouter} from 'react-router';
 import PropTypes from 'prop-types';
 
 const FILTERS = [
@@ -16,7 +15,7 @@ class OffersFilter extends PureComponent {
       activeFilter: `popular`,
       activeFilterValue: `Popular`,
       isOpen: false,
-      city: ``
+      city: props.city
     };
 
     this._filterOpenHandler = this._filterOpenHandler.bind(this);
@@ -31,13 +30,13 @@ class OffersFilter extends PureComponent {
   }
 
   componentDidUpdate() {
-    const newCity = new URLSearchParams(this.props.location.search).get(`city`);
 
-    if (newCity !== this.state.city) {
+    if (this.props.city !== this.state.city) {
+      this.props.onFilterReset();
       this.setState({
         activeFilter: `popular`,
         activeFilterValue: `Popular`,
-        city: newCity
+        city: this.props.city
       });
     }
   }
@@ -48,13 +47,7 @@ class OffersFilter extends PureComponent {
       activeFilterValue: filter.value,
       isOpen: false
     });
-    const city = new URLSearchParams(this.props.location.search).get(`city`);
-    if (city) {
-      this.setState({
-        city
-      });
-    }
-    this.props.history.push(`${city ? `?city=${city}&` : `?`}filter=${filter.name}`);
+    this.props.onChangeFilter(filter.name);
   }
 
   _filterOpenHandler() {
@@ -69,6 +62,7 @@ class OffersFilter extends PureComponent {
         tabIndex="0"
         onClick={() => this._setActiveFilter(filter)}
         key={`${filter.name} - ${index}`}
+        data-test='test-filter-click'
       >
         {filter.value}
       </li>
@@ -98,8 +92,10 @@ class OffersFilter extends PureComponent {
 }
 
 OffersFilter.propTypes = {
-  location: PropTypes.object,
-  history: PropTypes.object
+  onChangeFilter: PropTypes.func.isRequired,
+  onFilterReset: PropTypes.func.isRequired,
+  city: PropTypes.string
 };
 
-export default withRouter(OffersFilter);
+
+export default OffersFilter;

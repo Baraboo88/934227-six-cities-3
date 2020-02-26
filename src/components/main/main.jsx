@@ -8,14 +8,10 @@ import OffersFilter from '../offers-filter/offers-filter';
 import {ActionCreator} from '../../reducer';
 
 const Main = (props) => {
-  const {cards, citiesNames, city, onCardHover, onCardUnHover, hoveredId} = props;
+  const {cards, citiesNames, city, onCardHover, onCardUnHover, hoveredId, onChangeCity, filter, onChangeFilter, onFilterReset} = props;
   const history = props.history;
   const _cardHeaderClickHandler = (id) => {
     history.push(`/offer/${id}`);
-  };
-
-  const _cityClickHandler = (newCity) => {
-    history.push(`/?city=${newCity}`);
   };
 
   return (
@@ -52,7 +48,7 @@ const Main = (props) => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <OffersCities citiesNames={citiesNames} onCityNameClick={_cityClickHandler} />
+            <OffersCities citiesNames={citiesNames} onCityNameClick={onChangeCity} />
           </section>
         </div>
         <div className="cities">
@@ -62,7 +58,7 @@ const Main = (props) => {
               <b className="places__found">
                 {cards.length > 0 ? cards.length : 0} places to stay in {city}
               </b>
-              <OffersFilter />
+              <OffersFilter filter = {filter} city = {city} onChangeFilter = {onChangeFilter} onFilterReset = {onFilterReset}/>
               <div className="cities__places-list places__list tabs__content">
                 <OffersList
                   cards={cards}
@@ -89,17 +85,16 @@ Main.propTypes = {
   city: PropTypes.string,
   onCardHover: PropTypes.func.isRequired,
   onCardUnHover: PropTypes.func.isRequired,
-  hoveredId: PropTypes.number.isRequired
+  hoveredId: PropTypes.number.isRequired,
+  onChangeCity: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired,
+  onChangeFilter: PropTypes.func.isRequired,
+  onFilterReset: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state, props) => {
-  let city = state.city;
-  const urlSearch = new URLSearchParams(props.location.search);
-  const newCity = urlSearch.get(`city`);
-  const filter = urlSearch.get(`filter`);
-  if (newCity) {
-    city = newCity;
-  }
+const mapStateToProps = (state) => {
+  const city = state.city;
+  const filter = state.filterName;
   let cards = state.offers.filter((offer) => offer.city === city);
 
   switch (filter) {
@@ -118,7 +113,8 @@ const mapStateToProps = (state, props) => {
     cards,
     city,
     citiesNames: state.citiesNames,
-    hoveredId: state.hoveredId
+    hoveredId: state.hoveredId,
+    filter
   };
 };
 
@@ -128,6 +124,15 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onCardUnHover() {
     dispatch(ActionCreator.resetHovered());
+  },
+  onChangeCity(cityName) {
+    dispatch(ActionCreator.setCity(cityName));
+  },
+  onChangeFilter(filterName) {
+    dispatch(ActionCreator.setFilter(filterName));
+  },
+  onFilterReset() {
+    dispatch(ActionCreator.resetFilter());
   }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

@@ -123,7 +123,9 @@ exports[`App successfully rendered 1`] = `
                 href="Amsterdam"
                 onClick={[Function]}
               >
-                <span>
+                <span
+                  onClick={[Function]}
+                >
                   Amsterdam
                 </span>
               </a>
@@ -138,7 +140,9 @@ exports[`App successfully rendered 1`] = `
                 href="Hamburg"
                 onClick={[Function]}
               >
-                <span>
+                <span
+                  onClick={[Function]}
+                >
                   Hamburg
                 </span>
               </a>
@@ -198,6 +202,7 @@ exports[`App successfully rendered 1`] = `
               >
                 <li
                   className="places__option places__option--active"
+                  data-test="test-filter-click"
                   key="popular - 0"
                   onClick={[Function]}
                   tabIndex="0"
@@ -206,6 +211,7 @@ exports[`App successfully rendered 1`] = `
                 </li>
                 <li
                   className="places__option false"
+                  data-test="test-filter-click"
                   key="lowToHigh - 1"
                   onClick={[Function]}
                   tabIndex="0"
@@ -214,6 +220,7 @@ exports[`App successfully rendered 1`] = `
                 </li>
                 <li
                   className="places__option false"
+                  data-test="test-filter-click"
                   key="highToLow - 2"
                   onClick={[Function]}
                   tabIndex="0"
@@ -222,6 +229,7 @@ exports[`App successfully rendered 1`] = `
                 </li>
                 <li
                   className="places__option false"
+                  data-test="test-filter-click"
                   key="topRated - 3"
                   onClick={[Function]}
                   tabIndex="0"
@@ -313,7 +321,7 @@ exports[`App successfully rendered 1`] = `
                         <span
                           style={
                             Object {
-                              "width": "80%",
+                              "width": "90%",
                             }
                           }
                         />
@@ -414,7 +422,7 @@ exports[`App successfully rendered 1`] = `
                         <span
                           style={
                             Object {
-                              "width": "100%",
+                              "width": "90%",
                             }
                           }
                         />

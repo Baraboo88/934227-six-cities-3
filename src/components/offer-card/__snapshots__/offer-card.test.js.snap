@@ -80,7 +80,7 @@ exports[`Card successfully rendered 1`] = `
         <span
           style={
             Object {
-              "width": "80%",
+              "width": "90%",
             }
           }
         />
