@@ -8,20 +8,13 @@ const FILTERS = {
   topRated: `Top rated first`
 };
 
-
 class OffersFilter extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false,
+      isOpen: false
     };
     this._filterOpenHandler = this._filterOpenHandler.bind(this);
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.city !== prevProps.city) {
-      this.props.onFilterReset();
-    }
   }
 
   _setActiveFilter(filter) {
@@ -36,12 +29,11 @@ class OffersFilter extends PureComponent {
   _renderFilters() {
     return Object.keys(FILTERS).map((filter, index) => (
       <li
-        className={`places__option ${filter === this.props.filter &&
-        `places__option--active`}`}
+        className={`places__option ${filter === this.props.filter && `places__option--active`}`}
         tabIndex="0"
         onClick={() => this._setActiveFilter(filter)}
         key={`${filter} - ${index}`}
-        data-test='test-filter-click'
+        data-test="test-filter-click"
       >
         {FILTERS[filter]}
       </li>
@@ -76,6 +68,5 @@ OffersFilter.propTypes = {
   city: PropTypes.string,
   filter: PropTypes.string.isRequired
 };
-
 
 export default OffersFilter;
