@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const OffersCities = (props) => {
-  const {citiesNames, onCityNameClick} = props;
+  const {citiesNames, onCityNameClick, activeCity} = props;
 
 
   return (
@@ -10,7 +10,7 @@ const OffersCities = (props) => {
       {citiesNames.map((cityName, index) => (
         <li className="locations__item" key={`${cityName} - ${index}`}>
           <a
-            className="locations__item-link tabs__item"
+            className={`locations__item-link tabs__item ${cityName === activeCity ? `tabs__item--active` : ``}`}
             href={cityName}
             onClick={(evt) => {
               evt.preventDefault();

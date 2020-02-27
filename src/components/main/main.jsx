@@ -48,7 +48,7 @@ const Main = (props) => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <OffersCities citiesNames={citiesNames} onCityNameClick={onChangeCity} />
+            <OffersCities citiesNames={citiesNames} onCityNameClick={onChangeCity} activeCity = {city}/>
           </section>
         </div>
         <div className="cities">
