@@ -738,8 +738,8 @@ exports[`OfferCardDetails successfully rendered 1`] = `
               <article
                 className="near-places__card place-card"
                 data-test="test-card-hover"
+                onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
-                onMouseOver={[Function]}
               >
                 <div
                   className="near-places__image-wrapper place-card__image-wrapper"
@@ -839,8 +839,8 @@ exports[`OfferCardDetails successfully rendered 1`] = `
               <article
                 className="near-places__card place-card"
                 data-test="test-card-hover"
+                onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
-                onMouseOver={[Function]}
               >
                 <div
                   className="near-places__image-wrapper place-card__image-wrapper"
@@ -940,8 +940,8 @@ exports[`OfferCardDetails successfully rendered 1`] = `
               <article
                 className="near-places__card place-card"
                 data-test="test-card-hover"
+                onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
-                onMouseOver={[Function]}
               >
                 <div
                   className="near-places__image-wrapper place-card__image-wrapper"

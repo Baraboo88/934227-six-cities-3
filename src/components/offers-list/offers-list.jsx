@@ -1,15 +1,14 @@
 import React from 'react';
 import OfferCard from '../offer-card/offer-card';
+import withHoverItem from "../../hocs/withHoverItem";
 
 const OffersList = (props) => {
   const {cards, onCardHover, onCardUnHover, onHeaderClick, nearPlace} = props;
-
+  const OfferCardWiHoverItem = withHoverItem(OfferCard, onCardHover, onCardUnHover);
   return cards.map((card, index) => (
-    <OfferCard
+    <OfferCardWiHoverItem
       card={card}
       key={index}
-      onCardHover={onCardHover}
-      onCardUnHover = {onCardUnHover}
       onHeaderClick={onHeaderClick}
       nearPlace={nearPlace}
     />

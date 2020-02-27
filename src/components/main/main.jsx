@@ -6,6 +6,9 @@ import {connect} from 'react-redux';
 import OffersCities from '../offers-cities/offers-cities';
 import OffersFilter from '../offers-filter/offers-filter';
 import {ActionCreator} from '../../reducer';
+import withMap from "../../hocs/withMap";
+
+const OffersMapWrap = withMap(OffersMap);
 
 const Main = (props) => {
   const {cards, citiesNames, city, onCardHover, onCardUnHover, hoveredId, onChangeCity, filter, onChangeFilter, onFilterReset} = props;
@@ -69,7 +72,7 @@ const Main = (props) => {
               </div>
             </section>
             <div className="cities__right-section">
-              <OffersMap cards={cards} hoveredId={hoveredId} />
+              <OffersMapWrap cards={cards} hoveredId={hoveredId} />
             </div>
           </div>
         </div>
