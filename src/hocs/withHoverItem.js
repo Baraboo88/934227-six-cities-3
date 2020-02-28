@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
 
-const withHoverItem = (Component, onHover, onUnHover) => {
+const withHoverItem = (Component) => {
   class WithHoverItem extends PureComponent {
     constructor(props) {
       super(props);
@@ -13,15 +14,15 @@ const withHoverItem = (Component, onHover, onUnHover) => {
 
     hoverHandler(param) {
       this.setState({isHovered: true});
-      if (onHover) {
-        onHover(param);
+      if (this.props.onHover) {
+        this.props.onHover(param);
       }
     }
 
     unHoverHandler() {
       this.setState({isHovered: false});
-      if (onUnHover) {
-        onUnHover();
+      if (this.props.onUnHover) {
+        this.props.onUnHover();
       }
     }
 
@@ -36,6 +37,10 @@ const withHoverItem = (Component, onHover, onUnHover) => {
       );
     }
   }
+  WithHoverItem.propTypes = {
+    onHover: PropTypes.func,
+    onUnHover: PropTypes.func
+  };
 
   return WithHoverItem;
 };

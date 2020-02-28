@@ -101,8 +101,7 @@ exports[`OfferCardDetails successfully rendered 1`] = `
           >
             <a
               className="header__logo-link"
-              href="#"
-              onClick={[Function]}
+              href="/"
             >
               <img
                 alt="6 cities logo"
@@ -696,7 +695,7 @@ exports[`OfferCardDetails successfully rendered 1`] = `
                     >
                       rating
                     </span>
-                     and describe your stay with at least 
+                     and describe your stay with at least
                     <b
                       className="reviews__text-amount"
                     >
