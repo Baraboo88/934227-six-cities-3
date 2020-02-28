@@ -8,6 +8,6 @@ Enzyme.configure({adapter: new EnzymeReactAdapter()});
 
 it(`OffersMap successfully rendered`, () => {
 
-  const tree = mount(<OffersMap cards={mockCards} hoveredId = {-1} reference = {React.createRef()}/>);
+  const tree = mount(<OffersMap cards={mockCards} hoveredId = {-1}/>);
   expect(toJson(tree, {mode: `deep`})).toMatchSnapshot();
 });

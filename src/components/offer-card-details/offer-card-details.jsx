@@ -6,10 +6,6 @@ import OffersList from '../offers-list/offers-list';
 import OffersMap from '../offers-map/offers-map';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer';
-import withMap from "../../hocs/withMap";
-
-const OffersMapWrap = withMap(OffersMap);
-
 
 const OfferCardDetail = (props) => {
 
@@ -242,7 +238,7 @@ const OfferCardDetail = (props) => {
                 </section>
               </div>
             </div>
-            <OffersMapWrap cards={nearOffers} nearPlace hoveredId={hoveredId} />
+            <OffersMap cards={nearOffers} nearPlace hoveredId={hoveredId} />
           </section>
           <div className="container">
             <section className="near-places places">
