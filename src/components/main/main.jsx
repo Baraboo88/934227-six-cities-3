@@ -6,10 +6,11 @@ import {connect} from 'react-redux';
 import OffersCities from '../offers-cities/offers-cities';
 import OffersFilter from '../offers-filter/offers-filter';
 import {ActionCreator} from '../../reducer';
+import withFilter from "../../hocs/withFilter";
 
-
+const OffersWithFilter = withFilter(OffersFilter);
 const Main = (props) => {
-  const {cards, citiesNames, city, onCardHover, onCardUnHover, hoveredId, onChangeCity, filter, onChangeFilter, onFilterReset} = props;
+  const {cards, citiesNames, city, onCardHover, onCardUnHover, hoveredId, onChangeCity, filter, onChangeFilter} = props;
   const history = props.history;
   const _cardHeaderClickHandler = (id) => {
     history.push(`/offer/${id}`);
@@ -59,7 +60,7 @@ const Main = (props) => {
               <b className="places__found">
                 {cards.length > 0 ? cards.length : 0} places to stay in {city}
               </b>
-              <OffersFilter filter = {filter} city = {city} onChangeFilter = {onChangeFilter} onFilterReset = {onFilterReset}/>
+              <OffersWithFilter filter = {filter} onChangeFilter = {onChangeFilter} />
               <div className="cities__places-list places__list tabs__content">
                 <OffersList
                   cards={cards}
@@ -90,7 +91,6 @@ Main.propTypes = {
   onChangeCity: PropTypes.func.isRequired,
   filter: PropTypes.string.isRequired,
   onChangeFilter: PropTypes.func.isRequired,
-  onFilterReset: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
