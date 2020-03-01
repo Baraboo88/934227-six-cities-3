@@ -14,6 +14,14 @@ export const cardPropTypes = PropTypes.shape({
   descriptions: PropTypes.arrayOf(PropTypes.string).isRequired,
   reviews: PropTypes.number.isRequired,
   avgMark: PropTypes.number.isRequired,
+  comments: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    author: PropTypes.string.isRequired,
+    authorImg: PropTypes.string.isRequired,
+    comment: PropTypes.string.isRequired,
+    mark: PropTypes.number.isRequired,
+    date: PropTypes.string.isRequired
+  })).isRequired,
   hostUser: PropTypes.shape({
     name: PropTypes.string.isRequired,
     img: PropTypes.string.isRequired,

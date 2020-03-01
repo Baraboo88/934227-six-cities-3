@@ -5,6 +5,6 @@ import {mockCities} from "../../utils/tests-utils";
 
 
 it(`OffersCities successfully rendered`, () => {
-  const tree = renderer.create(<OffersCities citiesNames={mockCities} onCityNameClick={() => {}}/>);
+  const tree = renderer.create(<OffersCities citiesNames={mockCities} onCityNameClick={() => {}} activeCity = {mockCities[0]}/>);
   expect(tree).toMatchSnapshot();
 });
