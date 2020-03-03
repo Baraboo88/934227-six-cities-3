@@ -4,8 +4,9 @@ import {cardPropTypes} from '../../utils/utils';
 import OffersList from '../offers-list/offers-list';
 import OffersMap from '../offers-map/offers-map';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer';
+import {ActionCreator} from '../../reducer/reducer';
 import OfferComments from "../offer-comments/offer-comments";
+import {getHoveredId, getOfferById, getOffers} from "../../reducer/data/selectors";
 
 const OfferCardDetail = (props) => {
   if (!props.card) {
@@ -26,7 +27,8 @@ const OfferCardDetail = (props) => {
     avgMark,
     hostUser,
     comments,
-    nearOffers
+    nearOffers,
+    addressCoords
   } = props.card;
 
   const {onCardHover, onCardUnHover, hoveredId} = props;
@@ -149,12 +151,12 @@ const OfferCardDetail = (props) => {
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div
-                    className={`property__avatar-wrapper ${hostUser.status === `pro` &&
-                      `property__avatar-wrapper--pro`} user__avatar-wrapper`}
+                    className={`property__avatar-wrapper ${hostUser.isPro ?
+                      `property__avatar-wrapper--pro` : ``} user__avatar-wrapper`}
                   >
                     <img
                       className="property__avatar user__avatar"
-                      src={hostUser.img}
+                      src={`/${hostUser.img}`}
                       width="74"
                       height="74"
                       alt="Host avatar"
@@ -167,7 +169,7 @@ const OfferCardDetail = (props) => {
               <OfferComments comments = {comments} mark = {mark}/>
             </div>
           </div>
-          <OffersMap cards={nearOffers} nearPlace hoveredId={hoveredId} />
+          <OffersMap cards={nearOffers} nearPlace hoveredId={hoveredId} city={{location: {latitude: addressCoords[0], longitude: addressCoords[1], zoom: 13}}}/>
         </section>
         <div className="container">
           <section className="near-places places">
@@ -198,27 +200,15 @@ OfferCardDetail.propTypes = {
 };
 
 const mapStateToProps = (state, props) => {
-  const getOfferById = (initialOffers, id) => {
-    const offer = initialOffers.find((newOffer) => newOffer.id === Number(id));
-    if (!offer) {
-      return null;
-    }
-    const newOffer = Object.assign({}, offer);
-    newOffer.nearOffers = offer.nearOffers.map((offerId) =>
-      initialOffers.find((offerItem) => offerItem.id === offerId)
-    );
-    return newOffer;
-  };
 
-  const id = props.match.params.id;
-  const card = getOfferById(state.offers, id);
-  if (!card) {
+  const card = getOfferById(state, props);
+  if (!card && getOffers(state)) {
     props.history.push(`/`);
   }
 
   return {
     card,
-    hoveredId: state.hoveredId
+    hoveredId: getHoveredId(state)
   };
 };
 const mapDispatchToProps = (dispatch) => ({
