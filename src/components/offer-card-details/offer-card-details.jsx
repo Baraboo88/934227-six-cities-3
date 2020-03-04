@@ -6,10 +6,13 @@ import OffersMap from '../offers-map/offers-map';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer/reducer';
 import OfferComments from "../offer-comments/offer-comments";
-import {getHoveredId, getOfferById, getOffers} from "../../reducer/data/selectors";
+import {getHoveredId, getIsLoaded, getOfferById} from "../../reducer/data/selectors";
 
 const OfferCardDetail = (props) => {
-  if (!props.card) {
+  if (!props.card && props.isLoaded) {
+    props.history.push(`/`);
+    return null;
+  } else if (!props.card) {
     return null;
   }
   const {
@@ -196,19 +199,16 @@ OfferCardDetail.propTypes = {
   match: PropTypes.object,
   onCardHover: PropTypes.func.isRequired,
   onCardUnHover: PropTypes.func.isRequired,
-  hoveredId: PropTypes.number.isRequired
+  hoveredId: PropTypes.number.isRequired,
+  isLoaded: PropTypes.bool
 };
 
 const mapStateToProps = (state, props) => {
 
-  const card = getOfferById(state, props);
-  if (!card && getOffers(state)) {
-    props.history.push(`/`);
-  }
-
   return {
-    card,
-    hoveredId: getHoveredId(state)
+    card: getOfferById(state, props),
+    hoveredId: getHoveredId(state),
+    isLoaded: getIsLoaded(state)
   };
 };
 const mapDispatchToProps = (dispatch) => ({

@@ -10,6 +10,8 @@ export const getHoveredId = (state) => state.hoveredId;
 
 export const getOfferId = (_, props) => props.match.params.id;
 
+export const getIsLoaded = (state) => state.isLoaded;
+
 export const getOfferById = createSelector([getOffers, getOfferId], (initialOffers, id) => {
   if (!initialOffers) {
     return null;

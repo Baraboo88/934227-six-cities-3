@@ -70,7 +70,8 @@ export const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         offers: action.payload,
         city: getCities(action.payload)[0],
-        citiesNames: getCities(action.payload)
+        citiesNames: getCities(action.payload),
+        isLoaded: true
       });
   }
   return state;
