@@ -1,4 +1,4 @@
-import {Action, getCities, reducer} from "./reducer";
+import {Action, getCities, reducer} from "./reducer/reducer";
 import {mockCards} from "./utils/tests-utils";
 
 it(`Reducer add hoveredId`, () => {
