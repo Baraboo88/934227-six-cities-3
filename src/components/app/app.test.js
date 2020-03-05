@@ -1,20 +1,23 @@
 import React from 'react';
 import App from './app';
-import {mockCards} from '../../utils/tests-utils';
+import {mockCards, mockCities, userData} from '../../utils/tests-utils';
 import Enzyme, {mount} from 'enzyme';
 import toJson from 'enzyme-to-json';
 import EnzymeReactAdapter from 'enzyme-adapter-react-16';
-import {getCities} from "../../reducer/reducer";
+import {getCities} from "../../reducer/data/data-reducer";
 import {createStore} from "redux";
 Enzyme.configure({adapter: new EnzymeReactAdapter()});
 import {Provider} from 'react-redux';
 
 const initialState = {
-  city: getCities(mockCards)[0],
-  offers: mockCards,
-  citiesNames: getCities(mockCards),
-  hoveredId: -1,
-  filterName: `popular`
+  data: {
+    city: mockCities[0],
+    offers: mockCards,
+    citiesNames: getCities(mockCards),
+    hoveredId: -1,
+    filterName: `popular`
+  },
+  userData
 };
 const reducer = (state = initialState) => {
   return state;

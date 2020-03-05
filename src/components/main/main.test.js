@@ -1,10 +1,10 @@
 import React from 'react';
 import Main from './main';
-import {mockCards} from '../../utils/tests-utils';
+import {mockCards, mockCities, userData} from '../../utils/tests-utils';
 import Enzyme, {mount} from "enzyme";
 import EnzymeReactAdapter from "enzyme-adapter-react-16";
 import toJson from "enzyme-to-json";
-import {getCities} from "../../reducer/reducer";
+import {getCities} from "../../reducer/data/data-reducer";
 import {Provider} from 'react-redux';
 import {createStore} from "redux";
 import {BrowserRouter} from "react-router-dom";
@@ -13,11 +13,14 @@ import {BrowserRouter} from "react-router-dom";
 Enzyme.configure({adapter: new EnzymeReactAdapter()});
 
 const initialState = {
-  city: getCities(mockCards)[0],
-  offers: mockCards,
-  citiesNames: getCities(mockCards),
-  hoveredId: -1,
-  filterName: `popular`
+  data: {
+    city: mockCities[0],
+    offers: mockCards,
+    citiesNames: getCities(mockCards),
+    hoveredId: -1,
+    filterName: `popular`
+  },
+  userData
 };
 
 const reducer = (state = initialState) => {
