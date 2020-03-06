@@ -4,9 +4,9 @@ import {cardPropTypes} from '../../utils/utils';
 import OffersList from '../offers-list/offers-list';
 import OffersMap from '../offers-map/offers-map';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer/reducer';
+import {ActionCreator} from '../../reducer/data/data-reducer';
 import OfferComments from "../offer-comments/offer-comments";
-import {getHoveredId, getIsLoaded, getOfferById} from "../../reducer/data/selectors";
+import {getHoveredId, getIsLoaded, getOfferById} from "../../reducer/data/data-selectors";
 
 const OfferCardDetail = (props) => {
   if (!props.card && props.isLoaded) {
