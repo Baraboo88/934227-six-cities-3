@@ -1,12 +1,12 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
-import {getAuthStatus} from '../reducer/user/user-selector';
+import {getAuthStatus, getErrorMsg} from '../reducer/user/user-selector';
 import {UserOperation, Authorization} from '../reducer/user/user-reducer';
 import {getCity} from "../reducer/data/data-selectors";
 import PropTypes from 'prop-types';
 
 
-const WithSignInForm = (Component) => {
+const withSignInForm = (Component) => {
   class SignInForm extends PureComponent {
     constructor(props) {
       super(props);
@@ -64,6 +64,7 @@ const WithSignInForm = (Component) => {
           password={this.state.password}
           email={this.state.email}
           city = {this.props.city}
+          error = {this.props.errorMsg}
         />
       );
     }
@@ -73,13 +74,15 @@ const WithSignInForm = (Component) => {
     isAuth: PropTypes.bool,
     history: PropTypes.object,
     city: PropTypes.object,
-    login: PropTypes.func
+    login: PropTypes.func,
+    errorMsg: PropTypes.string
   };
 
   const mapStateToProps = (state) => {
     return {
       isAuth: getAuthStatus(state) === Authorization.AUTH,
-      city: getCity(state)
+      city: getCity(state),
+      errorMsg: getErrorMsg(state)
     };
   };
 
@@ -92,4 +95,4 @@ const WithSignInForm = (Component) => {
   return connect(mapStateToProps, mapDispatchToProps)(SignInForm);
 };
 
-export default WithSignInForm;
+export default withSignInForm;

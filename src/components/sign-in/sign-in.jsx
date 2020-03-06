@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const SignIn = (props) => {
-  const {onEmailChange, onPasswordChange, onFormSubmit, password, email, city} = props;
+  const {onEmailChange, onPasswordChange, onFormSubmit, password, email, city, error} = props;
 
   return (
     <div className="page page--gray page--login">
@@ -63,6 +63,7 @@ const SignIn = (props) => {
                   onChange={onPasswordChange}
                 />
               </div>
+              {error && <span style={{color: `red`, textAlign: `center`}}>Check Your Data!!!</span>}
               <button className="login__submit form__submit button" type="submit">
                 Sign in
               </button>
@@ -87,7 +88,8 @@ SignIn.propTypes = {
   onFormSubmit: PropTypes.func,
   password: PropTypes.string,
   email: PropTypes.string,
-  city: PropTypes.object
+  city: PropTypes.object,
+  error: PropTypes.string
 };
 
 export default SignIn;

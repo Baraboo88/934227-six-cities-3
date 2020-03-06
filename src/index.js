@@ -6,14 +6,10 @@ import rootReducer from "./reducer/reducer";
 import {Provider} from 'react-redux';
 import {createApi} from './api';
 import thunk from "redux-thunk";
-import {UserActionCreator, Authorization, UserOperation} from "./reducer/user/user-reducer";
+import {UserOperation} from "./reducer/user/user-reducer";
 import {ActionCreator} from "./reducer/data/data-reducer";
 
-const onUnauthorized = () => {
-  store.dispatch(UserActionCreator.setAuthStatus(Authorization.NO_AUTH, null));
-};
-
-const api = createApi(onUnauthorized);
+const api = createApi();
 
 
 const store = createStore(rootReducer, compose(applyMiddleware(thunk.withExtraArgument(api)), window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f));

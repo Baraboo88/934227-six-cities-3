@@ -5,3 +5,5 @@ export const getUserData = (state) => {
   return null;
 };
 export const getAuthStatus = (state) => state.user.authorizationStatus;
+
+export const getErrorMsg = (state) => state.user.errorMsg;

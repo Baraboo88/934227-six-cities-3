@@ -1,7 +1,9 @@
-import {userAdapter} from "../../utils/utils";
+import {userAdapter} from '../../utils/utils';
 
-export const Action = {AUTH_USER: `auth-user`};
+export const Action = {AUTH_USER: `auth-user`, SET_ERR_MSG: `set-error-message`};
 
+const UNAUTHORIZED = 401;
+const BAD_REQUEST = 400;
 export const Authorization = {
   NO_AUTH: `no-auth`,
   AUTH: `auth`
@@ -15,7 +17,11 @@ export const UserOperation = {
         .then((response) => {
           dispatch(UserActionCreator.setAuthStatus(Authorization.AUTH, userAdapter(response.data)));
         })
-        .catch(() =>{});
+        .catch((err) => {
+          if (err.response.status === UNAUTHORIZED) {
+            dispatch(UserActionCreator.setAuthStatus(Authorization.NO_AUTH));
+          }
+        });
     };
   },
   loginUser(userData) {
@@ -25,7 +31,12 @@ export const UserOperation = {
         .then((response) => {
           dispatch(UserActionCreator.setAuthStatus(Authorization.AUTH, userAdapter(response.data)));
         })
-        .catch(() =>{});
+        .catch((err) => {
+          if (err.response.status === BAD_REQUEST) {
+            dispatch(UserActionCreator.setErrorMessage(`Please Check the data`));
+          }
+          dispatch(UserActionCreator.setAuthStatus(Authorization.NO_AUTH));
+        });
     };
   }
 };
@@ -37,6 +48,12 @@ export const UserActionCreator = {
       payload: {authStatus, userData}
     };
   },
+  setErrorMessage(message) {
+    return {
+      type: Action.SET_ERR_MSG,
+      payload: message
+    };
+  }
 };
 
 const initialState = {
@@ -44,11 +61,14 @@ const initialState = {
 };
 
 export const userReducer = (state = initialState, action) => {
-  if (action.type === Action.AUTH_USER) {
-    return Object.assign({}, state, {
-      authorizationStatus: action.payload.authStatus,
-      userData: action.payload.userData
-    });
+  switch (action.type) {
+    case Action.AUTH_USER:
+      return Object.assign({}, state, {
+        authorizationStatus: action.payload.authStatus,
+        userData: action.payload.userData
+      });
+    case Action.SET_ERR_MSG:
+      return Object.assign({}, state, {errorMsg: action.payload});
   }
   return state;
 };
