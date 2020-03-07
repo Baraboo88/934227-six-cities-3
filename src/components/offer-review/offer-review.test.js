@@ -1,9 +1,9 @@
 import renderer from 'react-test-renderer';
 import React from 'react';
-import {mockCards} from '../../utils/tests-utils';
+import {mockComment, userData} from '../../utils/tests-utils';
 import OfferReview from "./offer-review";
 
 it(`Card Details successfully rendered`, () => {
-  const tree = renderer.create(<OfferReview {...mockCards[0].comments[0]}/>);
+  const tree = renderer.create(<OfferReview {...mockComment} user={userData}/>);
   expect(tree).toMatchSnapshot();
 });
