@@ -6,12 +6,12 @@ const OfferCardWiHoverItem = withHoverItem(OfferCard);
 
 const OffersList = (props) => {
   const {cards, onCardHover, onCardUnHover, onHeaderClick, nearPlace} = props;
-  return cards.map((card, index) => (
+  return cards.map((card) => (
     <OfferCardWiHoverItem
       onHover = {onCardHover}
       onUnHover = {onCardUnHover}
       card={card}
-      key={index}
+      key={card.id}
       onHeaderClick={onHeaderClick}
       nearPlace={nearPlace}
     />

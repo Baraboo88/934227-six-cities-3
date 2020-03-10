@@ -14,6 +14,8 @@ export const getIsLoaded = (state) => state.data.isLoaded;
 
 export const getCommentsFromState = (state) => state.data.comments;
 
+export const getUsersFavoriteOffers = (state) => state.data.userFavoriteOffers
+
 export const getOfferById = createSelector([getOffers, getOfferId], (initialOffers, id) => {
   if (!initialOffers) {
     return null;

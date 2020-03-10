@@ -1,4 +1,4 @@
-import {userAdapter} from '../../utils/utils';
+import {offerAdapter, userAdapter} from '../../utils/utils';
 
 export const Action = {AUTH_USER: `auth-user`, SET_ERR_MSG: `set-error-message`};
 
@@ -38,7 +38,8 @@ export const UserOperation = {
           dispatch(UserActionCreator.setAuthStatus(Authorization.NO_AUTH));
         });
     };
-  }
+  },
+
 };
 
 export const UserActionCreator = {
@@ -69,6 +70,7 @@ export const userReducer = (state = initialState, action) => {
       });
     case Action.SET_ERR_MSG:
       return Object.assign({}, state, {errorMsg: action.payload});
+
   }
   return state;
 };

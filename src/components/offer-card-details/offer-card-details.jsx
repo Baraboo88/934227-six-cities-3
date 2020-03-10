@@ -13,7 +13,7 @@ import {
   getOfferById
 } from '../../reducer/data/data-selectors';
 import {Link} from 'react-router-dom';
-import {getUserData} from '../../reducer/user/user-selector';
+import {getIsAuth, getUserData} from '../../reducer/user/user-selector';
 
 const OfferCardDetail = (props) => {
   if (!props.card && props.isLoaded) {
@@ -23,7 +23,7 @@ const OfferCardDetail = (props) => {
     return null;
   }
 
-  const {comments, getComments, user} = props;
+  const {comments, onMount, user, isAuth} = props;
 
   const {
     name,
@@ -44,7 +44,7 @@ const OfferCardDetail = (props) => {
   } = props.card;
 
   useEffect(() => {
-    getComments(props.match.params.id);
+    onMount(props.match.params.id);
   }, []);
 
   const {onCardHover, onCardUnHover, hoveredId} = props;
@@ -184,7 +184,7 @@ const OfferCardDetail = (props) => {
                 </div>
                 <div className="property__description">{_renderDescription(descriptions)}</div>
               </div>
-              <OfferComments comments={comments} id={id} />
+              <OfferComments comments={comments} id={id} isAuth = {isAuth}/>
             </div>
           </div>
           <OffersMap
@@ -223,7 +223,8 @@ OfferCardDetail.propTypes = {
   isLoaded: PropTypes.bool,
   comments: PropTypes.arrayOf(PropTypes.shape(commentShape)),
   user: PropTypes.shape(userShape),
-  getComments: PropTypes.func
+  onMount: PropTypes.func,
+  isAuth: PropTypes.bool
 };
 
 const mapStateToProps = (state, props) => {
@@ -232,7 +233,8 @@ const mapStateToProps = (state, props) => {
     hoveredId: getHoveredId(state),
     isLoaded: getIsLoaded(state),
     comments: getCommentsFromState(state),
-    user: getUserData(state)
+    user: getUserData(state),
+    isAuth: getIsAuth(state)
   };
 };
 const mapDispatchToProps = (dispatch) => ({
@@ -242,8 +244,8 @@ const mapDispatchToProps = (dispatch) => ({
   onCardUnHover() {
     dispatch(ActionCreator.resetHovered());
   },
-  getComments(id) {
-    dispatch(DataOperation.getCommentsFromApi(id));
+  onMount(id) {
+    dispatch(DataOperation.loadComments(id));
   }
 });
 

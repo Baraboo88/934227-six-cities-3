@@ -12,6 +12,16 @@ export const getCities = (initialOffers) => {
   return cities;
 };
 
+export const getUpdatedOffers = (offers, updatedOffer) => {
+  const newOffers = JSON.parse(JSON.stringify(offers));
+  return newOffers.map((offer) => {
+    if (offer.id === updatedOffer.id) {
+      return updatedOffer;
+    }
+    return offer;
+  });
+};
+
 export const Action = {
   SET_HOVERED: `set-hovered`,
   RESET_HOVERED: `reset-hovered`,
@@ -19,11 +29,13 @@ export const Action = {
   SET_FILTER: `set-filter`,
   RESET_FILTER: `reset-filter`,
   GET_OFFERS: `get-offers`,
-  GET_COMMENTS: `get-comments`
+  GET_COMMENTS: `get-comments`,
+  SET_UPDATED_FAVORITE_OFFER: `set-updated-favorite-offer`,
+  LOAD_FAVORITE_OFFERS: `load-updated-offer`
 };
 
 export const DataOperation = {
-  getCommentsFromApi(id) {
+  loadComments(id) {
     return (dispatch, state, api) => {
       api.get(`/comments/${id}`).then((response) => {
         dispatch({
@@ -35,12 +47,41 @@ export const DataOperation = {
   },
   addCommentToApi(id, data) {
     return (dispatch, state, api) => {
-      api.post(`/comments/${id}`, data).then((response) => {
-        dispatch({
-          type: Action.GET_COMMENTS,
-          payload: response.data.map((comment) => commentAdapter(comment))
-        });
-      }).catch(() => {});
+      api
+        .post(`/comments/${id}`, data)
+        .then((response) => {
+          dispatch({
+            type: Action.GET_COMMENTS,
+            payload: response.data.map((comment) => commentAdapter(comment))
+          });
+        })
+        .catch(() => {});
+    };
+  },
+  addToFavoriteOffer(offerId, status) {
+    return (dispatch, state, api) => {
+      api
+        .post(`/favorite/${offerId}/${status}`)
+        .then((response) => {
+          dispatch({
+            type: Action.SET_UPDATED_FAVORITE_OFFER,
+            payload: offerAdapter(response.data)
+          });
+        })
+        .catch(() => {});
+    };
+  },
+  loadFavoriteOffers() {
+    return (dispatch, state, api) => {
+      api
+        .get(`/favorite`)
+        .then((response) => {
+          dispatch({
+            type: Action.LOAD_FAVORITE_OFFERS,
+            payload: response.data.map((comment) => offerAdapter(comment))
+          });
+        })
+        .catch(() => {});
     };
   }
 };
@@ -99,6 +140,10 @@ export const dataReducer = (state = initialState, action) => {
       });
     case Action.GET_COMMENTS:
       return Object.assign({}, state, {comments: action.payload});
+    case Action.LOAD_FAVORITE_OFFERS:
+      return Object.assign({}, state, {favoriteOffers: action.payload});
+    case Action.SET_UPDATED_FAVORITE_OFFER:
+      return Object.assign({}, state, {offers: getUpdatedOffers(state.offers, action.payload)});
   }
   return state;
 };
