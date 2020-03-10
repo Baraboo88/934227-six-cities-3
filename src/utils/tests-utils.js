@@ -1,3 +1,4 @@
+
 export const mockTestData = {
   numberOfOffers: 32,
   cards: [`Canal View Prinsengracht`, `Nice, cozy, warm big bed apartment`, `Wood and stone place`]
@@ -305,6 +306,14 @@ export const userData = {
   name: `laura`,
   avatarUrl: `/static/avatar/7.jpg`,
   isPro: false
+};
+
+export const mockComment = {
+  id: 1,
+  comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+  mark: 4,
+  date: `2020-01-26T13:51:50.417Z`,
+  user: userData
 };
 
 export const findByTestAtr = (component, attr) => {
