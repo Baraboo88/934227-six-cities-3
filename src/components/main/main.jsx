@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import OffersList from '../offers-list/offers-list';
 import OffersMap from '../offers-map/offers-map';
@@ -11,7 +11,6 @@ import withFilter from '../../hocs/withFilter';
 import {getCards, getCitiesFromState, getCity, getFilter, getHoveredId} from "../../reducer/data/data-selectors";
 import {getUserData} from "../../reducer/user/user-selector";
 import {Link} from "react-router-dom";
-import {UserOperation} from "../../reducer/user/user-reducer";
 
 const OffersWithFilter = withFilter(OffersFilter);
 const Main = (props) => {
@@ -118,8 +117,6 @@ Main.propTypes = {
   history: PropTypes.object,
   citiesNames: PropTypes.arrayOf(PropTypes.object),
   city: PropTypes.object,
-  onCardHover: PropTypes.func.isRequired,
-  onCardUnHover: PropTypes.func.isRequired,
   hoveredId: PropTypes.number.isRequired,
   onChangeCity: PropTypes.func.isRequired,
   filter: PropTypes.string.isRequired,
@@ -148,10 +145,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onFilterReset() {
     dispatch(ActionCreator.resetFilter());
-  },
-  loadFavorite() {
-    dispatch(UserOperation.loadFavoriteOffers());
-  },
-
+  }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

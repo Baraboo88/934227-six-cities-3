@@ -62,7 +62,8 @@ OfferCard.propTypes = {
   onHeaderClick: PropTypes.func.isRequired,
   nearPlace: PropTypes.bool,
   onHover: PropTypes.func.isRequired,
-  onUnHover: PropTypes.func.isRequired
+  onUnHover: PropTypes.func.isRequired,
+  onSetFavorite: PropTypes.func
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -77,25 +78,5 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-const mapStateToProps = (state, props) => {
 
-  let isInBookmark = props.isInBookmark;
-
-  if (state.user) {
-    if (state.user.updatedFavorite) {
-      console.log(state.user.updatedFavorite.id, props.card.id)
-      if (state.user.updatedFavorite.id === props.card.id) {
-        isInBookmark = state.user.updatedFavorite.isInBookmark;
-      }
-
-    }
-  }
-
-  return {
-    isInBookmark
-  }
-
-
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(OfferCard);
+export default connect(null, mapDispatchToProps)(OfferCard);

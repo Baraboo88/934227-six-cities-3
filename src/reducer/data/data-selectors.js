@@ -1,4 +1,4 @@
-import {createSelector} from "reselect";
+import {createSelector} from 'reselect';
 
 export const getFilter = (state) => state.data.filterName;
 export const getCity = (state) => state.data.city;
@@ -14,7 +14,22 @@ export const getIsLoaded = (state) => state.data.isLoaded;
 
 export const getCommentsFromState = (state) => state.data.comments;
 
-export const getUsersFavoriteOffers = (state) => state.data.userFavoriteOffers
+export const getUpdatedOffer = (state) => {
+  if (state.data) {
+    return state.data.updatedOffer;
+  }
+  return null;
+};
+
+export const getIsInBookmark = (state, props) => {
+  if (getUpdatedOffer(state)) {
+    return getUpdatedOffer(state).isInBookmark;
+  }
+  if (props.card) {
+    return props.card.isInBookmark;
+  }
+  return null;
+};
 
 export const getOfferById = createSelector([getOffers, getOfferId], (initialOffers, id) => {
   if (!initialOffers) {
@@ -26,7 +41,11 @@ export const getOfferById = createSelector([getOffers, getOfferId], (initialOffe
   }
   const newOffer = Object.assign({}, offer);
 
-  newOffer.nearOffers = initialOffers.filter((filterOffer) => filterOffer.id !== offer.id && filterOffer.city.name === offer.city.name).slice(0, 3);
+  newOffer.nearOffers = initialOffers
+    .filter(
+        (filterOffer) => filterOffer.id !== offer.id && filterOffer.city.name === offer.city.name
+    )
+    .slice(0, 3);
   return newOffer;
 });
 

@@ -1,9 +1,39 @@
-import renderer from 'react-test-renderer';
 import React from 'react';
-import OffersList from './offers-list';
-import {mockCards} from '../../utils/tests-utils';
+import {mockCards, mockCities, userData} from '../../utils/tests-utils';
+import Enzyme, {mount} from 'enzyme';
+import toJson from 'enzyme-to-json';
+import EnzymeReactAdapter from 'enzyme-adapter-react-16';
+import {getCities} from '../../reducer/data/data-reducer';
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
+import OffersList from "./offers-list";
 
-it(`OffersList successfully rendered`, () => {
-  const tree = renderer.create(<OffersList cards={mockCards} onCardHover={() => {}} onCardUnHover={() => {}} onHeaderClick ={() => {}}/>);
-  expect(tree).toMatchSnapshot();
+const initialState = {
+  data: {
+    city: mockCities[0],
+    offers: mockCards,
+    citiesNames: getCities(mockCards),
+    hoveredId: -1,
+    filterName: `popular`
+  },
+  user: {
+    authorizationStatus: true,
+    userData
+  }
+};
+
+const reducer = (state = initialState) => {
+  return state;
+};
+const store = createStore(reducer);
+
+Enzyme.configure({adapter: new EnzymeReactAdapter()});
+
+it(`Card successfully successfully rendered`, () => {
+  const tree = mount(
+      <Provider store={store}>
+        <OffersList cards={mockCards} onHeaderClick ={() => {}}/>
+      </Provider>
+  );
+  expect(toJson(tree, {mode: `deep`})).toMatchSnapshot();
 });

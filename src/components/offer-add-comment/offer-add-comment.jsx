@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {DataOperation} from '../../reducer/data/data-reducer';
-import {getIsAuth} from '../../reducer/user/user-selector';
 import PropTypes from 'prop-types';
 
 const OfferAddComment = (props) => {

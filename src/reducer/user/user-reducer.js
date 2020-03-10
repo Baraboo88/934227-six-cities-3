@@ -1,4 +1,4 @@
-import {offerAdapter, userAdapter} from '../../utils/utils';
+import {userAdapter} from '../../utils/utils';
 
 export const Action = {AUTH_USER: `auth-user`, SET_ERR_MSG: `set-error-message`};
 

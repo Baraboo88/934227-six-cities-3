@@ -71,19 +71,6 @@ export const DataOperation = {
         .catch(() => {});
     };
   },
-  loadFavoriteOffers() {
-    return (dispatch, state, api) => {
-      api
-        .get(`/favorite`)
-        .then((response) => {
-          dispatch({
-            type: Action.LOAD_FAVORITE_OFFERS,
-            payload: response.data.map((comment) => offerAdapter(comment))
-          });
-        })
-        .catch(() => {});
-    };
-  }
 };
 
 export const ActionCreator = {
@@ -143,7 +130,7 @@ export const dataReducer = (state = initialState, action) => {
     case Action.LOAD_FAVORITE_OFFERS:
       return Object.assign({}, state, {favoriteOffers: action.payload});
     case Action.SET_UPDATED_FAVORITE_OFFER:
-      return Object.assign({}, state, {offers: getUpdatedOffers(state.offers, action.payload)});
+      return Object.assign({}, state, {offers: getUpdatedOffers(state.offers, action.payload), updatedOffer: action.payload});
   }
   return state;
 };

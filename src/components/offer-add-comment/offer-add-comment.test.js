@@ -11,8 +11,6 @@ import {createStore} from 'redux';
 
 const mockComment = {mark: 3, comment: `Mock Comment`};
 
-Enzyme.configure({adapter: new EnzymeReactAdapter()});
-
 const initialState = {
   data: {
     city: mockCities[0],
