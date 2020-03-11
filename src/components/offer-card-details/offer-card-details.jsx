@@ -19,7 +19,7 @@ const OfferCardDetail = (props) => {
   const {comments, onMount, user, isAuth, onSetFavorite, hoveredId} = props;
   useEffect(() => {
     onMount(props.match.params.id);
-  }, []);
+  }, [props.match.params.id]);
 
   if (!props.card && props.isLoaded) {
     props.history.push(`/`);

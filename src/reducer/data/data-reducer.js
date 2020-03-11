@@ -40,7 +40,7 @@ export const DataOperation = {
       api.get(`/comments/${id}`).then((response) => {
         dispatch({
           type: Action.GET_COMMENTS,
-          payload: response.data.map((comment) => commentAdapter(comment))
+          payload: response.data
         });
       });
     };
@@ -52,7 +52,7 @@ export const DataOperation = {
         .then((response) => {
           dispatch({
             type: Action.GET_COMMENTS,
-            payload: response.data.map((comment) => commentAdapter(comment))
+            payload: response.data
           });
         })
         .catch(() => {});
@@ -65,7 +65,7 @@ export const DataOperation = {
         .then((response) => {
           dispatch({
             type: Action.SET_UPDATED_FAVORITE_OFFER,
-            payload: offerAdapter(response.data)
+            payload: response.data
           });
         })
         .catch(() => {});
@@ -94,7 +94,7 @@ export const ActionCreator = {
       api.get(`/hotels`).then((response) => {
         dispatch({
           type: Action.GET_OFFERS,
-          payload: response.data.map((offer) => offerAdapter(offer))
+          payload: response.data
         });
       });
     };
@@ -119,18 +119,19 @@ export const dataReducer = (state = initialState, action) => {
     case Action.SET_CITY:
       return Object.assign({}, state, {city: action.payload});
     case Action.GET_OFFERS:
+      const newOffers = action.payload.map((offer) => offerAdapter(offer));
       return Object.assign({}, state, {
-        offers: action.payload,
-        city: getCities(action.payload)[0],
-        citiesNames: getCities(action.payload),
+        offers: newOffers,
+        city: getCities(newOffers)[0],
+        citiesNames: getCities(newOffers),
         isLoaded: true
       });
     case Action.GET_COMMENTS:
-      return Object.assign({}, state, {comments: action.payload});
+      return Object.assign({}, state, {comments: action.payload.map((comment) => commentAdapter(comment))});
     case Action.LOAD_FAVORITE_OFFERS:
       return Object.assign({}, state, {favoriteOffers: action.payload});
     case Action.SET_UPDATED_FAVORITE_OFFER:
-      return Object.assign({}, state, {offers: getUpdatedOffers(state.offers, action.payload), updatedOffer: action.payload});
+      return Object.assign({}, state, {offers: getUpdatedOffers(state.offers, offerAdapter(action.payload)), updatedOffer: offerAdapter(action.payload)});
   }
   return state;
 };
