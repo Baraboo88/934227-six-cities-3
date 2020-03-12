@@ -21,7 +21,7 @@ const initialState = {
     hoveredId: -1,
     filterName: `popular`
   },
-  userData
+  user: userData
 
 };
 

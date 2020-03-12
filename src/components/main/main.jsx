@@ -18,8 +18,6 @@ const Main = (props) => {
     cards,
     citiesNames,
     city,
-    onCardHover,
-    onCardUnHover,
     hoveredId,
     onChangeCity,
     filter,
@@ -98,8 +96,6 @@ const Main = (props) => {
                     <OffersList
                       cards={cards}
                       onHeaderClick={_cardHeaderClickHandler}
-                      onCardHover={onCardHover}
-                      onCardUnHover={onCardUnHover}
                     />
                   </div>
                 </React.Fragment>
@@ -121,8 +117,6 @@ Main.propTypes = {
   history: PropTypes.object,
   citiesNames: PropTypes.arrayOf(PropTypes.object),
   city: PropTypes.object,
-  onCardHover: PropTypes.func.isRequired,
-  onCardUnHover: PropTypes.func.isRequired,
   hoveredId: PropTypes.number.isRequired,
   onChangeCity: PropTypes.func.isRequired,
   filter: PropTypes.string.isRequired,
@@ -143,12 +137,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onCardHover(id) {
-    dispatch(ActionCreator.setHovered(id));
-  },
-  onCardUnHover() {
-    dispatch(ActionCreator.resetHovered());
-  },
   onChangeCity(cityName) {
     dispatch(ActionCreator.setCity(cityName));
   },
