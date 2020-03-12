@@ -234,7 +234,7 @@ exports[`App successfully rendered 1`] = `
               className="cities__places-list places__list tabs__content"
             >
               Array [
-                <Connect(OfferCard)
+                <Connect(withRouter(OfferCard))
                   card={
                     Object {
                       "addressCoords": Array [
@@ -425,8 +425,8 @@ exports[`App successfully rendered 1`] = `
                       </p>
                     </div>
                   </article>
-                </Connect(OfferCard)>,
-                <Connect(OfferCard)
+                </Connect(withRouter(OfferCard))>,
+                <Connect(withRouter(OfferCard))
                   card={
                     Object {
                       "addressCoords": Array [
@@ -604,8 +604,8 @@ exports[`App successfully rendered 1`] = `
                       </p>
                     </div>
                   </article>
-                </Connect(OfferCard)>,
-                <Connect(OfferCard)
+                </Connect(withRouter(OfferCard))>,
+                <Connect(withRouter(OfferCard))
                   card={
                     Object {
                       "addressCoords": Array [
@@ -793,8 +793,8 @@ exports[`App successfully rendered 1`] = `
                       </p>
                     </div>
                   </article>
-                </Connect(OfferCard)>,
-                <Connect(OfferCard)
+                </Connect(withRouter(OfferCard))>,
+                <Connect(withRouter(OfferCard))
                   card={
                     Object {
                       "addressCoords": Array [
@@ -983,7 +983,7 @@ exports[`App successfully rendered 1`] = `
                       </p>
                     </div>
                   </article>
-                </Connect(OfferCard)>,
+                </Connect(withRouter(OfferCard))>,
               ]
             </div>
           </section>

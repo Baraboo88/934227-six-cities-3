@@ -8,6 +8,7 @@ import {getCities} from "../../utils/utils";
 import {Provider} from 'react-redux';
 import {createStore} from "redux";
 import {BrowserRouter} from "react-router-dom";
+import {Authorization} from "../../reducer/user/user-reducer";
 
 
 Enzyme.configure({adapter: new EnzymeReactAdapter()});
@@ -20,7 +21,8 @@ const initialState = {
     hoveredId: -1,
     filterName: `popular`
   },
-  userData
+  user: userData,
+  authorizationStatus: Authorization.AUTH
 };
 
 const reducer = (state = initialState) => {

@@ -385,7 +385,7 @@ exports[`OfferCardDetails successfully rendered 1`] = `
             className="near-places__list places__list"
           >
             Array [
-              <Connect(OfferCard)
+              <Connect(withRouter(OfferCard))
                 card={
                   Object {
                     "addressCoords": Array [
@@ -564,8 +564,8 @@ exports[`OfferCardDetails successfully rendered 1`] = `
                     </p>
                   </div>
                 </article>
-              </Connect(OfferCard)>,
-              <Connect(OfferCard)
+              </Connect(withRouter(OfferCard))>,
+              <Connect(withRouter(OfferCard))
                 card={
                   Object {
                     "addressCoords": Array [
@@ -754,8 +754,8 @@ exports[`OfferCardDetails successfully rendered 1`] = `
                     </p>
                   </div>
                 </article>
-              </Connect(OfferCard)>,
-              <Connect(OfferCard)
+              </Connect(withRouter(OfferCard))>,
+              <Connect(withRouter(OfferCard))
                 card={
                   Object {
                     "addressCoords": Array [
@@ -945,7 +945,7 @@ exports[`OfferCardDetails successfully rendered 1`] = `
                     </p>
                   </div>
                 </article>
-              </Connect(OfferCard)>,
+              </Connect(withRouter(OfferCard))>,
             ]
           </div>
         </section>

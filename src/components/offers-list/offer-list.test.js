@@ -7,6 +7,7 @@ import {getCities} from "../../utils/utils";
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import OffersList from "./offers-list";
+import {BrowserRouter} from "react-router-dom";
 
 const initialState = {
   data: {
@@ -32,7 +33,9 @@ Enzyme.configure({adapter: new EnzymeReactAdapter()});
 it(`Card successfully successfully rendered`, () => {
   const tree = mount(
       <Provider store={store}>
-        <OffersList cards={mockCards} onHeaderClick ={() => {}}/>
+        <BrowserRouter>
+          <OffersList cards={mockCards} onHeaderClick ={() => {}}/>
+        </BrowserRouter>
       </Provider>
   );
   expect(toJson(tree, {mode: `deep`})).toMatchSnapshot();

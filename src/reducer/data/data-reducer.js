@@ -57,6 +57,14 @@ export const DataOperation = {
             payload: response.data
           });
         })
+        .then(() => api
+            .get(`/favorite`))
+        .then((response) => {
+          dispatch({
+            type: Action.LOAD_FAVORITE_OFFERS,
+            payload: response.data
+          });
+        })
         .catch(() => {});
     };
   },

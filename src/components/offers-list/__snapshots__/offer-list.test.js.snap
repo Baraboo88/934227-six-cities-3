@@ -2,7 +2,7 @@
 
 exports[`Card successfully successfully rendered 1`] = `
 Array [
-  <Connect(OfferCard)
+  <Connect(withRouter(OfferCard))
     card={
       Object {
         "addressCoords": Array [
@@ -193,8 +193,8 @@ Array [
         </p>
       </div>
     </article>
-  </Connect(OfferCard)>,
-  <Connect(OfferCard)
+  </Connect(withRouter(OfferCard))>,
+  <Connect(withRouter(OfferCard))
     card={
       Object {
         "addressCoords": Array [
@@ -372,8 +372,8 @@ Array [
         </p>
       </div>
     </article>
-  </Connect(OfferCard)>,
-  <Connect(OfferCard)
+  </Connect(withRouter(OfferCard))>,
+  <Connect(withRouter(OfferCard))
     card={
       Object {
         "addressCoords": Array [
@@ -561,8 +561,8 @@ Array [
         </p>
       </div>
     </article>
-  </Connect(OfferCard)>,
-  <Connect(OfferCard)
+  </Connect(withRouter(OfferCard))>,
+  <Connect(withRouter(OfferCard))
     card={
       Object {
         "addressCoords": Array [
@@ -751,6 +751,6 @@ Array [
         </p>
       </div>
     </article>
-  </Connect(OfferCard)>,
+  </Connect(withRouter(OfferCard))>,
 ]
 `;

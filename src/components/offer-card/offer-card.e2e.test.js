@@ -6,6 +6,7 @@ import OfferCard from './offer-card';
 import {getCities} from "../../utils/utils";
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
+import {BrowserRouter} from "react-router-dom";
 
 Enzyme.configure({adapter: new EnzymeReactAdapter()});
 
@@ -32,7 +33,9 @@ it(`Card header click is working`, () => {
   const headerClickHandler = jest.fn();
   const app = mount(
       <Provider store={store}>
-        <OfferCard card={mockCards[0]} onHeaderClick={headerClickHandler} />
+        <BrowserRouter>
+          <OfferCard card={mockCards[0]} onHeaderClick={headerClickHandler} />
+        </BrowserRouter>
       </Provider>
   );
 
