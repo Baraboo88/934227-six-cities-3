@@ -1,16 +1,5 @@
-import {commentAdapter, offerAdapter} from '../../utils/utils';
+import {commentAdapter, getCities, offerAdapter} from '../../utils/utils';
 
-export const getCities = (initialOffers) => {
-  const citiesNames = new Set();
-  const cities = [];
-  initialOffers.forEach((offer) => {
-    if (!citiesNames.has(offer.city.name)) {
-      citiesNames.add(offer.city.name);
-      cities.push(offer.city);
-    }
-  });
-  return cities;
-};
 
 export const getUpdatedOffers = (offers, updatedOffer) => {
   const newOffers = JSON.parse(JSON.stringify(offers));
@@ -71,6 +60,19 @@ export const DataOperation = {
         .catch(() => {});
     };
   },
+  loadFavoriteOffers() {
+    return (dispatch, state, api) => {
+      api
+        .get(`/favorite`)
+        .then((response) => {
+          dispatch({
+            type: Action.LOAD_FAVORITE_OFFERS,
+            payload: response.data
+          });
+        })
+        .catch(() => {});
+    };
+  }
 };
 
 export const ActionCreator = {
@@ -129,7 +131,7 @@ export const dataReducer = (state = initialState, action) => {
     case Action.GET_COMMENTS:
       return Object.assign({}, state, {comments: action.payload.map((comment) => commentAdapter(comment))});
     case Action.LOAD_FAVORITE_OFFERS:
-      return Object.assign({}, state, {favoriteOffers: action.payload});
+      return Object.assign({}, state, {favoriteOffers: action.payload.map((offer) => offerAdapter(offer))});
     case Action.SET_UPDATED_FAVORITE_OFFER:
       return Object.assign({}, state, {offers: getUpdatedOffers(state.offers, offerAdapter(action.payload)), updatedOffer: offerAdapter(action.payload)});
   }

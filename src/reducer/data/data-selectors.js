@@ -1,8 +1,19 @@
 import {createSelector} from 'reselect';
+import {getCities} from "../../utils/utils";
 
 export const getFilter = (state) => state.data.filterName;
 export const getCity = (state) => state.data.city;
 export const getOffers = (state) => state.data.offers;
+
+export const getFavoriteOffers = (state) => state.data.favoriteOffers;
+
+export const getFavoriteOffersPerCity = createSelector(getFavoriteOffers, (offers) => {
+  if (!offers) {
+    return null;
+  }
+  const cities = getCities(offers);
+  return cities.map((city) => ({[city.name]: offers.filter((offer) => offer.city.name === city.name)}));
+});
 
 export const getCitiesFromState = (state) => state.data.citiesNames;
 

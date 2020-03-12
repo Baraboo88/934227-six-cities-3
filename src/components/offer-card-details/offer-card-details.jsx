@@ -19,7 +19,7 @@ const OfferCardDetail = (props) => {
   const {comments, onMount, user, isAuth, onSetFavorite, hoveredId} = props;
   useEffect(() => {
     onMount(props.match.params.id);
-  }, [props.match.params.id]);
+  }, [props.match.params.id, onMount]);
 
   if (!props.card && props.isLoaded) {
     props.history.push(`/`);
@@ -80,7 +80,7 @@ const OfferCardDetail = (props) => {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="/">
+              <Link to="/" className="header__logo-link">
                 <img
                   className="header__logo"
                   src="/img/logo.svg"
@@ -88,18 +88,14 @@ const OfferCardDetail = (props) => {
                   width="81"
                   height="41"
                 />
-              </a>
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to="/login">
+                  <Link className="header__nav-link header__nav-link--profile" to={`${user ? `/favorite` : `/login`}`} >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    {user ? (
-                      <span className="header__user-name user__name">{user.email}</span>
-                    ) : (
-                      <span className="header__login">Sign in</span>
-                    )}
+                    {user ? <span className="header__user-name user__name">{user.email}</span> : <span className="header__login">Sign in</span>}
                   </Link>
                 </li>
               </ul>

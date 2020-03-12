@@ -4,12 +4,12 @@ import {mockCards, mockCities, userData} from '../../utils/tests-utils';
 import Enzyme, {mount} from 'enzyme';
 import toJson from 'enzyme-to-json';
 import EnzymeReactAdapter from 'enzyme-adapter-react-16';
-import {getCities} from '../../reducer/data/data-reducer';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import {BrowserRouter} from 'react-router-dom';
 import thunk from 'redux-thunk';
 import {createApi} from "../../api";
+import {getCities} from "../../utils/utils";
 
 Enzyme.configure({adapter: new EnzymeReactAdapter()});
 
@@ -44,8 +44,6 @@ it(`OfferCardDetails successfully rendered`, () => {
       <Provider store={store}>
         <BrowserRouter>
           <OfferCardDetails
-            card={mockCards[0]}
-            onHeaderClick={() => {}}
             history={mockHistory}
             match={mockMatch}
           />

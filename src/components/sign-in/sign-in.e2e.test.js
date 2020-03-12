@@ -2,11 +2,11 @@ import React from 'react';
 import {mockCards, mockCities, userData, logInMockData} from '../../utils/tests-utils';
 import Enzyme, {mount} from 'enzyme';
 import EnzymeReactAdapter from 'enzyme-adapter-react-16';
-import {getCities} from '../../reducer/data/data-reducer';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import SignIn from './sign-in';
 import {findByTestAtr} from '../../utils/tests-utils';
+import {getCities} from "../../utils/utils";
 
 Enzyme.configure({adapter: new EnzymeReactAdapter()});
 

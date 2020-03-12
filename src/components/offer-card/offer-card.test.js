@@ -4,9 +4,10 @@ import {mockCards, mockCities, userData} from '../../utils/tests-utils';
 import Enzyme, {mount} from 'enzyme';
 import toJson from 'enzyme-to-json';
 import EnzymeReactAdapter from 'enzyme-adapter-react-16';
-import {getCities} from '../../reducer/data/data-reducer';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
+import {getCities} from "../../utils/utils";
+
 
 const initialState = {
   data: {

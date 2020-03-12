@@ -3,10 +3,10 @@ import React from 'react';
 import {mockCards, mockCities, userData, findByTestAtr} from '../../utils/tests-utils';
 import Enzyme, {mount} from 'enzyme';
 import EnzymeReactAdapter from 'enzyme-adapter-react-16';
-import {getCities} from '../../reducer/data/data-reducer';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import {Authorization} from "../../reducer/user/user-reducer";
+import {getCities} from "../../utils/utils";
 
 
 const mockComment = {mark: 3, comment: `Mock Comment`};

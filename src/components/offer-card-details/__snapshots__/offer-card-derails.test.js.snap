@@ -2,82 +2,6 @@
 
 exports[`OfferCardDetails successfully rendered 1`] = `
 <Connect(OfferCardDetail)
-  card={
-    Object {
-      "addressCoords": Array [
-        52.3909553943508,
-        4.85309666406198,
-      ],
-      "avgMark": 4.5,
-      "bedroomNo": 1,
-      "capacity": 1,
-      "city": Object {
-        "location": Object {
-          "latitude": 52.37454,
-          "longitude": 4.897976,
-          "zoom": 13,
-        },
-        "name": "Amsterdam",
-      },
-      "comments": Array [
-        Object {
-          "author": "Max",
-          "authorImg": "/img/avatar-max.jpg",
-          "comment": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.",
-          "date": "2020-01-26T13:51:50.417Z",
-          "id": 1,
-          "mark": 4,
-        },
-        Object {
-          "author": "Max",
-          "authorImg": "/img/avatar-max.jpg",
-          "comment": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.",
-          "date": "2020-01-26T13:51:50.417Z",
-          "id": 2,
-          "mark": 4,
-        },
-      ],
-      "descriptions": Array [
-        "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.",
-        "An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.",
-      ],
-      "facilities": Array [
-        "Wi-Fi",
-        "Heating",
-        "Kitchen",
-        "Fridge",
-        "Washing machine",
-        "Coffee machine",
-        "Dishwasher",
-      ],
-      "hostUser": Object {
-        "img": "/img/avatar-angelina.jpg",
-        "isPro": true,
-        "name": "Angelina",
-      },
-      "id": 0,
-      "imgs": Array [
-        "/img/apartment-01.jpg",
-        "/img/apartment-02.jpg",
-        "/img/apartment-03.jpg",
-        "/img/studio-01.jpg",
-        "/img/room.jpg",
-      ],
-      "isInBookmark": true,
-      "isPremium": true,
-      "mark": 4,
-      "name": "Beautiful & luxurious apartment at great location",
-      "nearOffers": Array [
-        1,
-        2,
-        3,
-      ],
-      "previewImg": "/img/apartment-01.jpg",
-      "price": 120,
-      "reviews": 2,
-      "type": "Apartment",
-    }
-  }
   history={
     Object {
       "push": [Function],
@@ -90,7 +14,6 @@ exports[`OfferCardDetails successfully rendered 1`] = `
       },
     }
   }
-  onHeaderClick={[Function]}
 >
   <div
     className="page"
@@ -107,18 +30,30 @@ exports[`OfferCardDetails successfully rendered 1`] = `
           <div
             className="header__left"
           >
-            <a
+            <Link
               className="header__logo-link"
-              href="/"
+              to="/"
             >
-              <img
-                alt="6 cities logo"
-                className="header__logo"
-                height="41"
-                src="/img/logo.svg"
-                width="81"
-              />
-            </a>
+              <LinkAnchor
+                className="header__logo-link"
+                href="/"
+                navigate={[Function]}
+              >
+                <a
+                  className="header__logo-link"
+                  href="/"
+                  onClick={[Function]}
+                >
+                  <img
+                    alt="6 cities logo"
+                    className="header__logo"
+                    height="41"
+                    src="/img/logo.svg"
+                    width="81"
+                  />
+                </a>
+              </LinkAnchor>
+            </Link>
           </div>
           <nav
             className="header__nav"
@@ -528,13 +463,13 @@ exports[`OfferCardDetails successfully rendered 1`] = `
                 onUnHover={[Function]}
               >
                 <article
-                  className="near-places__card place-card"
+                  className="near-places__card  place-card"
                   data-test="test-card-hover"
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                 >
                   <div
-                    className="near-places__image-wrapper place-card__image-wrapper"
+                    className="near-places__image-wrapper  place-card__image-wrapper"
                   >
                     <a
                       href="#"
@@ -549,7 +484,7 @@ exports[`OfferCardDetails successfully rendered 1`] = `
                     </a>
                   </div>
                   <div
-                    className="place-card__info"
+                    className=" place-card__info"
                   >
                     <div
                       className="place-card__price-wrapper"
@@ -718,13 +653,13 @@ exports[`OfferCardDetails successfully rendered 1`] = `
                 onUnHover={[Function]}
               >
                 <article
-                  className="near-places__card place-card"
+                  className="near-places__card  place-card"
                   data-test="test-card-hover"
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                 >
                   <div
-                    className="near-places__image-wrapper place-card__image-wrapper"
+                    className="near-places__image-wrapper  place-card__image-wrapper"
                   >
                     <a
                       href="#"
@@ -739,7 +674,7 @@ exports[`OfferCardDetails successfully rendered 1`] = `
                     </a>
                   </div>
                   <div
-                    className="place-card__info"
+                    className=" place-card__info"
                   >
                     <div
                       className="place-card__price-wrapper"
@@ -909,13 +844,13 @@ exports[`OfferCardDetails successfully rendered 1`] = `
                 onUnHover={[Function]}
               >
                 <article
-                  className="near-places__card place-card"
+                  className="near-places__card  place-card"
                   data-test="test-card-hover"
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                 >
                   <div
-                    className="near-places__image-wrapper place-card__image-wrapper"
+                    className="near-places__image-wrapper  place-card__image-wrapper"
                   >
                     <a
                       href="#"
@@ -930,7 +865,7 @@ exports[`OfferCardDetails successfully rendered 1`] = `
                     </a>
                   </div>
                   <div
-                    className="place-card__info"
+                    className=" place-card__info"
                   >
                     <div
                       className="place-card__price-wrapper"
