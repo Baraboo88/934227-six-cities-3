@@ -24,10 +24,6 @@ const Main = (props) => {
     onChangeFilter,
     user
   } = props;
-  const history = props.history;
-  const _cardHeaderClickHandler = (id) => {
-    history.push(`/offer/${id}`);
-  };
 
   return (
     <div className="page page--gray page--main">
@@ -95,7 +91,6 @@ const Main = (props) => {
                   <div className="cities__places-list places__list tabs__content">
                     <OffersList
                       cards={cards}
-                      onHeaderClick={_cardHeaderClickHandler}
                     />
                   </div>
                 </React.Fragment>

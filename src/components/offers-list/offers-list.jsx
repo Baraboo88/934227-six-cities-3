@@ -5,7 +5,7 @@ import withHoverItem from "../../hocs/withHoverItem";
 const OfferCardWiHoverItem = withHoverItem(OfferCard);
 
 const OffersList = (props) => {
-  const {cards, onHeaderClick, nearPlace, favorite} = props;
+  const {cards, nearPlace, favorite} = props;
   if (!cards) {
     return null;
   }
@@ -13,7 +13,6 @@ const OffersList = (props) => {
     <OfferCardWiHoverItem
       card={card}
       key={card.id}
-      onHeaderClick={onHeaderClick}
       nearPlace={nearPlace}
       favorite = {favorite}
     />

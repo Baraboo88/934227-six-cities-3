@@ -9,21 +9,10 @@ import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
 
 const OffersFavorites = (props) => {
-  const {onMount, isAuth, favoriteOffersPerCity} = props;
+  const {onMount, favoriteOffersPerCity} = props;
   useEffect(() => {
     onMount();
   }, [onMount]);
-
-  useEffect(() => {
-    if (!isAuth) {
-      props.history.push(`/login`);
-    }
-  }, [isAuth]);
-
-  const _cardHeaderClickHandler = (newId) => {
-    props.history.push(`/offer/${newId}`);
-  };
-
 
   return (
     <div className="page">
@@ -71,7 +60,7 @@ const OffersFavorites = (props) => {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <OffersList favorite cards = {offersPerCity[Object.keys(offersPerCity)[0]]} onHeaderClick = {_cardHeaderClickHandler}/>
+                  <OffersList favorite cards = {offersPerCity[Object.keys(offersPerCity)[0]]} />
                 </div>
               </li>))}
 

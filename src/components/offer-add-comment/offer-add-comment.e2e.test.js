@@ -45,7 +45,6 @@ it(`OfferAddComment successfully rendered`, () => {
 
   const commentField = findByTestAtr(app, `test-add-comment`);
 
-
   commentField.simulate(`change`);
 
   expect(commentSetHandler).toHaveBeenCalledTimes(1);

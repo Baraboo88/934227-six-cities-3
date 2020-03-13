@@ -46,10 +46,6 @@ const OfferCardDetail = (props) => {
     id
   } = props.card;
 
-  const _cardHeaderClickHandler = (newId) => {
-    props.history.push(`/offer/${newId}`);
-  };
-
   const _renderImgs = () => {
     return imgs.map((img, index) => (
       <div className="property__image-wrapper" key={index}>
@@ -195,7 +191,6 @@ const OfferCardDetail = (props) => {
               <OffersList
                 cards={nearOffers}
                 nearPlace
-                onHeaderClick={_cardHeaderClickHandler}
               />
             </div>
           </section>

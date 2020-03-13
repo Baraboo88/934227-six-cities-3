@@ -5,19 +5,18 @@ import {connect} from 'react-redux';
 import {ActionCreator, DataOperation} from '../../reducer/data/data-reducer';
 import {getAuthStatus} from '../../reducer/user/user-selector';
 import {withRouter} from 'react-router';
-import {Authorization} from "../../reducer/user/user-reducer";
+import {Authorization} from '../../reducer/user/user-reducer';
+import {Link} from 'react-router-dom';
 
 const OfferCard = (props) => {
   const {name, type, price, isInBookmark, avgMark, isPremium, id, previewImg} = props.card;
   const {
-    onHeaderClick,
     nearPlace,
     favorite,
     onHover,
     onUnHover,
     onSetFavorite,
     isAuth,
-    history
   } = props;
 
   return (
@@ -56,22 +55,21 @@ const OfferCard = (props) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button
-            className={`place-card__bookmark-button button ${isInBookmark &&
-              `place-card__bookmark-button--active`}`}
-            type="button"
-            onClick={() => {
-              if (!isAuth) {
-                history.push(`/login`);
-              }
-              onSetFavorite(id, !isInBookmark ? 1 : 0);
-            }}
-          >
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">{isInBookmark ? `In` : `To`} bookmarks</span>
-          </button>
+          <Link to={!isAuth ? `/login` : ``} onClick={() => {
+            onSetFavorite(id, !isInBookmark ? 1 : 0);
+          }}>
+            <button
+              className={`place-card__bookmark-button button ${isInBookmark &&
+                `place-card__bookmark-button--active`}`}
+              type="button"
+
+            >
+              <svg className="place-card__bookmark-icon" width="18" height="19">
+                <use xlinkHref="#icon-bookmark"></use>
+              </svg>
+              <span className="visually-hidden">{isInBookmark ? `In` : `To`} bookmarks</span>
+            </button>
+          </Link>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -80,16 +78,12 @@ const OfferCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a
+          <Link to={`/offer/${id}`}
             href="#"
-            onClick={(evt) => {
-              evt.preventDefault();
-              onHeaderClick(id);
-            }}
             data-test="test-header-click"
           >
             {name}
-          </a>
+          </Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -99,13 +93,11 @@ const OfferCard = (props) => {
 
 OfferCard.propTypes = {
   card: cardPropTypes,
-  onHeaderClick: PropTypes.func.isRequired,
   nearPlace: PropTypes.bool,
   onHover: PropTypes.func.isRequired,
   onUnHover: PropTypes.func.isRequired,
   onSetFavorite: PropTypes.func,
   favorite: PropTypes.bool,
-  history: PropTypes.object,
   isAuth: PropTypes.bool
 };
 
@@ -121,6 +113,6 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-const mapStateToProps = (state) => ({isAuth: getAuthStatus(state) === Authorization.AUTH})
+const mapStateToProps = (state) => ({isAuth: getAuthStatus(state) === Authorization.AUTH});
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(OfferCard));

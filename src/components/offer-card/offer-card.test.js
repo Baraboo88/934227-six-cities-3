@@ -34,7 +34,7 @@ it(`Card successfully successfully rendered`, () => {
   const tree = mount(
       <Provider store={store}>
         <BrowserRouter>
-          <OfferCard card={mockCards[0]} onHeaderClick={() => {}} />
+          <OfferCard card={mockCards[0]}/>
         </BrowserRouter>
       </Provider>
   );
