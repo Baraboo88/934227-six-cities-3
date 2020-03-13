@@ -1,5 +1,9 @@
 import {commentAdapter, getCities, offerAdapter} from '../../utils/utils';
 
+const Favorite = {
+  ADD: 1,
+  DELETE: 0
+};
 
 export const getUpdatedOffers = (offers, updatedOffer) => {
   const newOffers = JSON.parse(JSON.stringify(offers));
@@ -50,7 +54,7 @@ export const DataOperation = {
   addToFavoriteOffer(offerId, status) {
     return (dispatch, state, api) => {
       api
-        .post(`/favorite/${offerId}/${status}`)
+        .post(`/favorite/${offerId}/${status ? Favorite.DELETE : Favorite.ADD}`)
         .then((response) => {
           dispatch({
             type: Action.SET_UPDATED_FAVORITE_OFFER,
