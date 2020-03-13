@@ -5,7 +5,7 @@ import OfferCardDetail from '../offer-card-details/offer-card-details';
 import SignIn from "../sign-in/sign-in";
 import withForm from "../../hocs/withForm";
 import OffersFavorites from "../offers-favorites/offers-favorites";
-import PrivateRoute from "../PrivateRoute/private-route";
+import PrivateRoute from "../private-route/private-route";
 
 const SignInWithForm = withForm(SignIn);
 
