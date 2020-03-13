@@ -21,10 +21,7 @@ const OfferCardDetail = (props) => {
     onMount(props.match.params.id);
   }, [props.match.params.id, onMount]);
 
-  if (!props.card && props.isLoaded) {
-    props.history.push(`/`);
-    return null;
-  } else if (!props.card) {
+  if (!props.card) {
     return null;
   }
 
@@ -202,7 +199,6 @@ const OfferCardDetail = (props) => {
 
 OfferCardDetail.propTypes = {
   card: cardPropTypes,
-  history: PropTypes.object,
   match: PropTypes.object,
   hoveredId: PropTypes.number.isRequired,
   isLoaded: PropTypes.bool,
