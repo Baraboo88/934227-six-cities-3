@@ -1,8 +1,16 @@
-import React from 'react';
-import moment from "moment";
-import PropTypes from 'prop-types';
-import {userShape} from "../../utils/utils";
+import * as React from 'react';
+import * as moment from "moment";
+import {UserModel} from "../../utils/utils";
 
+
+interface formattedDateProps {
+  author: string,
+  authorImg: string,
+  comment: string,
+  mark: number,
+  date: string,
+  user: UserModel
+}
 
 const formattedDate = (date) => {
   return moment(date).format(`MMMM YYYY`);
@@ -43,15 +51,6 @@ const OfferReview = (props) => {
       </div>
     </li>
   );
-};
-
-OfferReview.propTypes = {
-  author: PropTypes.string,
-  authorImg: PropTypes.string,
-  comment: PropTypes.string,
-  mark: PropTypes.number,
-  date: PropTypes.string,
-  user: PropTypes.shape(userShape)
 };
 
 export default OfferReview;

@@ -1,10 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import OffersCityItem from '../offers-city-item/offers-city-item';
 import withHoverItem from "../../hocs/withHoverItem";
+import {CityModel} from "../../utils/utils";
 const OffersCityItemWithHover = withHoverItem(OffersCityItem);
 
-const OffersCities = (props) => {
+interface OffersCitiesProps {
+  citiesNames: CityModel [],
+  onCityNameClick: (city: CityModel) => void,
+  activeCity: CityModel
+}
+
+const OffersCities: React.FC <OffersCitiesProps> = (props) => {
   const {citiesNames, onCityNameClick, activeCity} = props;
 
   return (
@@ -19,12 +25,6 @@ const OffersCities = (props) => {
       ))}
     </ul>
   );
-};
-
-OffersCities.propTypes = {
-  citiesNames: PropTypes.arrayOf(PropTypes.object),
-  onCityNameClick: PropTypes.func,
-  activeCity: PropTypes.object
 };
 
 export default OffersCities;

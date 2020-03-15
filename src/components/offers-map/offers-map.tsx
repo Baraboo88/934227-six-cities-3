@@ -1,7 +1,7 @@
-import React, {PureComponent, createRef} from 'react';
-import leaflet from 'leaflet';
-import {cardPropTypes} from '../../utils/utils';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import {PureComponent, createRef} from 'react';
+import * as leaflet from 'leaflet';
+import {CardModel, CityModel} from '../../utils/utils';
 
 const hoveredIcon = leaflet.icon({
   iconUrl: `/img/pin-active.svg`,
@@ -12,22 +12,31 @@ let icon = leaflet.icon({
   iconSize: [30, 30]
 });
 
-class OffersMap extends PureComponent {
-  constructor(props) {
+interface OffersMapProps {
+  cards: CardModel [],
+  nearPlace?: boolean,
+  hoveredId: number,
+  city: CityModel
+}
+
+class OffersMap extends PureComponent <OffersMapProps, {}> {
+  private map:any;
+  private layerGroup: any;
+  private mapDiv: React.RefObject<HTMLElement>;
+  constructor(props: OffersMapProps) {
     super(props);
-    this.markers = {};
-    this._mapDiv = createRef();
+    this.mapDiv = createRef();
   }
 
   componentDidMount() {
-    const city = [this.props.city.location.latitude, this.props.city.location.longitude];
+    const city: [number, number] = [this.props.city.location.latitude, this.props.city.location.longitude];
 
     const zoom = this.props.city.location.zoom;
-    this.map = leaflet.map(this._mapDiv.current, {
+    this.map = leaflet.map(this.mapDiv.current, {
       center: city,
       zoom,
       zoomControl: false,
-      marker: true
+     // marker: true
     });
     this.map.setView(city, zoom);
 
@@ -47,7 +56,7 @@ class OffersMap extends PureComponent {
   }
 
   componentDidUpdate() {
-    const city = [this.props.city.location.latitude, this.props.city.location.longitude];
+    const city: [number, number] = [this.props.city.location.latitude, this.props.city.location.longitude];
     const zoom = this.props.city.location.zoom;
     this.map.setView(city, zoom);
     const {hoveredId} = this.props;
@@ -57,7 +66,7 @@ class OffersMap extends PureComponent {
     if (this.props.nearPlace) {
       leaflet.marker(city, {icon: hoveredIcon}).addTo(this.layerGroup);
     }
-    this.markers = this.props.cards.forEach((card) => {
+    this.props.cards.forEach((card) => {
       let newIcon = icon;
       if (card.id === hoveredId) {
         newIcon = hoveredIcon;
@@ -69,25 +78,12 @@ class OffersMap extends PureComponent {
   render() {
     return (
       <section
-        ref={this._mapDiv}
+        ref={this.mapDiv}
         className={`${this.props.nearPlace ? `property__map` : `cities__map`} map`}
       />
     );
   }
 }
 
-OffersMap.propTypes = {
-  cards: PropTypes.arrayOf(cardPropTypes).isRequired,
-  nearPlace: PropTypes.bool,
-  hoveredId: PropTypes.number.isRequired,
-  city: PropTypes.shape({
-    name: PropTypes.string,
-    location: PropTypes.shape({
-      latitude: PropTypes.number,
-      longitude: PropTypes.number,
-      zoom: PropTypes.number
-    })
-  })
-};
 
 export default OffersMap;

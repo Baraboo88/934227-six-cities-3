@@ -1,9 +1,26 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import {PureComponent} from 'react';
+import {CardModel, CityModel} from "../utils/utils";
+
+interface WithHoverItemProps {
+  onHover?: (id: number) => void,
+  onUnHover?: () => void,
+  cityName?: CityModel,
+  activeCity?: CityModel,
+  onCityNameClick?: (city: CityModel) => void
+  card?: CardModel
+  nearPlace?: boolean
+  favorite?: boolean
+}
+
+interface WithHoverItemState {
+  isHovered: boolean
+}
+
 
 const withHoverItem = (Component) => {
-  class WithHoverItem extends PureComponent {
-    constructor(props) {
+  class WithHoverItem extends PureComponent <WithHoverItemProps, WithHoverItemState> {
+    constructor(props: WithHoverItemProps) {
       super(props);
       this.state = {
         isHovered: false
@@ -37,10 +54,6 @@ const withHoverItem = (Component) => {
       );
     }
   }
-  WithHoverItem.propTypes = {
-    onHover: PropTypes.func,
-    onUnHover: PropTypes.func
-  };
 
   return WithHoverItem;
 };

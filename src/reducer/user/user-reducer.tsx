@@ -19,7 +19,7 @@ export const UserOperation = {
         })
         .catch((err) => {
           if (err.response.status === UNAUTHORIZED) {
-            dispatch(UserActionCreator.setAuthStatus(Authorization.NO_AUTH));
+            dispatch(UserActionCreator.setAuthStatus(Authorization.NO_AUTH, ``));
           }
         });
     };
@@ -35,7 +35,7 @@ export const UserOperation = {
           if (err.response.status === BAD_REQUEST) {
             dispatch(UserActionCreator.setErrorMessage(`Please Check the data`));
           }
-          dispatch(UserActionCreator.setAuthStatus(Authorization.NO_AUTH));
+          dispatch(UserActionCreator.setAuthStatus(Authorization.NO_AUTH, ``));
         });
     };
   },

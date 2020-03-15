@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import OffersList from '../offers-list/offers-list';
 import OffersMap from '../offers-map/offers-map';
 import {connect} from 'react-redux';
@@ -11,9 +10,22 @@ import withFilter from '../../hocs/withFilter';
 import {getCards, getCitiesFromState, getCity, getFilter, getHoveredId} from "../../reducer/data/data-selectors";
 import {getUserData} from "../../reducer/user/user-selector";
 import {Link} from "react-router-dom";
+import {CardModel, CityModel, UserModel} from "../../utils/utils";
 
 const OffersWithFilter = withFilter(OffersFilter);
-const Main = (props) => {
+
+interface MainProps {
+  cards: CardModel [],
+  citiesNames: CityModel[],
+  city: CityModel,
+  hoveredId: number,
+  onChangeCity: (cityName: CityModel) => void,
+  filter: string,
+  onChangeFilter: (filterName: string) => void,
+  user: UserModel
+}
+
+const Main: React.FC <MainProps> = (props) => {
   const {
     cards,
     citiesNames,
@@ -66,7 +78,7 @@ const Main = (props) => {
             <OffersCities
               citiesNames={citiesNames}
               onCityNameClick={onChangeCity}
-              activeCity={city ? city : {}}
+              activeCity={city ? city : null}
             />
           </section>
         </div>
@@ -107,18 +119,6 @@ const Main = (props) => {
 
 };
 
-Main.propTypes = {
-  cards: PropTypes.array.isRequired,
-  history: PropTypes.object,
-  citiesNames: PropTypes.arrayOf(PropTypes.object),
-  city: PropTypes.object,
-  hoveredId: PropTypes.number.isRequired,
-  onChangeCity: PropTypes.func.isRequired,
-  filter: PropTypes.string.isRequired,
-  onChangeFilter: PropTypes.func.isRequired,
-  user: PropTypes.object
-};
-
 const mapStateToProps = (state) => {
 
   return {
@@ -137,9 +137,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onChangeFilter(filterName) {
     dispatch(ActionCreator.setFilter(filterName));
-  },
-  onFilterReset() {
-    dispatch(ActionCreator.resetFilter());
   }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

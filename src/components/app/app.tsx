@@ -1,5 +1,5 @@
-import React from 'react';
-import Main from '../main/main.jsx';
+import * as React from 'react';
+import Main from '../main/main';
 import {Route, Switch, BrowserRouter} from 'react-router-dom';
 import OfferCardDetail from '../offer-card-details/offer-card-details';
 import SignIn from "../sign-in/sign-in";

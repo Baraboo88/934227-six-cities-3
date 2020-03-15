@@ -1,13 +1,18 @@
-import React from 'react';
+import * as React from 'react';
 import OfferReviewList from '../offer-reviews-list/offer-review-list';
-import PropTypes from "prop-types";
 import withForm from "../../hocs/withForm";
 import OfferAddComment from "../offer-add-comment/offer-add-comment";
-import {commentShape} from "../../utils/utils";
+import {CommentModel} from "../../utils/utils";
 
 const AddOfferCommentWithForm = withForm(OfferAddComment);
 
-const OfferComments = (props) => {
+interface OfferCommentsProps {
+  comments: CommentModel [],
+  id: number,
+  isAuth: boolean
+}
+
+const OfferComments: React.FC <OfferCommentsProps> = (props) => {
   const {comments, isAuth} = props;
   if (!comments) {
     return null;
@@ -25,13 +30,6 @@ const OfferComments = (props) => {
       {isAuth && <AddOfferCommentWithForm id = {props.id}/>}
     </section>
   );
-};
-
-OfferComments.propTypes = {
-  comments: PropTypes.arrayOf(PropTypes.shape(commentShape)),
-  id: PropTypes.number,
-  mark: PropTypes.number,
-  isAuth: PropTypes.bool
 };
 
 export default OfferComments;

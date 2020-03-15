@@ -1,14 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {cardPropTypes} from '../../utils/utils';
+import * as React from 'react';
+import {CardModel} from '../../utils/utils';
 import {connect} from 'react-redux';
 import {ActionCreator, DataOperation} from '../../reducer/data/data-reducer';
 import {getAuthStatus} from '../../reducer/user/user-selector';
 import {withRouter} from 'react-router';
 import {Authorization} from '../../reducer/user/user-reducer';
-import {Link} from 'react-router-dom';
+import {Link, RouteComponentProps} from 'react-router-dom';
 
-const OfferCard = (props) => {
+interface OfferCardProps {
+  card: CardModel,
+  nearPlace: boolean,
+  onHover: (id: number) => void,
+  onUnHover: () => void,
+  onSetFavorite: (id: number, status: boolean) => void,
+  favorite: boolean,
+  isAuth: boolean
+}
+
+const OfferCard: React.FC <OfferCardProps & RouteComponentProps> = (props) => {
   const {name, type, price, isInBookmark, avgMark, isPremium, id, previewImg} = props.card;
   const {
     nearPlace,
@@ -65,7 +74,7 @@ const OfferCard = (props) => {
 
             >
               <svg className="place-card__bookmark-icon" width="18" height="19">
-                <use xlinkHref="#icon-bookmark"></use>
+                <use xlinkHref="#icon-bookmark"/>
               </svg>
               <span className="visually-hidden">{isInBookmark ? `In` : `To`} bookmarks</span>
             </button>
@@ -73,7 +82,7 @@ const OfferCard = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${20 * avgMark}%`}}></span>
+            <span style={{width: `${20 * avgMark}%`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -89,16 +98,6 @@ const OfferCard = (props) => {
       </div>
     </article>
   );
-};
-
-OfferCard.propTypes = {
-  card: cardPropTypes,
-  nearPlace: PropTypes.bool,
-  onHover: PropTypes.func.isRequired,
-  onUnHover: PropTypes.func.isRequired,
-  onSetFavorite: PropTypes.func,
-  favorite: PropTypes.bool,
-  isAuth: PropTypes.bool
 };
 
 const mapDispatchToProps = (dispatch) => ({

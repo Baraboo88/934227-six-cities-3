@@ -1,8 +1,22 @@
-import React, {PureComponent} from 'react';
+import * as React from 'react';
+import {PureComponent} from 'react';
+
+interface SignInFormProps {
+  id?: number
+}
+
+interface SignInFormPropsState {
+  email: string,
+  password: string,
+  mark: number,
+  comment: string,
+  isValid:  boolean,
+  errorMsg: string,
+}
 
 const withForm = (Component) => {
-  class SignInForm extends PureComponent {
-    constructor(props) {
+  class SignInForm extends PureComponent <SignInFormProps, SignInFormPropsState> {
+    constructor(props: SignInFormProps) {
       super(props);
       this.state = {
         email: ``,

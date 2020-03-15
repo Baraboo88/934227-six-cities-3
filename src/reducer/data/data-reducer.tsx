@@ -117,7 +117,8 @@ export const ActionCreator = {
 
 const initialState = {
   filterName: `popular`,
-  hoveredId: -1
+  hoveredId: -1,
+  offers: []
 };
 
 export const dataReducer = (state = initialState, action) => {

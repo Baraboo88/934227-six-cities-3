@@ -1,4 +1,5 @@
-import React, {useEffect} from 'react';
+import * as React from 'react';
+import {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {DataOperation} from "../../reducer/data/data-reducer";
 import {getFavoriteOffersPerCity} from "../../reducer/data/data-selectors";
@@ -6,9 +7,18 @@ import {getAuthStatus, isAuthResponseReceived} from "../../reducer/user/user-sel
 import {Authorization} from "../../reducer/user/user-reducer";
 import OffersList from "../offers-list/offers-list";
 import {Link} from "react-router-dom";
-import PropTypes from 'prop-types';
+import {CardModel} from "../../utils/utils";
 
-const OffersFavorites = (props) => {
+interface OffersPerCity {
+  city: string,
+  cards: CardModel []
+}
+interface OffersFavoritesProps {
+  onMount: () => void,
+  favoriteOffersPerCity:OffersPerCity []
+}
+
+const OffersFavorites: React.FC <OffersFavoritesProps> = (props) => {
   const {onMount, favoriteOffersPerCity} = props;
   useEffect(() => {
     onMount();
@@ -51,16 +61,16 @@ const OffersFavorites = (props) => {
 
             <ul className="favorites__list">
 
-              {favoriteOffersPerCity && favoriteOffersPerCity.map((offersPerCity, index) => (<li className="favorites__locations-items" key = {`${Object.keys(offersPerCity)[0]} - ${index}` }>
+              {favoriteOffersPerCity && favoriteOffersPerCity.map((offersPerCity, index) => (<li className="favorites__locations-items" key = {`${offersPerCity.city} - ${index}` }>
                 <div className="favorites__locations locations locations--current">
                   <div className="locations__item">
                     <a className="locations__item-link" href="#">
-                      <span>{Object.keys(offersPerCity)[0]}</span>
+                      <span>{offersPerCity.city}</span>
                     </a>
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <OffersList favorite cards = {offersPerCity[Object.keys(offersPerCity)[0]]} />
+                  <OffersList favorite cards = {offersPerCity.cards} />
                 </div>
               </li>))}
 
@@ -92,14 +102,6 @@ const OffersFavorites = (props) => {
   );
 };
 
-
-OffersFavorites.propTypes = {
-  onMount: PropTypes.func,
-  isAuth: PropTypes.bool,
-  favoriteOffersPerCity: PropTypes.arrayOf(PropTypes.object),
-  isAuthResponseReceived: PropTypes.bool,
-  history: PropTypes.object
-};
 
 const mapDispatchToProps = (dispatch) => ({
   onMount() {

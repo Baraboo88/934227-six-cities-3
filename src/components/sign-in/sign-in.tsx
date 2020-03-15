@@ -1,11 +1,24 @@
-import React, {useEffect} from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import {useEffect} from 'react';
 import {getAuthStatus, getErrorMsg} from "../../reducer/user/user-selector";
 import {Authorization, UserOperation} from "../../reducer/user/user-reducer";
 import {getCity} from "../../reducer/data/data-selectors";
 import {connect} from "react-redux";
+import {RouteComponentProps} from 'react-router-dom';
+import {CityModel} from "../../utils/utils";
 
-const SignIn = (props) => {
+interface InterfaceSignIn {
+  onEmailChange: (event: React.SyntheticEvent) => void,
+  onPasswordChange: (event: React.SyntheticEvent) => void,
+  password: string,
+  email: string,
+  isAuth: boolean,
+  city: CityModel,
+  login: (loginData: {email: string, password: string}) => void,
+  error: string
+}
+
+const SignIn: React.FC<InterfaceSignIn & RouteComponentProps> = (props) => {
   const {onEmailChange, onPasswordChange, password, email, city, error} = props;
 
   useEffect(() => {
@@ -66,7 +79,7 @@ const SignIn = (props) => {
                   type="email"
                   name="email"
                   placeholder="Email"
-                  required=""
+                  required={true}
                   value={email}
                   onChange={onEmailChange}
                   data-test='test-email-sign-in'
@@ -79,7 +92,7 @@ const SignIn = (props) => {
                   type="password"
                   name="password"
                   placeholder="Password"
-                  required=""
+                  required={true}
                   value={password}
                   onChange={onPasswordChange}
                   data-test='test-password-sign-in'
@@ -103,20 +116,6 @@ const SignIn = (props) => {
     </div>
   );
 };
-
-SignIn.propTypes = {
-  onEmailChange: PropTypes.func,
-  onPasswordChange: PropTypes.func,
-  onFormSubmit: PropTypes.func,
-  password: PropTypes.string,
-  email: PropTypes.string,
-  isAuth: PropTypes.bool,
-  history: PropTypes.object,
-  city: PropTypes.object,
-  login: PropTypes.func,
-  error: PropTypes.string
-};
-
 
 const mapStateToProps = (state) => {
   return {

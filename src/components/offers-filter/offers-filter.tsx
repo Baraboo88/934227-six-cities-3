@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
 const FILTERS = {
   popular: `Popular`,
@@ -8,7 +7,15 @@ const FILTERS = {
   topRated: `Top rated first`
 };
 
-const OffersFilter = (props) => {
+interface OffersFilterProps {
+  onChangeFilter: (filterName: string) => void,
+  filter: string,
+  onActiveFilterSet: () => void,
+  onFilterOpen: () => void,
+  isOpen: boolean
+}
+
+const OffersFilter: React.FC <OffersFilterProps> = (props) => {
 
   const _setActiveFilterHandler = (filter) => {
     props.onActiveFilterSet();
@@ -19,7 +26,7 @@ const OffersFilter = (props) => {
     return Object.keys(FILTERS).map((filter, index) => (
       <li
         className={`places__option ${filter === props.filter && `places__option--active`}`}
-        tabIndex="0"
+        tabIndex={0}
         onClick={() => _setActiveFilterHandler(filter)}
         key={`${filter} - ${index}`}
         data-test="test-filter-click"
@@ -32,7 +39,7 @@ const OffersFilter = (props) => {
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex="0" onClick={props.onFilterOpen}>
+      <span className="places__sorting-type" tabIndex= {0} onClick={props.onFilterOpen}>
         {FILTERS[props.filter]}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
@@ -47,14 +54,6 @@ const OffersFilter = (props) => {
       </ul>
     </form>
   );
-};
-
-OffersFilter.propTypes = {
-  onChangeFilter: PropTypes.func.isRequired,
-  filter: PropTypes.string.isRequired,
-  onActiveFilterSet: PropTypes.func.isRequired,
-  onFilterOpen: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool.isRequired
 };
 
 export default OffersFilter;

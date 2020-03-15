@@ -1,9 +1,22 @@
-import React from 'react';
+import * as React from 'react';
 import {connect} from 'react-redux';
 import {DataOperation} from '../../reducer/data/data-reducer';
-import PropTypes from 'prop-types';
 
-const OfferAddComment = (props) => {
+interface OfferAddCommentProps {
+  mark: number,
+  onMarkSet: (mark: number) => void,
+  comment: string,
+  onCommentSet: (evt: React.SyntheticEvent) => void,
+  addComment: (id: number, comment: {comment: string, rating: number}) => void,
+  id: number,
+  resetComments: () => void,
+  validationSet: (isValid: boolean) => void,
+  isValid: boolean
+
+}
+
+
+const OfferAddComment: React.FC <OfferAddCommentProps> = (props) => {
   const {
     mark,
     onMarkSet,
@@ -84,18 +97,6 @@ const OfferAddComment = (props) => {
       </div>
     </form>
   );
-};
-
-OfferAddComment.propTypes = {
-  mark: PropTypes.number,
-  onMarkSet: PropTypes.func,
-  comment: PropTypes.string,
-  onCommentSet: PropTypes.func,
-  addComment: PropTypes.func,
-  id: PropTypes.number,
-  resetComments: PropTypes.func,
-  validationSet: PropTypes.func,
-  isValid: PropTypes.bool
 };
 
 const mapDispatchToProps = (dispatch) => ({

@@ -12,7 +12,7 @@ export const getFavoriteOffersPerCity = createSelector(getFavoriteOffers, (offer
     return null;
   }
   const cities = getCities(offers);
-  return cities.map((city) => ({[city.name]: offers.filter((offer) => offer.city.name === city.name)}));
+  return cities.map((city) => ({city: city.name, cards: offers.filter((offer) => offer.city.name === city.name)}));
 });
 
 export const getCitiesFromState = (state) => state.data.citiesNames;

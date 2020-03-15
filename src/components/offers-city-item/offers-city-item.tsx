@@ -1,7 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import {CityModel} from "../../utils/utils";
 
-const OffersCityItem = (props) => {
+interface OffersCityItemProps {
+  cityName: CityModel,
+  onCityNameClick: (city: CityModel) => void,
+  activeCity: CityModel,
+  hovered: boolean,
+  onHover: (evt: React.SyntheticEvent) => void,
+  onUnHover: () => void
+}
+
+const OffersCityItem: React.FC <OffersCityItemProps> = (props) => {
   const {cityName, onCityNameClick, activeCity, hovered, onHover, onUnHover} = props;
 
   return (
@@ -18,15 +27,6 @@ const OffersCityItem = (props) => {
       </a>
     </li>
   );
-};
-
-OffersCityItem.propTypes = {
-  cityName: PropTypes.object.isRequired,
-  onCityNameClick: PropTypes.func.isRequired,
-  activeCity: PropTypes.object.isRequired,
-  hovered: PropTypes.bool.isRequired,
-  onHover: PropTypes.func.isRequired,
-  onUnHover: PropTypes.func.isRequired
 };
 
 export default OffersCityItem;

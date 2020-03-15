@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
-import PropTypes from 'prop-types';
-import {cardPropTypes, commentShape, userShape} from '../../utils/utils';
+import * as React from 'react';
+import {useEffect} from 'react';
+import {CardModel, CommentModel, UserModel} from '../../utils/utils';
 import OffersList from '../offers-list/offers-list';
 import OffersMap from '../offers-map/offers-map';
 import {connect} from 'react-redux';
@@ -11,14 +11,33 @@ import {
   getHoveredId, getIsInBookmark,
   getIsLoaded,
   getOfferById,
-} from '../../reducer/data/data-selectors';
-import {Link} from 'react-router-dom';
+} from '../../reducer/data/data-selectors';import {Link, RouteComponentProps} from 'react-router-dom';
+
 import {getIsAuth, getUserData} from '../../reducer/user/user-selector';
 
-const OfferCardDetail = (props) => {
+
+interface MatchParams {
+  id: string;
+}
+
+interface RouteProps extends RouteComponentProps<MatchParams> {
+}
+
+interface OfferCardDetailProps {
+  card: CardModel,
+  hoveredId: number,
+  isLoaded: boolean,
+  comments:CommentModel [],
+  user: UserModel,
+  onMount: (id: number) => void,
+  isAuth: boolean,
+  onSetFavorite: (id: number, isInBookMark: boolean) => void
+}
+
+const OfferCardDetail: React.FC <OfferCardDetailProps & RouteProps> = (props) => {
   const {comments, onMount, user, isAuth, onSetFavorite, hoveredId} = props;
   useEffect(() => {
-    onMount(props.match.params.id);
+    onMount(Number(props.match.params.id));
   }, [props.match.params.id, onMount]);
 
   if (!props.card) {
@@ -87,7 +106,7 @@ const OfferCardDetail = (props) => {
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
                   <Link className="header__nav-link header__nav-link--profile" to={`${user ? `/favorite` : `/login`}`} >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                    <div className="header__avatar-wrapper user__avatar-wrapper"/>
                     {user ? <span className="header__user-name user__name">{user.email}</span> : <span className="header__login">Sign in</span>}
                   </Link>
                 </li>
@@ -119,17 +138,17 @@ const OfferCardDetail = (props) => {
                   className={`property__bookmark-button button ${isInBookmark &&
                     `property__bookmark-button--active`}`}
                   type="button"
-                  onClick={() => onSetFavorite(id, !isInBookmark ? 1 : 0)}
+                  onClick={() => onSetFavorite(id, isInBookmark)}
                 >
                   <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
+                    <use xlinkHref="#icon-bookmark"/>
                   </svg>
                   <span className="visually-hidden">{isInBookmark ? `In` : `To`} bookmarks</span>
                 </button>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `${avgMark * 20}%`}}></span>
+                  <span style={{width: `${avgMark * 20}%`}}/>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{avgMark}</span>
@@ -169,7 +188,7 @@ const OfferCardDetail = (props) => {
                   </div>
                   <span className="property__user-name">{hostUser.name}</span>
                 </div>
-                <div className="property__description">{_renderDescription(descriptions)}</div>
+                <div className="property__description">{_renderDescription()}</div>
               </div>
               <OfferComments comments={comments} id={id} isAuth = {isAuth}/>
             </div>
@@ -195,18 +214,6 @@ const OfferCardDetail = (props) => {
       </main>
     </div>
   );
-};
-
-OfferCardDetail.propTypes = {
-  card: cardPropTypes,
-  match: PropTypes.object,
-  hoveredId: PropTypes.number.isRequired,
-  isLoaded: PropTypes.bool,
-  comments: PropTypes.arrayOf(PropTypes.shape(commentShape)),
-  user: PropTypes.shape(userShape),
-  onMount: PropTypes.func,
-  isAuth: PropTypes.bool,
-  onSetFavorite: PropTypes.func
 };
 
 const mapStateToProps = (state, props) => {
