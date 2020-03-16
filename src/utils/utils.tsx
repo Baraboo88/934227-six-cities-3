@@ -1,58 +1,57 @@
 export interface CommentModel {
-  id: number,
-  author: string,
-  authorImg: string,
-  comment: string,
-  mark: number,
-  date: string
+  id: number;
+  comment: string;
+  mark: number;
+  date: string;
+  user: UserModel;
 }
 
 interface HostUserModel {
-  name: string,
-  img: string,
-  isPro: boolean
+  name: string;
+  img: string;
+  isPro: boolean;
 }
 
 interface LocationModel {
-  latitude: number,
-  longitude: number,
-  zoom: 13
+  latitude: number;
+  longitude: number;
+  zoom: number;
 }
 
 export interface UserModel {
-  id: number,
-  email: string,
-  name: string,
-  img: string,
-  isPro: boolean
+  id: number;
+  email: string;
+  name: string;
+  img: string;
+  isPro: boolean;
 }
 
 export interface CityModel {
-  name?: string,
-  location: LocationModel
+  name?: string;
+  location: LocationModel;
 }
 
 export interface CardModel {
-  id: number,
-  name: string,
-  type: string,
-  previewImg: string,
-  imgs: string [],
-  price: number,
-  isInBookmark: boolean,
-  mark: number,
-  isPremium: boolean,
-  bedroomNo: number,
-  capacity: number,
-  facilities: string [],
-  descriptions: string [],
-  reviews: number,
-  avgMark: number,
-  comments: CommentModel [],
-  hostUser: HostUserModel,
-  city: CityModel,
-  addressCoords: [number, number],
-  nearOffers?: CardModel []
+  id: number;
+  name: string;
+  type: string;
+  previewImg: string;
+  imgs: string [];
+  price: number;
+  isInBookmark: boolean;
+  mark: number;
+  isPremium: boolean;
+  bedroomNo: number;
+  capacity: number;
+  facilities: string [];
+  descriptions: string [];
+  reviews: number;
+  avgMark: number;
+  comments: CommentModel [];
+  hostUser: HostUserModel;
+  city: CityModel;
+  addressCoords: [number, number];
+  nearOffers?: CardModel [];
 }
 
 

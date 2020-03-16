@@ -10,12 +10,12 @@ import {Link} from "react-router-dom";
 import {CardModel} from "../../utils/utils";
 
 interface OffersPerCity {
-  city: string,
-  cards: CardModel []
+  city: string;
+  cards: CardModel [];
 }
 interface OffersFavoritesProps {
-  onMount: () => void,
-  favoriteOffersPerCity:OffersPerCity []
+  onMount: () => void;
+  favoriteOffersPerCity: OffersPerCity [];
 }
 
 const OffersFavorites: React.FC <OffersFavoritesProps> = (props) => {

@@ -5,9 +5,9 @@ import {CityModel} from "../../utils/utils";
 const OffersCityItemWithHover = withHoverItem(OffersCityItem);
 
 interface OffersCitiesProps {
-  citiesNames: CityModel [],
-  onCityNameClick: (city: CityModel) => void,
-  activeCity: CityModel
+  citiesNames: CityModel [];
+  onCityNameClick: (city: CityModel) => void;
+  activeCity: CityModel;
 }
 
 const OffersCities: React.FC <OffersCitiesProps> = (props) => {

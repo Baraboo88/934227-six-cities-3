@@ -2,27 +2,28 @@ import * as React from 'react';
 import {PureComponent, createRef} from 'react';
 import * as leaflet from 'leaflet';
 import {CardModel, CityModel} from '../../utils/utils';
+import {LayerGroup, Map} from "leaflet";
 
 const hoveredIcon = leaflet.icon({
   iconUrl: `/img/pin-active.svg`,
   iconSize: [30, 30]
 });
-let icon = leaflet.icon({
+const icon = leaflet.icon({
   iconUrl: `/img/pin.svg`,
   iconSize: [30, 30]
 });
 
 interface OffersMapProps {
-  cards: CardModel [],
-  nearPlace?: boolean,
-  hoveredId: number,
-  city: CityModel
+  cards: CardModel [];
+  nearPlace?: boolean;
+  hoveredId: number;
+  city: CityModel;
 }
 
 class OffersMap extends PureComponent <OffersMapProps, {}> {
-  private map:any;
-  private layerGroup: any;
-  private mapDiv: React.RefObject<HTMLElement>;
+  private map: Map;
+  private layerGroup: LayerGroup;
+  private readonly mapDiv: React.RefObject<HTMLElement>;
   constructor(props: OffersMapProps) {
     super(props);
     this.mapDiv = createRef();
@@ -36,7 +37,6 @@ class OffersMap extends PureComponent <OffersMapProps, {}> {
       center: city,
       zoom,
       zoomControl: false,
-     // marker: true
     });
     this.map.setView(city, zoom);
 

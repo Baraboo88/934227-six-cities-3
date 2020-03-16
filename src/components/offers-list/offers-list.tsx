@@ -6,7 +6,7 @@ import {CardModel} from '../../utils/utils';
 const OfferCardWiHoverItem = withHoverItem(OfferCard);
 
 interface OffersListProps {
-  cards: CardModel[];
+  cards: CardModel [];
   nearPlace?: boolean;
   favorite?: boolean;
 }

@@ -2,12 +2,12 @@ import * as React from 'react';
 import {PureComponent} from 'react';
 
 interface OffersFilterProps {
-  filter: string,
-  onChangeFilter: (filterName: string) => void
+  filter: string;
+  onChangeFilter: (filterName: string) => void;
 }
 
 interface OffersFilterPropsState {
-  isOpen: boolean
+  isOpen: boolean;
 }
 
 const withFilter = (Component) => {

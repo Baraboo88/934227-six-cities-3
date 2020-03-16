@@ -7,9 +7,9 @@ import {CommentModel} from "../../utils/utils";
 const AddOfferCommentWithForm = withForm(OfferAddComment);
 
 interface OfferCommentsProps {
-  comments: CommentModel [],
-  id: number,
-  isAuth: boolean
+  comments: CommentModel [];
+  id: number;
+  isAuth: boolean;
 }
 
 const OfferComments: React.FC <OfferCommentsProps> = (props) => {

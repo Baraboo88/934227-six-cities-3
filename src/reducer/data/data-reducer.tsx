@@ -1,4 +1,4 @@
-import {commentAdapter, getCities, offerAdapter} from '../../utils/utils';
+import {CardModel, CityModel, commentAdapter, getCities, offerAdapter} from '../../utils/utils';
 
 const Favorite = {
   ADD: 1,
@@ -48,7 +48,7 @@ export const DataOperation = {
             payload: response.data
           });
         })
-        .catch(() => {});
+        .catch();
     };
   },
   addToFavoriteOffer(offerId, status) {
@@ -69,7 +69,7 @@ export const DataOperation = {
             payload: response.data
           });
         })
-        .catch(() => {});
+        .catch();
     };
   },
   loadFavoriteOffers() {
@@ -82,7 +82,7 @@ export const DataOperation = {
             payload: response.data
           });
         })
-        .catch(() => {});
+        .catch();
     };
   }
 };
@@ -96,9 +96,6 @@ export const ActionCreator = {
   },
   setFilter(filterName) {
     return {type: Action.SET_FILTER, payload: filterName};
-  },
-  resetFilter() {
-    return {type: Action.RESET_FILTER};
   },
   setCity(cityName) {
     return {type: Action.SET_CITY, payload: cityName};
@@ -115,7 +112,15 @@ export const ActionCreator = {
   }
 };
 
-const initialState = {
+interface StateModel {
+  city?: CityModel;
+  filterName?: string;
+  hoveredId?: number;
+  offers?: CardModel [];
+  citiesNames?: string [];
+}
+
+const initialState: StateModel = {
   filterName: `popular`,
   hoveredId: -1,
   offers: []
@@ -129,8 +134,6 @@ export const dataReducer = (state = initialState, action) => {
       return Object.assign({}, state, {hoveredId: -1});
     case Action.SET_FILTER:
       return Object.assign({}, state, {filterName: action.payload});
-    case Action.RESET_FILTER:
-      return Object.assign({}, state, {filterName: `popular`});
     case Action.SET_CITY:
       return Object.assign({}, state, {city: action.payload});
     case Action.GET_OFFERS:

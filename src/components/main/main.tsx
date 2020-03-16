@@ -15,14 +15,14 @@ import {CardModel, CityModel, UserModel} from "../../utils/utils";
 const OffersWithFilter = withFilter(OffersFilter);
 
 interface MainProps {
-  cards: CardModel [],
-  citiesNames: CityModel[],
-  city: CityModel,
-  hoveredId: number,
-  onChangeCity: (cityName: CityModel) => void,
-  filter: string,
-  onChangeFilter: (filterName: string) => void,
-  user: UserModel
+  cards: CardModel [];
+  citiesNames: CityModel[];
+  city: CityModel;
+  hoveredId: number;
+  onChangeCity: (cityName: CityModel) => void;
+  filter: string;
+  onChangeFilter: (filterName: string) => void;
+  user: UserModel;
 }
 
 const Main: React.FC <MainProps> = (props) => {

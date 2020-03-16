@@ -3,16 +3,15 @@ import {connect} from 'react-redux';
 import {DataOperation} from '../../reducer/data/data-reducer';
 
 interface OfferAddCommentProps {
-  mark: number,
-  onMarkSet: (mark: number) => void,
-  comment: string,
-  onCommentSet: (evt: React.SyntheticEvent) => void,
-  addComment: (id: number, comment: {comment: string, rating: number}) => void,
-  id: number,
-  resetComments: () => void,
-  validationSet: (isValid: boolean) => void,
-  isValid: boolean
-
+  mark: number;
+  onMarkSet: (mark: number) => void;
+  comment: string;
+  onCommentSet: (evt: React.SyntheticEvent) => void;
+  addComment: (id: number, comment: {comment: string; rating: number}) => void;
+  id: number;
+  resetComments: () => void;
+  validationSet: (isValid: boolean) => void;
+  isValid: boolean;
 }
 
 

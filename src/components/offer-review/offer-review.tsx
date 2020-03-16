@@ -3,20 +3,18 @@ import * as moment from "moment";
 import {UserModel} from "../../utils/utils";
 
 
-interface formattedDateProps {
-  author: string,
-  authorImg: string,
-  comment: string,
-  mark: number,
-  date: string,
-  user: UserModel
+interface OfferReviewProps {
+  comment: string;
+  mark: number;
+  date: string;
+  user: UserModel;
 }
 
 const formattedDate = (date) => {
   return moment(date).format(`MMMM YYYY`);
 };
 
-const OfferReview = (props) => {
+const OfferReview: React.FC <OfferReviewProps> = (props) => {
 
   const {user, comment, mark, date} = props;
 

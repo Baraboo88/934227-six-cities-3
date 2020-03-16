@@ -3,18 +3,18 @@ import {PureComponent} from 'react';
 import {CardModel, CityModel} from "../utils/utils";
 
 interface WithHoverItemProps {
-  onHover?: (id: number) => void,
-  onUnHover?: () => void,
-  cityName?: CityModel,
-  activeCity?: CityModel,
-  onCityNameClick?: (city: CityModel) => void
-  card?: CardModel
-  nearPlace?: boolean
-  favorite?: boolean
+  onHover?: (id: number) => void;
+  onUnHover?: () => void;
+  cityName?: CityModel;
+  activeCity?: CityModel;
+  onCityNameClick?: (city: CityModel) => void;
+  card?: CardModel;
+  nearPlace?: boolean;
+  favorite?: boolean;
 }
 
 interface WithHoverItemState {
-  isHovered: boolean
+  isHovered: boolean;
 }
 
 

@@ -11,7 +11,8 @@ import {
   getHoveredId, getIsInBookmark,
   getIsLoaded,
   getOfferById,
-} from '../../reducer/data/data-selectors';import {Link, RouteComponentProps} from 'react-router-dom';
+} from '../../reducer/data/data-selectors';
+import {Link, RouteComponentProps} from 'react-router-dom';
 
 import {getIsAuth, getUserData} from '../../reducer/user/user-selector';
 
@@ -20,21 +21,18 @@ interface MatchParams {
   id: string;
 }
 
-interface RouteProps extends RouteComponentProps<MatchParams> {
-}
-
 interface OfferCardDetailProps {
-  card: CardModel,
-  hoveredId: number,
-  isLoaded: boolean,
-  comments:CommentModel [],
-  user: UserModel,
-  onMount: (id: number) => void,
-  isAuth: boolean,
-  onSetFavorite: (id: number, isInBookMark: boolean) => void
+  card: CardModel;
+  hoveredId: number;
+  isLoaded: boolean;
+  comments: CommentModel [];
+  user: UserModel;
+  onMount: (id: number) => void;
+  isAuth: boolean;
+  onSetFavorite: (id: number, isInBookMark: boolean) => void;
 }
 
-const OfferCardDetail: React.FC <OfferCardDetailProps & RouteProps> = (props) => {
+const OfferCardDetail: React.FC <OfferCardDetailProps & RouteComponentProps<MatchParams>> = (props) => {
   const {comments, onMount, user, isAuth, onSetFavorite, hoveredId} = props;
   useEffect(() => {
     onMount(Number(props.match.params.id));

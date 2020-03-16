@@ -8,17 +8,17 @@ import {RouteComponentProps} from 'react-router-dom';
 import {CityModel} from "../../utils/utils";
 
 interface InterfaceSignIn {
-  onEmailChange: (event: React.SyntheticEvent) => void,
-  onPasswordChange: (event: React.SyntheticEvent) => void,
-  password: string,
-  email: string,
-  isAuth: boolean,
-  city: CityModel,
-  login: (loginData: {email: string, password: string}) => void,
-  error: string
+  onEmailChange: (event: React.SyntheticEvent) => void;
+  onPasswordChange: (event: React.SyntheticEvent) => void;
+  password: string;
+  email: string;
+  isAuth: boolean;
+  city: CityModel;
+  login: (loginData: {email: string; password: string}) => void;
+  error: string;
 }
 
-const SignIn: React.FC<InterfaceSignIn & RouteComponentProps> = (props) => {
+const SignIn: React.FC <InterfaceSignIn & RouteComponentProps> = (props) => {
   const {onEmailChange, onPasswordChange, password, email, city, error} = props;
 
   useEffect(() => {

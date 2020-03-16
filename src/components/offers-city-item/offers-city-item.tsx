@@ -2,12 +2,12 @@ import * as React from 'react';
 import {CityModel} from "../../utils/utils";
 
 interface OffersCityItemProps {
-  cityName: CityModel,
-  onCityNameClick: (city: CityModel) => void,
-  activeCity: CityModel,
-  hovered: boolean,
-  onHover: (evt: React.SyntheticEvent) => void,
-  onUnHover: () => void
+  cityName: CityModel;
+  onCityNameClick: (city: CityModel) => void;
+  activeCity: CityModel;
+  hovered: boolean;
+  onHover: (evt: React.SyntheticEvent) => void;
+  onUnHover: () => void;
 }
 
 const OffersCityItem: React.FC <OffersCityItemProps> = (props) => {

@@ -8,11 +8,11 @@ const FILTERS = {
 };
 
 interface OffersFilterProps {
-  onChangeFilter: (filterName: string) => void,
-  filter: string,
-  onActiveFilterSet: () => void,
-  onFilterOpen: () => void,
-  isOpen: boolean
+  onChangeFilter: (filterName: string) => void;
+  filter: string;
+  onActiveFilterSet: () => void;
+  onFilterOpen: () => void;
+  isOpen: boolean;
 }
 
 const OffersFilter: React.FC <OffersFilterProps> = (props) => {

@@ -5,10 +5,10 @@ import {getAuthStatus, isAuthResponseReceived} from '../../reducer/user/user-sel
 import {Authorization} from '../../reducer/user/user-reducer';
 
 interface PrivateRouteProps {
-  render: any,
-  exact: boolean,
-  path: string,
-  isAuth: boolean
+  render: () => React.ReactNode;
+  exact: boolean;
+  path: string;
+  isAuth: boolean;
 }
 
 const PrivateRoute: React.FC <PrivateRouteProps> = (props) => {

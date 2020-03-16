@@ -8,13 +8,13 @@ import {Authorization} from '../../reducer/user/user-reducer';
 import {Link, RouteComponentProps} from 'react-router-dom';
 
 interface OfferCardProps {
-  card: CardModel,
-  nearPlace: boolean,
-  onHover: (id: number) => void,
-  onUnHover: () => void,
-  onSetFavorite: (id: number, status: boolean) => void,
-  favorite: boolean,
-  isAuth: boolean
+  card: CardModel;
+  nearPlace: boolean;
+  onHover: (id: number) => void;
+  onUnHover: () => void;
+  onSetFavorite: (id: number, status: boolean) => void;
+  favorite: boolean;
+  isAuth: boolean;
 }
 
 const OfferCard: React.FC <OfferCardProps & RouteComponentProps> = (props) => {

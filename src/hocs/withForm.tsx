@@ -2,20 +2,20 @@ import * as React from 'react';
 import {PureComponent} from 'react';
 
 interface SignInFormProps {
-  id?: number
+  id?: number;
 }
 
 interface SignInFormPropsState {
-  email: string,
-  password: string,
-  mark: number,
-  comment: string,
-  isValid:  boolean,
-  errorMsg: string,
+  email: string;
+  password: string;
+  mark: number;
+  comment: string;
+  isValid: boolean;
+  errorMsg: string;
 }
 
 const withForm = (Component) => {
-  class SignInForm extends PureComponent <SignInFormProps, SignInFormPropsState> {
+  class SignInForm extends PureComponent<SignInFormProps, SignInFormPropsState> {
     constructor(props: SignInFormProps) {
       super(props);
       this.state = {
@@ -24,7 +24,7 @@ const withForm = (Component) => {
         mark: 0,
         comment: ``,
         isValid: true,
-        errorMsg: ``,
+        errorMsg: ``
       };
       this.emailChangeHandler = this.emailChangeHandler.bind(this);
       this.passwordChangeHandler = this.passwordChangeHandler.bind(this);
@@ -75,7 +75,7 @@ const withForm = (Component) => {
           email={this.state.email}
           comment={this.state.comment}
           mark={this.state.mark}
-          resetComments = {this.resetComments}
+          resetComments={this.resetComments}
         />
       );
     }

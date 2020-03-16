@@ -3,7 +3,7 @@ import OfferReview from "../offer-review/offer-review";
 import {CommentModel} from "../../utils/utils";
 
 interface OfferReviewListProps {
-  comments: CommentModel []
+  comments: CommentModel [];
 }
 
 const OfferReviewList: React.FC <OfferReviewListProps> = (props) => {
