@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {DataOperation} from '../../reducer/data/data-reducer';
 
@@ -12,10 +13,13 @@ interface OfferAddCommentProps {
   resetComments: () => void;
   validationSet: (isValid: boolean) => void;
   isValid: boolean;
+  isSending: boolean;
+  setIsSending: (isSending: boolean) => void;
+  error: string;
+  commentAdded: boolean;
 }
 
-
-const OfferAddComment: React.FC <OfferAddCommentProps> = (props) => {
+const OfferAddComment: React.FC<OfferAddCommentProps> = (props) => {
   const {
     mark,
     onMarkSet,
@@ -25,8 +29,23 @@ const OfferAddComment: React.FC <OfferAddCommentProps> = (props) => {
     id,
     resetComments,
     validationSet,
-    isValid
+    isValid,
+    setIsSending,
+    isSending,
+    error,
+    commentAdded
   } = props;
+
+  useEffect(() => {
+    if (!error && commentAdded) {
+      setIsSending(false);
+      resetComments();
+    }
+    if (error && !commentAdded) {
+      setIsSending(false);
+    }
+  }, [commentAdded, error]);
+
   const _renderMarks = () =>
     [...new Array(5)]
       .map((_, i) => ++i)
@@ -58,7 +77,7 @@ const OfferAddComment: React.FC <OfferAddCommentProps> = (props) => {
     evt.preventDefault();
     if (comment.length > 50 && comment.length < 300) {
       addComment(id, {comment, rating: mark});
-      resetComments();
+      setIsSending(true);
     } else {
       validationSet(false);
     }
@@ -71,6 +90,7 @@ const OfferAddComment: React.FC <OfferAddCommentProps> = (props) => {
       </label>
       <div className="reviews__rating-form form__rating">{_renderMarks()}</div>
       <textarea
+        disabled={isSending}
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
@@ -89,11 +109,12 @@ const OfferAddComment: React.FC <OfferAddCommentProps> = (props) => {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={mark === 0 || comment.length === 0}
+          disabled={mark === 0 || comment.length === 0 || isSending}
         >
           Submit
         </button>
       </div>
+      {error && <span style={{color: `red`, textAlign: `center`}}>Something went wrong</span>}
     </form>
   );
 };
@@ -104,4 +125,9 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(null, mapDispatchToProps)(OfferAddComment);
+const mapStateToProps = (state) => ({
+  error: state.data.error,
+  commentAdded: state.data.commentAdded
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(OfferAddComment);

@@ -706,7 +706,7 @@ exports[`Main successfully rendered 1`] = `
                           <span
                             style={
                               Object {
-                                "width": "90%",
+                                "width": "80%",
                               }
                             }
                           />
@@ -911,7 +911,7 @@ exports[`Main successfully rendered 1`] = `
                           <span
                             style={
                               Object {
-                                "width": "90%",
+                                "width": "0%",
                               }
                             }
                           />
@@ -1131,7 +1131,7 @@ exports[`Main successfully rendered 1`] = `
                           <span
                             style={
                               Object {
-                                "width": "90%",
+                                "width": "80%",
                               }
                             }
                           />
@@ -1352,7 +1352,7 @@ exports[`Main successfully rendered 1`] = `
                           <span
                             style={
                               Object {
-                                "width": "90%",
+                                "width": "100%",
                               }
                             }
                           />

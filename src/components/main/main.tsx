@@ -7,7 +7,14 @@ import OffersFilter from '../offers-filter/offers-filter';
 import MainEmpty from '../main-empty/main-empty';
 import {ActionCreator} from '../../reducer/data/data-reducer';
 import withFilter from '../../hocs/withFilter';
-import {getCards, getCitiesFromState, getCity, getFilter, getHoveredId} from "../../reducer/data/data-selectors";
+import {
+  getCards,
+  getCitiesFromState,
+  getCity,
+  getError,
+  getFilter,
+  getHoveredId
+} from "../../reducer/data/data-selectors";
 import {getUserData} from "../../reducer/user/user-selector";
 import {Link} from "react-router-dom";
 import {CardModel, CityModel, UserModel} from "../../utils/utils";
@@ -23,6 +30,7 @@ interface MainProps {
   filter: string;
   onChangeFilter: (filterName: string) => void;
   user: UserModel;
+  error: string;
 }
 
 const Main: React.FC <MainProps> = (props) => {
@@ -34,12 +42,14 @@ const Main: React.FC <MainProps> = (props) => {
     onChangeCity,
     filter,
     onChangeFilter,
-    user
+    user,
+    error
   } = props;
 
   return (
     <div className="page page--gray page--main">
       <header className="header">
+        {error && <span style={{display: `block`, margin: `0 auto`, paddingTop: 20, color: `red`, textAlign: `center`, fontSize: 20}}>Something went wrong</span> }
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
@@ -127,7 +137,8 @@ const mapStateToProps = (state) => {
     citiesNames: getCitiesFromState(state),
     hoveredId: getHoveredId(state),
     filter: getFilter(state),
-    user: getUserData(state)
+    user: getUserData(state),
+    error: getError(state)
   };
 };
 

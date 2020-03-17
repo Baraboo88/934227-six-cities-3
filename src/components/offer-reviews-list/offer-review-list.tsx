@@ -9,7 +9,7 @@ interface OfferReviewListProps {
 const OfferReviewList: React.FC <OfferReviewListProps> = (props) => {
   const {comments} = props;
 
-  const renderReviews = () => comments.map((review, id) => <OfferReview {...review} key = {`${review.comment} - ${id}`}/>);
+  const renderReviews = () => comments.slice(0, 10).map((review, id) => <OfferReview {...review} key = {`${review.comment} - ${id}`}/>);
   return (
     <ul className="reviews__list">
       {renderReviews()}

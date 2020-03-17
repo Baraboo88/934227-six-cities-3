@@ -73,7 +73,8 @@ it(`Reducer get comments`, () => {
     citiesNames: getCities(mockCards),
     hoveredId: -1,
     filterName: `popular`,
-    comments: [mockCommentAdapted]
+    comments: [mockCommentAdapted],
+    error: ``
   });
 });
 
@@ -101,5 +102,27 @@ it(`Reducer update favorites`, () => {
     hoveredId: -1,
     filterName: `popular`,
     updatedOffer: adaptedMockData
+  });
+});
+
+it(`Reducer GET_NEARBY`, () => {
+  expect(dataReducer(initialState, {type: Action.GET_NEARBY, payload: [mockCardWithServerFormat]})).toEqual({
+    city: getCities(mockCards)[0],
+    offers: mockCards,
+    citiesNames: getCities(mockCards),
+    hoveredId: -1,
+    filterName: `popular`,
+    nearOffers: [adaptedMockData]
+  });
+});
+
+it(`Reducer ERROR`, () => {
+  expect(dataReducer(initialState, {type: Action.SET_ERROR, payload: `Test Error`})).toEqual({
+    city: getCities(mockCards)[0],
+    offers: mockCards,
+    citiesNames: getCities(mockCards),
+    hoveredId: -1,
+    filterName: `popular`,
+    error: `Test Error`
   });
 });

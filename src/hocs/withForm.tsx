@@ -12,6 +12,7 @@ interface SignInFormPropsState {
   comment: string;
   isValid: boolean;
   errorMsg: string;
+  isSending: boolean;
 }
 
 const withForm = (Component) => {
@@ -24,7 +25,8 @@ const withForm = (Component) => {
         mark: 0,
         comment: ``,
         isValid: true,
-        errorMsg: ``
+        errorMsg: ``,
+        isSending: false
       };
       this.emailChangeHandler = this.emailChangeHandler.bind(this);
       this.passwordChangeHandler = this.passwordChangeHandler.bind(this);
@@ -32,6 +34,11 @@ const withForm = (Component) => {
       this.markSetHandler = this.markSetHandler.bind(this);
       this.commentSetHandler = this.commentSetHandler.bind(this);
       this.resetComments = this.resetComments.bind(this);
+      this.setIsSending = this.setIsSending.bind(this);
+    }
+
+    setIsSending(value) {
+      this.setState({isSending: value});
     }
 
     markSetHandler(mark) {
@@ -76,6 +83,8 @@ const withForm = (Component) => {
           comment={this.state.comment}
           mark={this.state.mark}
           resetComments={this.resetComments}
+          setIsSending={this.setIsSending}
+          isSending = {this.state.isSending}
         />
       );
     }

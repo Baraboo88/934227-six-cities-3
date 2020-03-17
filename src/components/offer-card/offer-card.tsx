@@ -18,7 +18,7 @@ interface OfferCardProps {
 }
 
 const OfferCard: React.FC <OfferCardProps & RouteComponentProps> = (props) => {
-  const {name, type, price, isInBookmark, avgMark, isPremium, id, previewImg} = props.card;
+  const {name, type, price, isInBookmark, mark, isPremium, id, previewImg} = props.card;
   const {
     nearPlace,
     favorite,
@@ -34,8 +34,8 @@ const OfferCard: React.FC <OfferCardProps & RouteComponentProps> = (props) => {
         favorite ? `favorites__card` : ``
       } place-card`}
       data-test="test-card-hover"
-      onMouseEnter={() => onHover(id)}
-      onMouseLeave={onUnHover}
+      onMouseEnter={nearPlace || nearPlace ? () => undefined : () => onHover(id)}
+      onMouseLeave={nearPlace || nearPlace ? () => undefined : onUnHover}
     >
       {isPremium && (
         <div className="place-card__mark">
@@ -64,7 +64,7 @@ const OfferCard: React.FC <OfferCardProps & RouteComponentProps> = (props) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <Link to={!isAuth ? `/login` : ``} onClick={() => {
+          <Link to={!isAuth ? `/login` : `#`} onClick={() => {
             onSetFavorite(id, isInBookmark);
           }}>
             <button
@@ -82,7 +82,7 @@ const OfferCard: React.FC <OfferCardProps & RouteComponentProps> = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${20 * avgMark}%`}}/>
+            <span style={{width: `${20 * Math.round(mark)}%`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

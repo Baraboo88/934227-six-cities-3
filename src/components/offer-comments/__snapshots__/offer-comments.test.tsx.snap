@@ -83,6 +83,7 @@ exports[`OfferComments successfully rendered 1`] = `
     comment=""
     email=""
     id={1}
+    isSending={false}
     isValid={true}
     mark={0}
     onCommentSet={[Function]}
@@ -91,6 +92,7 @@ exports[`OfferComments successfully rendered 1`] = `
     onPasswordChange={[Function]}
     password=""
     resetComments={[Function]}
+    setIsSending={[Function]}
     validationSet={[Function]}
   >
     <form
@@ -232,6 +234,7 @@ exports[`OfferComments successfully rendered 1`] = `
       <textarea
         className="reviews__textarea form__textarea"
         data-test="test-add-comment"
+        disabled={false}
         id="review"
         name="review"
         onChange={[Function]}

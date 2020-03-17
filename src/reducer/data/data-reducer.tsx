@@ -24,18 +24,51 @@ export const Action = {
   GET_OFFERS: `get-offers`,
   GET_COMMENTS: `get-comments`,
   SET_UPDATED_FAVORITE_OFFER: `set-updated-favorite-offer`,
-  LOAD_FAVORITE_OFFERS: `load-updated-offer`
+  LOAD_FAVORITE_OFFERS: `load-updated-offer`,
+  GET_NEARBY: `get-nearby`,
+  SET_ERROR: `set-error`,
+  ADD_COMMENT: `add-comment`
 };
 
 export const DataOperation = {
   loadComments(id) {
     return (dispatch, state, api) => {
-      api.get(`/comments/${id}`).then((response) => {
-        dispatch({
-          type: Action.GET_COMMENTS,
-          payload: response.data
+      api
+        .get(`/comments/${id}`)
+        .then((response) => {
+          dispatch({
+            type: Action.GET_COMMENTS,
+            payload: response.data
+          });
+        })
+        .catch((error) => {
+          if (error.responce.status !== 401) {
+            dispatch({
+              type: Action.SET_ERROR,
+              payload: error.message
+            });
+          }
         });
-      });
+    };
+  },
+  loadNearOffers(id) {
+    return (dispatch, state, api) => {
+      api
+        .get(`hotels/${id}/nearby`)
+        .then((response) => {
+          dispatch({
+            type: Action.GET_NEARBY,
+            payload: response.data
+          });
+        })
+        .catch((error) => {
+          if (error.responce.status !== 401) {
+            dispatch({
+              type: Action.SET_ERROR,
+              payload: error.message
+            });
+          }
+        });
     };
   },
   addCommentToApi(id, data) {
@@ -47,8 +80,19 @@ export const DataOperation = {
             type: Action.GET_COMMENTS,
             payload: response.data
           });
+          dispatch({
+            type: Action.ADD_COMMENT,
+            payload: true
+          });
         })
-        .catch();
+        .catch((error) => {
+          if (error.responce.status !== 401) {
+            dispatch({
+              type: Action.SET_ERROR,
+              payload: error.message
+            });
+          }
+        });
     };
   },
   addToFavoriteOffer(offerId, status) {
@@ -61,15 +105,21 @@ export const DataOperation = {
             payload: response.data
           });
         })
-        .then(() => api
-            .get(`/favorite`))
+        .then(() => api.get(`/favorite`))
         .then((response) => {
           dispatch({
             type: Action.LOAD_FAVORITE_OFFERS,
             payload: response.data
           });
         })
-        .catch();
+        .catch((error) => {
+          if (error.responce.status !== 401) {
+            dispatch({
+              type: Action.SET_ERROR,
+              payload: error.message
+            });
+          }
+        });
     };
   },
   loadFavoriteOffers() {
@@ -82,7 +132,14 @@ export const DataOperation = {
             payload: response.data
           });
         })
-        .catch();
+        .catch((error) => {
+          if (error) {
+            dispatch({
+              type: Action.SET_ERROR,
+              payload: error.message
+            });
+          }
+        });
     };
   }
 };
@@ -102,12 +159,22 @@ export const ActionCreator = {
   },
   getOffersFromApi() {
     return (dispatch, state, api) => {
-      api.get(`/hotels`).then((response) => {
-        dispatch({
-          type: Action.GET_OFFERS,
-          payload: response.data
+      api
+        .get(`/hotels`)
+        .then((response) => {
+          dispatch({
+            type: Action.GET_OFFERS,
+            payload: response.data
+          });
+        })
+        .catch((error) => {
+          if (error) {
+            dispatch({
+              type: Action.SET_ERROR,
+              payload: error.message
+            });
+          }
         });
-      });
     };
   }
 };
@@ -116,8 +183,8 @@ interface StateModel {
   city?: CityModel;
   filterName?: string;
   hoveredId?: number;
-  offers?: CardModel [];
-  citiesNames?: string [];
+  offers?: CardModel[];
+  citiesNames?: string[];
 }
 
 const initialState: StateModel = {
@@ -145,11 +212,27 @@ export const dataReducer = (state = initialState, action) => {
         isLoaded: true
       });
     case Action.GET_COMMENTS:
-      return Object.assign({}, state, {comments: action.payload.map((comment) => commentAdapter(comment))});
+      return Object.assign({}, state, {
+        error: ``,
+        comments: action.payload.map((comment) => commentAdapter(comment))
+      });
     case Action.LOAD_FAVORITE_OFFERS:
-      return Object.assign({}, state, {favoriteOffers: action.payload.map((offer) => offerAdapter(offer))});
+      return Object.assign({}, state, {
+        favoriteOffers: action.payload.map((offer) => offerAdapter(offer))
+      });
     case Action.SET_UPDATED_FAVORITE_OFFER:
-      return Object.assign({}, state, {offers: getUpdatedOffers(state.offers, offerAdapter(action.payload)), updatedOffer: offerAdapter(action.payload)});
+      return Object.assign({}, state, {
+        offers: getUpdatedOffers(state.offers, offerAdapter(action.payload)),
+        updatedOffer: offerAdapter(action.payload)
+      });
+    case Action.GET_NEARBY:
+      return Object.assign({}, state, {
+        nearOffers: action.payload.map((offer) => offerAdapter(offer))
+      });
+    case Action.ADD_COMMENT:
+      return Object.assign({}, state, {commentAdded: action.payload});
+    case Action.SET_ERROR:
+      return Object.assign({}, state, {error: action.payload});
   }
   return state;
 };

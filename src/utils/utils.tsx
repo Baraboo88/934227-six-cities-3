@@ -70,8 +70,6 @@ export const offerAdapter = (offer) => {
     capacity: offer.max_adults,
     facilities: offer.goods,
     descriptions: [offer.description],
-    reviews: 2,
-    avgMark: 4.5,
     hostUser: {
       id: offer.host.id,
       name: offer.host.name,

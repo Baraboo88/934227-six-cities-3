@@ -189,7 +189,6 @@ exports[`OfferAddComment successfully rendered 1`] = `
       </span>
       <button
         className="reviews__submit form__submit button"
-        disabled={false}
         type="submit"
       >
         Submit

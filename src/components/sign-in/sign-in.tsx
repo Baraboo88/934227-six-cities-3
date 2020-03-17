@@ -98,7 +98,7 @@ const SignIn: React.FC <InterfaceSignIn & RouteComponentProps> = (props) => {
                   data-test='test-password-sign-in'
                 />
               </div>
-              {error && <span style={{color: `red`, textAlign: `center`}}>Check Your Data!!!</span>}
+              {error && <span style={{color: `red`, textAlign: `center`}}>Something went wrong</span>}
               <button className="login__submit form__submit button" type="submit">
                 Sign in
               </button>

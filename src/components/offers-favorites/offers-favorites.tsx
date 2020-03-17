@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {DataOperation} from "../../reducer/data/data-reducer";
-import {getFavoriteOffersPerCity} from "../../reducer/data/data-selectors";
+import {getError, getFavoriteOffersPerCity} from "../../reducer/data/data-selectors";
 import {getAuthStatus, isAuthResponseReceived} from "../../reducer/user/user-selector";
 import {Authorization} from "../../reducer/user/user-reducer";
 import OffersList from "../offers-list/offers-list";
@@ -16,10 +16,11 @@ interface OffersPerCity {
 interface OffersFavoritesProps {
   onMount: () => void;
   favoriteOffersPerCity: OffersPerCity [];
+  error: string;
 }
 
 const OffersFavorites: React.FC <OffersFavoritesProps> = (props) => {
-  const {onMount, favoriteOffersPerCity} = props;
+  const {onMount, favoriteOffersPerCity, error} = props;
   useEffect(() => {
     onMount();
   }, [onMount]);
@@ -27,6 +28,7 @@ const OffersFavorites: React.FC <OffersFavoritesProps> = (props) => {
   return (
     <div className="page">
       <header className="header">
+        {error && <span style={{display: `block`, margin: `0 auto`, paddingTop: 20, color: `red`, textAlign: `center`, fontSize: 20}}>Something went wrong</span> }
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
@@ -112,6 +114,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   isAuth: getAuthStatus(state) === Authorization.AUTH && isAuthResponseReceived(state),
   favoriteOffersPerCity: getFavoriteOffersPerCity(state),
+  error: getError(state)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OffersFavorites);

@@ -1,5 +1,7 @@
 import {createSelector} from 'reselect';
-import {getCities} from "../../utils/utils";
+import {getCities} from '../../utils/utils';
+
+export const getError = (state) => state.data.error;
 
 export const getFilter = (state) => state.data.filterName;
 export const getCity = (state) => state.data.city;
@@ -12,7 +14,10 @@ export const getFavoriteOffersPerCity = createSelector(getFavoriteOffers, (offer
     return null;
   }
   const cities = getCities(offers);
-  return cities.map((city) => ({city: city.name, cards: offers.filter((offer) => offer.city.name === city.name)}));
+  return cities.map((city) => ({
+    city: city.name,
+    cards: offers.filter((offer) => offer.city.name === city.name)
+  }));
 });
 
 export const getCitiesFromState = (state) => state.data.citiesNames;
@@ -23,7 +28,13 @@ export const getOfferId = (_, props) => props.match.params.id;
 
 export const getIsLoaded = (state) => state.data.isLoaded;
 
-export const getCommentsFromState = (state) => state.data.comments;
+export const getCommentsFromState = (state) => {
+  if (state.data && state.data.comments) {
+    const newComments = JSON.parse(JSON.stringify(state.data.comments));
+    return newComments.sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
+  }
+  return null;
+};
 
 export const getUpdatedOffer = (state) => {
   if (state.data) {
@@ -42,6 +53,10 @@ export const getIsInBookmark = (state, props) => {
   return null;
 };
 
+export const getNearOffers = (state) => {
+  return state.data.nearOffers;
+};
+
 export const getOfferById = createSelector([getOffers, getOfferId], (initialOffers, id) => {
   if (!initialOffers) {
     return null;
@@ -50,14 +65,8 @@ export const getOfferById = createSelector([getOffers, getOfferId], (initialOffe
   if (!offer) {
     return null;
   }
-  const newOffer = Object.assign({}, offer);
 
-  newOffer.nearOffers = initialOffers
-    .filter(
-        (filterOffer) => filterOffer.id !== offer.id && filterOffer.city.name === offer.city.name
-    )
-    .slice(0, 3);
-  return newOffer;
+  return Object.assign({}, offer);
 });
 
 export const getCards = createSelector([getCity, getFilter, getOffers], (city, filter, offers) => {
@@ -73,7 +82,7 @@ export const getCards = createSelector([getCity, getFilter, getOffers], (city, f
       cards = cards.sort((card1, card2) => card2.price - card1.price);
       break;
     case `topRated`:
-      cards = cards.sort((card1, card2) => card2.avgMark - card1.avgMark);
+      cards = cards.sort((card1, card2) => card2.mark - card1.mark);
       break;
   }
 

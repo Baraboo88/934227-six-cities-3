@@ -8,14 +8,16 @@ import {DataOperation} from '../../reducer/data/data-reducer';
 import OfferComments from '../offer-comments/offer-comments';
 import {
   getCommentsFromState,
-  getHoveredId, getIsInBookmark,
+  getError,
+  getHoveredId,
+  getIsInBookmark,
   getIsLoaded,
-  getOfferById,
+  getNearOffers,
+  getOfferById
 } from '../../reducer/data/data-selectors';
 import {Link, RouteComponentProps} from 'react-router-dom';
 
 import {getIsAuth, getUserData} from '../../reducer/user/user-selector';
-
 
 interface MatchParams {
   id: string;
@@ -25,15 +27,19 @@ interface OfferCardDetailProps {
   card: CardModel;
   hoveredId: number;
   isLoaded: boolean;
-  comments: CommentModel [];
+  comments: CommentModel[];
   user: UserModel;
   onMount: (id: number) => void;
   isAuth: boolean;
   onSetFavorite: (id: number, isInBookMark: boolean) => void;
+  nearOffers: CardModel[];
+  error: string;
 }
 
-const OfferCardDetail: React.FC <OfferCardDetailProps & RouteComponentProps<MatchParams>> = (props) => {
-  const {comments, onMount, user, isAuth, onSetFavorite, hoveredId} = props;
+const OfferCardDetail: React.FC<OfferCardDetailProps & RouteComponentProps<MatchParams>> = (
+    props
+) => {
+  const {comments, onMount, user, isAuth, onSetFavorite, hoveredId, nearOffers, error} = props;
   useEffect(() => {
     onMount(Number(props.match.params.id));
   }, [props.match.params.id, onMount]);
@@ -53,9 +59,8 @@ const OfferCardDetail: React.FC <OfferCardDetailProps & RouteComponentProps<Matc
     capacity,
     facilities,
     descriptions,
-    avgMark,
+    mark,
     hostUser,
-    nearOffers,
     addressCoords,
     id
   } = props.card;
@@ -87,6 +92,21 @@ const OfferCardDetail: React.FC <OfferCardDetailProps & RouteComponentProps<Matc
   return (
     <div className="page">
       <header className="header">
+        {error && (
+          <span
+            style={{
+              display: `block`,
+              margin: `0 auto`,
+              paddingTop: 20,
+              color: `red`,
+              textAlign: `center`,
+              fontSize: 20
+            }}
+          >
+            Something went wrong
+          </span>
+        )}
+
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
@@ -103,9 +123,16 @@ const OfferCardDetail: React.FC <OfferCardDetailProps & RouteComponentProps<Matc
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to={`${user ? `/favorite` : `/login`}`} >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"/>
-                    {user ? <span className="header__user-name user__name">{user.email}</span> : <span className="header__login">Sign in</span>}
+                  <Link
+                    className="header__nav-link header__nav-link--profile"
+                    to={`${user ? `/favorite` : `/login`}`}
+                  >
+                    <div className="header__avatar-wrapper user__avatar-wrapper" />
+                    {user ? (
+                      <span className="header__user-name user__name">{user.email}</span>
+                    ) : (
+                      <span className="header__login">Sign in</span>
+                    )}
                   </Link>
                 </li>
               </ul>
@@ -132,24 +159,30 @@ const OfferCardDetail: React.FC <OfferCardDetailProps & RouteComponentProps<Matc
 
               <div className="property__name-wrapper">
                 <h1 className="property__name">{name}</h1>
-                <button
-                  className={`property__bookmark-button button ${isInBookmark &&
-                    `property__bookmark-button--active`}`}
-                  type="button"
-                  onClick={() => onSetFavorite(id, isInBookmark)}
+                <Link
+                  to={!isAuth ? `/login` : `#`}
+                  onClick={() => {
+                    onSetFavorite(id, isInBookmark);
+                  }}
                 >
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"/>
-                  </svg>
-                  <span className="visually-hidden">{isInBookmark ? `In` : `To`} bookmarks</span>
-                </button>
+                  <button
+                    className={`property__bookmark-button button ${isInBookmark &&
+                      `property__bookmark-button--active`}`}
+                    type="button"
+                  >
+                    <svg className="property__bookmark-icon" width="31" height="33">
+                      <use xlinkHref="#icon-bookmark" />
+                    </svg>
+                    <span className="visually-hidden">{isInBookmark ? `In` : `To`} bookmarks</span>
+                  </button>
+                </Link>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `${avgMark * 20}%`}}/>
+                  <span style={{width: `${Math.round(mark) * 20}%`}} />
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">{avgMark}</span>
+                <span className="property__rating-value rating__value">{mark}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">{type}</li>
@@ -188,24 +221,23 @@ const OfferCardDetail: React.FC <OfferCardDetailProps & RouteComponentProps<Matc
                 </div>
                 <div className="property__description">{_renderDescription()}</div>
               </div>
-              <OfferComments comments={comments} id={id} isAuth = {isAuth}/>
+              <OfferComments comments={comments} id={id} isAuth={isAuth} />
             </div>
           </div>
-          <OffersMap
-            cards={nearOffers}
-            nearPlace
-            hoveredId={hoveredId}
-            city={{location: {latitude: addressCoords[0], longitude: addressCoords[1], zoom: 13}}}
-          />
+          {nearOffers && (
+            <OffersMap
+              cards={nearOffers}
+              nearPlace
+              hoveredId={hoveredId}
+              city={{location: {latitude: addressCoords[0], longitude: addressCoords[1], zoom: 13}}}
+            />
+          )}
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList
-                cards={nearOffers}
-                nearPlace
-              />
+              <OffersList cards={nearOffers} nearPlace />
             </div>
           </section>
         </div>
@@ -222,12 +254,15 @@ const mapStateToProps = (state, props) => {
     comments: getCommentsFromState(state),
     user: getUserData(state),
     isAuth: getIsAuth(state),
-    isInBookmark: getIsInBookmark(state, props)
+    isInBookmark: getIsInBookmark(state, props),
+    nearOffers: getNearOffers(state),
+    error: getError(state)
   };
 };
 const mapDispatchToProps = (dispatch) => ({
   onMount(id) {
     dispatch(DataOperation.loadComments(id));
+    dispatch(DataOperation.loadNearOffers(id));
   },
   onSetFavorite(offerId, status) {
     dispatch(DataOperation.addToFavoriteOffer(offerId, status));
