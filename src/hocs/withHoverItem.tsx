@@ -25,18 +25,18 @@ const withHoverItem = (Component) => {
       this.state = {
         isHovered: false
       };
-      this.hoverHandler = this.hoverHandler.bind(this);
-      this.unHoverHandler = this.unHoverHandler.bind(this);
+      this._hoverHandler = this._hoverHandler.bind(this);
+      this._unHoverHandler = this._unHoverHandler.bind(this);
     }
 
-    hoverHandler(param) {
+    _hoverHandler(param) {
       this.setState({isHovered: true});
       if (this.props.onHover) {
         this.props.onHover(param);
       }
     }
 
-    unHoverHandler() {
+    _unHoverHandler() {
       this.setState({isHovered: false});
       if (this.props.onUnHover) {
         this.props.onUnHover();
@@ -47,8 +47,8 @@ const withHoverItem = (Component) => {
       return (
         <Component
           {...this.props}
-          onHover={this.hoverHandler}
-          onUnHover={this.unHoverHandler}
+          onHover={this._hoverHandler}
+          onUnHover={this._unHoverHandler}
           hovered={this.state.isHovered}
         />
       );

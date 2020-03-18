@@ -26,7 +26,7 @@ const SignIn: React.FC <InterfaceSignIn & RouteComponentProps> = (props) => {
       props.history.push(`/`);
     }
   });
-  const formSubmitHandler = (evt) => {
+  const _formSubmitHandler = (evt) => {
     evt.preventDefault();
     const valid = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
         email
@@ -71,7 +71,7 @@ const SignIn: React.FC <InterfaceSignIn & RouteComponentProps> = (props) => {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post" onSubmit={formSubmitHandler} >
+            <form className="login__form form" action="#" method="post" onSubmit={_formSubmitHandler} >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
