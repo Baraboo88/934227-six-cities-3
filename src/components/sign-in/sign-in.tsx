@@ -71,7 +71,7 @@ const SignIn: React.FC <InterfaceSignIn & RouteComponentProps> = (props) => {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post" onSubmit={_formSubmitHandler} >
+            <form className="login__form form" action="#" method="post" onSubmit={_formSubmitHandler} data-test='test-login-sign-in'>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
@@ -132,3 +132,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export {SignIn};

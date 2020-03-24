@@ -28,43 +28,43 @@ const withForm = (Component) => {
         errorMsg: ``,
         isSending: false
       };
-      this._emailChangeHandler = this._emailChangeHandler.bind(this);
-      this._passwordChangeHandler = this._passwordChangeHandler.bind(this);
-      this._validationSet = this._validationSet.bind(this);
-      this._markSetHandler = this._markSetHandler.bind(this);
-      this._commentSetHandler = this._commentSetHandler.bind(this);
-      this._resetComments = this._resetComments.bind(this);
-      this._setIsSending = this._setIsSending.bind(this);
+      this._handleEmailChange = this._handleEmailChange.bind(this);
+      this._handlePasswordChange = this._handlePasswordChange.bind(this);
+      this._validationSetHandler = this._validationSetHandler.bind(this);
+      this._handleMarkChange = this._handleMarkChange.bind(this);
+      this._handleCommentChange = this._handleCommentChange.bind(this);
+      this._resetCommentsHandler = this._resetCommentsHandler.bind(this);
+      this._setIsSendingHandler = this._setIsSendingHandler.bind(this);
     }
 
-    _setIsSending(value) {
+    _setIsSendingHandler(value) {
       this.setState({isSending: value});
     }
 
-    _markSetHandler(mark) {
+    _handleMarkChange(mark) {
       this.setState({mark});
     }
 
-    _commentSetHandler(evt) {
+    _handleCommentChange(evt) {
       const data = evt.target.value;
       this.setState({comment: data});
     }
 
-    _emailChangeHandler(evt) {
+    _handleEmailChange(evt) {
       const data = evt.target.value;
       this.setState({email: data});
     }
 
-    _passwordChangeHandler(evt) {
+    _handlePasswordChange(evt) {
       const data = evt.target.value;
       this.setState({password: data});
     }
 
-    _validationSet(validationValue) {
+    _validationSetHandler(validationValue) {
       this.setState({isValid: validationValue});
     }
 
-    _resetComments() {
+    _resetCommentsHandler() {
       this.setState({comment: ``, mark: 0});
       this.setState({isValid: true});
     }
@@ -73,18 +73,18 @@ const withForm = (Component) => {
       return (
         <Component
           {...this.props}
-          onEmailChange={this._emailChangeHandler}
-          onPasswordChange={this._passwordChangeHandler}
-          validationSet={this._validationSet}
-          onMarkSet={this._markSetHandler}
-          onCommentSet={this._commentSetHandler}
+          onEmailChange={this._handleEmailChange}
+          onPasswordChange={this._handlePasswordChange}
+          onValidationSet={this._validationSetHandler}
+          onMarkSet={this._handleMarkChange}
+          onCommentSet={this._handleCommentChange}
           isValid={this.state.isValid}
           password={this.state.password}
           email={this.state.email}
           comment={this.state.comment}
           mark={this.state.mark}
-          resetComments={this._resetComments}
-          setIsSending={this._setIsSending}
+          onResetComments={this._resetCommentsHandler}
+          onSetIsSending={this._setIsSendingHandler}
           isSending = {this.state.isSending}
         />
       );

@@ -11,11 +11,11 @@ interface OfferAddCommentProps {
   onCommentSet: (evt: React.SyntheticEvent) => void;
   addComment: (id: number, comment: {comment: string; rating: number}) => void;
   id: number;
-  resetComments: () => void;
-  validationSet: (isValid: boolean) => void;
+  onResetComments: () => void;
+  onValidationSet: (isValid: boolean) => void;
   isValid: boolean;
   isSending: boolean;
-  setIsSending: (isSending: boolean) => void;
+  onSetIsSending: (isSending: boolean) => void;
   error: string;
   isCommentAdded: boolean;
 }
@@ -28,10 +28,10 @@ const OfferAddComment: React.FC<OfferAddCommentProps> = (props) => {
     onCommentSet,
     addComment,
     id,
-    resetComments,
-    validationSet,
+    onResetComments,
+    onValidationSet,
     isValid,
-    setIsSending,
+    onSetIsSending,
     isSending,
     error,
     isCommentAdded
@@ -39,11 +39,11 @@ const OfferAddComment: React.FC<OfferAddCommentProps> = (props) => {
 
   useEffect(() => {
     if (!error && isCommentAdded) {
-      setIsSending(false);
-      resetComments();
+      onSetIsSending(false);
+      onResetComments();
     }
     if (error && !isCommentAdded) {
-      setIsSending(false);
+      onSetIsSending(false);
     }
   }, [isCommentAdded, error]);
 
@@ -61,6 +61,7 @@ const OfferAddComment: React.FC<OfferAddCommentProps> = (props) => {
             type="radio"
             onChange={() => onMarkSet(value)}
             checked={mark === value}
+            data-test="test-mark-set"
           />
           <label
             htmlFor={`${value}-stars`}
@@ -78,14 +79,14 @@ const OfferAddComment: React.FC<OfferAddCommentProps> = (props) => {
     evt.preventDefault();
     if (comment.length > 50 && comment.length < 300) {
       addComment(id, {comment, rating: mark});
-      setIsSending(true);
+      onSetIsSending(true);
     } else {
-      validationSet(false);
+      onValidationSet(false);
     }
   };
 
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={_formSubmitHandler}>
+    <form className="reviews__form form" action="#" method="post" onSubmit={_formSubmitHandler} data-test="test-addComment">
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -132,3 +133,4 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OfferAddComment);
+export {OfferAddComment};

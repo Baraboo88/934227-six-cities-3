@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {PureComponent} from 'react';
-import {CardModel, CityModel} from "../utils/utils";
+import {CardModel, CityModel} from "../../utils/utils";
 
 interface WithHoverItemProps {
   onHover?: (id: number) => void;
@@ -25,30 +25,24 @@ const withHoverItem = (Component) => {
       this.state = {
         isHovered: false
       };
-      this._hoverHandler = this._hoverHandler.bind(this);
-      this._unHoverHandler = this._unHoverHandler.bind(this);
+      this._handleCityMouseEnter = this._handleCityMouseEnter.bind(this);
+      this._handleCityMouseLeave = this._handleCityMouseLeave.bind(this);
     }
 
-    _hoverHandler(param) {
+    _handleCityMouseEnter() {
       this.setState({isHovered: true});
-      if (this.props.onHover) {
-        this.props.onHover(param);
-      }
     }
 
-    _unHoverHandler() {
+    _handleCityMouseLeave() {
       this.setState({isHovered: false});
-      if (this.props.onUnHover) {
-        this.props.onUnHover();
-      }
     }
 
     render() {
       return (
         <Component
           {...this.props}
-          onHover={this._hoverHandler}
-          onUnHover={this._unHoverHandler}
+          onHover={this._handleCityMouseEnter}
+          onUnHover={this._handleCityMouseLeave}
           hovered={this.state.isHovered}
         />
       );

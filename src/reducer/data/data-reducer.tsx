@@ -212,6 +212,7 @@ export const dataReducer = (state = initialState, action) => {
     case Action.GET_COMMENTS:
       return Object.assign({}, state, {
         error: ``,
+        isCommentAdded: false,
         comments: action.payload.map((comment) => commentAdapter(comment))
       });
     case Action.LOAD_FAVORITE_OFFERS:

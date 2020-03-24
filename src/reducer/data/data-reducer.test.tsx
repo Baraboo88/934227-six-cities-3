@@ -74,7 +74,8 @@ it(`Reducer get comments`, () => {
     hoveredId: -1,
     filterName: `popular`,
     comments: [mockCommentAdapted],
-    error: ``
+    error: ``,
+    isCommentAdded: false
   });
 });
 

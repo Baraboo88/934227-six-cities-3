@@ -1,6 +1,6 @@
 import * as React from 'react';
 import OffersCityItem from '../offers-city-item/offers-city-item';
-import withHoverItem from "../../hocs/withHoverItem";
+import withHoverItem from "../../hocs/withHoverItem/withHoverItem";
 import {CityModel} from "../../utils/utils";
 const OffersCityItemWithHover = withHoverItem(OffersCityItem);
 
